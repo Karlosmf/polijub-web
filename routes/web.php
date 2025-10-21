@@ -19,7 +19,7 @@ use App\Livewire\PolijubPage;
  * @description Muestra la página de bienvenida por defecto de Laravel.
  */
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 /**
@@ -29,5 +29,9 @@ Route::get('/', function () {
  * Se le asigna el nombre 'polijub.home' para facilitar la referencia en la aplicación.
  */
 Route::get('/polijub', PolijubPage::class)->name('polijub.home');
+
+use App\Livewire\Shop\ProductList;
+
+Route::get('/tienda', ProductList::class)->name('shop.products');
 
 require __DIR__.'/auth.php';

@@ -12,12 +12,14 @@
 <!-- Directivas de estilos de Livewire -->
 @livewireStyles
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-{{--
+<body class="bg-gray-100 font-sans antialiased" x-data="{ open: false }">
+    @include('livewire.layout.navigation')
+
+    {{--
 Este slot es el contenedor principal donde Livewire inyectará
 el contenido de la página o componente que se esté renderizando.
 --}}
-{{ $slot }}
+    {{ $slot }}
 
 <!-- Directivas de scripts de Livewire -->
 @livewireScripts
