@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
-use Livewire\Component;
+use Livewire\Volt\Component;
+use Livewire\Attributes\Layout;
 /**
 * PolijubPage Component
 *
@@ -8,17 +9,18 @@ use Livewire\Component;
 * para la página de la heladería Polijub. Su única responsabilidad
 * es renderizar la vista principal de la página.
 */
+#[Layout('layouts.app')]
 class PolijubPage extends Component
 {
 /**
 * Renderiza la vista del componente.
 *
-* @return \Illuminate\View\View
+* @return mixed
 */
-public function render()
+public function render(): mixed
 {
 // Retorna la vista Blade asociada a este componente.
 // Utiliza el layout 'layouts.app' como plantilla base.
-return view('livewire.polijub-page')->layout('layouts.app');
+return view('livewire.polijub-page');
 }
 }

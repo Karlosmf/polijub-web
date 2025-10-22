@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Delivery;
 
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class OrderForm extends Component
 {

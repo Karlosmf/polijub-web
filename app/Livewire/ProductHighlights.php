@@ -3,11 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\Product;
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class ProductHighlights extends Component
 {
-    public function render()
+    public function render(): mixed
     {
         $products = Product::latest()->take(3)->get();
 

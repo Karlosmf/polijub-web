@@ -4,13 +4,13 @@ namespace App\Livewire\Shop;
 
 use App\Models\Category;
 use App\Models\Product;
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class ProductList extends Component
 {
     public $selectedCategory = null;
 
-    public function render()
+    public function render(): mixed
     {
         $categories = Category::all();
         $products = Product::when($this->selectedCategory, function ($query) {

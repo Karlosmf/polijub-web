@@ -20,6 +20,6 @@ export default {
     ],
     // daisyUI config (optional)
     daisyui: {
-        themes: ["light"],
+        themes: ["light", "dark"],
     },
 }

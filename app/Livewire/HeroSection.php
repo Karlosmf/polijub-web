@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class HeroSection extends Component
 {
-    public function render()
+    public function render(): mixed
     {
         return view('livewire.hero-section');
     }

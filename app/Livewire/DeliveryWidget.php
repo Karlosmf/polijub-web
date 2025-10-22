@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class DeliveryWidget extends Component
 {
-    public function render()
+    public function render(): mixed
     {
         return view('livewire.delivery-widget');
     }

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Shop;
 
-use Livewire\Component;
+use Livewire\Volt\Component;
 
 class Cart extends Component
 {
