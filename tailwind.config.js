@@ -8,7 +8,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                'brand-primary': '#3E9B8A',
+                'brand-primary': '#00aa8d',
                 'brand-secondary': '#21C4A5',
                 'accent-pink': '#FF007F',
                 'accent-blue': '#2AB0FF',

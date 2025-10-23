@@ -6,6 +6,8 @@
 
 <title>{{ $title ?? 'Polijub Heladería' }}</title>
 
+<link rel="icon" href="{{ asset('logo.webp') }}" type="image/webp">
+
 <!-- Importación de Tailwind CSS -->
 @vite('resources/css/app.css')
 
@@ -13,7 +15,7 @@
 @livewireStyles
 </head>
 <body class="bg-gray-100 font-sans antialiased" x-data="{ open: false }">
-    @include('livewire.layout.navigation')
+    <x-navigation.navbar />
 
     {{--
 Este slot es el contenedor principal donde Livewire inyectará

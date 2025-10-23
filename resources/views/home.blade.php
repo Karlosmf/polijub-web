@@ -1,5 +1,6 @@
 <x-app-layout>
     <livewire:hero-section />
+    <livewire:sabores-section />
     <livewire:product-highlights />
     <livewire:delivery-widget />
     <livewire:subscription-form />
