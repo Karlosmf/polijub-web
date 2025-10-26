@@ -77,4 +77,13 @@ use App\Livewire\Shop\ProductList;
 
 Route::get('/tienda', ProductList::class)->name('shop.products');
 
+// Rutas provisionales para la sección "100% NATURAL"
+Route::get('/natural-products', function () {
+    return 'Página de Productos Naturales - En construcción';
+})->name('natural_products');
+
+Route::get('/los-nenitos', function () {
+    return 'Página de Establecimiento Los Nenitos - En construcción';
+})->name('los_nenitos_establishment');
+
 require __DIR__ . '/auth.php';
