@@ -30,7 +30,7 @@ Ver Todos los Sabores
 <section id="calidad" class="my-16 p-10 bg-white rounded-lg shadow-md flex items-center">
 <div class="w-1/2">
 <img
-src="https://placehold.co/500x300/FFCOCB/333333?text=Producto+Natural" alt="Ingredientes naturales para
+src="{{ asset('sabores.avif') }}" alt="Ingredientes naturales para
 helado" class="rounded-lg">
 </div>
 <div class="w-1/2 pl-10">
@@ -44,7 +44,7 @@ Creemos que el mejor sabor proviene de la naturaleza.
 </div>
 </section>
 </main>
-<footer class="bg-footer-fondo text-white mt-20" style="background-image: url('footer.png');
+<footer class="bg-footer-fondo text-white mt-20" style="background-image: url('{{ asset('images/helados.webp') }}');
 background-size: cover; background-position: center;">
 <div class="container mx-auto py-10 px-4 text-center bg-black bg-opacity-50">
 <h2 class="text-2xl font-bold mb-4">Suscríbete a Novedades</h2>

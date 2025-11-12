@@ -1,5 +1,11 @@
 <!-- Section: 100% Natural -->
-<div class="relative bg-white py-24 sm:py-32">
+<div x-data="{ scrollY: 0 }" @scroll.window="scrollY = window.scrollY" class="relative bg-white py-24 sm:py-32 overflow-hidden">
+
+    <!-- Parallax Image: Milk Up -->
+    <img :style="'transform: translateY(' + scrollY * 0.2 + 'px);'" src="{{ asset('images/milkup.webp') }}" alt="Milk splash" class="absolute top-0 left-0 w-1/4 opacity-20 z-0">
+
+    <!-- Parallax Image: Milk Down -->
+    <img :style="'transform: translateY(-' + scrollY * 0.2 + 'px);'" src="{{ asset('images/milkdown.webp') }}" alt="Milk splash" class="absolute bottom-0 right-0 w-1/4 opacity-20 z-0">
 
     <!-- Decorative Wave Top (Organic Shape) -->
     <div class="absolute top-0 left-0 w-full h-[75px] sm:h-[120px] text-white z-0" style="transform: translateY(-50%);">
@@ -8,8 +14,8 @@
         </svg>
     </div>
 
-    <!-- Background Bottle Image: Positioned behind content with low opacity -->
-    <div class="absolute inset-0 bg-no-repeat bg-center opacity-10" style="background-image: url('/images/bottle.svg'); background-size: contain; background-position: 80% 50%;"></div>
+    <!-- Background Image -->
+    <div class="absolute inset-0 opacity-10" style="background-image: url('{{ asset('images/helados.webp') }}'); background-size: cover; background-position: center;"></div>
 
     <!-- Content Container -->
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">

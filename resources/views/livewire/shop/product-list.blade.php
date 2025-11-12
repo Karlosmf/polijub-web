@@ -13,7 +13,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 @foreach ($products as $product)
                     <div class="card bg-base-100 shadow-xl">
-                        <figure><img src="/sabores.avif" alt="{{ $product->name }}" /></figure>
+                        <figure><img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}" /></figure>
                         <div class="card-body">
                             <h2 class="card-title text-black">{{ $product->name }}</h2>
                             <p class="text-black">{{ $product->description }}</p>

@@ -1,7 +1,7 @@
 <x-app-layout>
     <livewire:hero-section />
     <livewire:sabores-section />
-    <livewire:product-highlights />
-    <livewire:delivery-widget />
+    <x-natural-section />
+    <x-parallax-section />
     <livewire:subscription-form />
 </x-app-layout>

@@ -24,6 +24,7 @@ class ProductSeeder extends Seeder
             'description' => 'El más rico dulce de leche',
             'price' => 10.00,
             'category_id' => $sabores->id,
+            'image' => 'potehelado.webp',
             'is_active' => true
         ]);
 
@@ -32,6 +33,7 @@ class ProductSeeder extends Seeder
             'description' => 'Torta helada de almendras',
             'price' => 20.00,
             'category_id' => $tortas->id,
+            'image' => 'Torta.webp',
             'is_active' => true
         ]);
 
@@ -40,6 +42,7 @@ class ProductSeeder extends Seeder
             'description' => 'Bombón de chocolate con corazón de dulce de leche',
             'price' => 5.00,
             'category_id' => $postres->id,
+            'image' => 'helados.webp',
             'is_active' => true
         ]);
     }
