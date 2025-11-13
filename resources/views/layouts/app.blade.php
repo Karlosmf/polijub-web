@@ -6,7 +6,7 @@
 
 <title>{{ $title ?? 'Polijub Heladería' }}</title>
 
-<link rel="icon" href="{{ asset('logo.webp') }}" type="image/webp">
+<link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/webp">
 
 <!-- Importación de Tailwind CSS -->
 @vite('resources/css/app.css')
@@ -22,6 +22,8 @@ Este slot es el contenedor principal donde Livewire inyectará
 el contenido de la página o componente que se esté renderizando.
 --}}
     {{ $slot }}
+
+    <x-footer />
 
 <!-- Directivas de scripts de Livewire -->
 @livewireScripts

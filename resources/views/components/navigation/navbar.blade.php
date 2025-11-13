@@ -5,16 +5,15 @@
             <!-- Bloque Izquierdo: Logotipo -->
             <div class="flex-shrink-0">
                 <a href="{{ url('/') }}" class="flex items-center space-x-2 transform transition-transform duration-300 hover:scale-110 translate-y-10" title="Ir al Inicio">
-                    <img src="{{ asset('logo.webp') }}" alt="PoliJub Logo" class="h-40 w-auto">
+                    <img src="{{ asset('images/logo.webp') }}" alt="PoliJub Logo" class="h-40 w-auto">
                 </a>
             </div>
 
             <!-- Bloque Central: Enlaces de Navegación (Escritorio) -->
             <div class="hidden lg:flex lg:items-center lg:space-x-8">
                 
-                <!-- Dropdown de PRODUCTOS -->
-                <div x-data="{ dropdownOpen: false }" class="relative">
-                    <button @click="dropdownOpen = !dropdownOpen" @mouseover="dropdownOpen = true" @mouseleave="dropdownOpen = false" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
+                    <button @mouseover="dropdownOpen = true" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                         <span>PRODUCTOS</span>
                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
@@ -32,8 +31,8 @@
                 <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
 
                 <!-- Dropdown de NOSOTROS -->
-                <div x-data="{ dropdownOpen: false }" class="relative">
-                    <button @click="dropdownOpen = !dropdownOpen" @mouseover="dropdownOpen = true" @mouseleave="dropdownOpen = false" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
+                    <button @mouseover="dropdownOpen = true" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                         <span>NOSOTROS</span>
                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
@@ -54,8 +53,8 @@
             <!-- Bloque Derecho: Acciones (Escritorio) -->
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
                 @auth
-                    <div x-data="{ dropdownOpen: false }" class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                    <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
+                        <button @mouseover="dropdownOpen = true" class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                             <span>{{ Auth::user()->name }}</span>
                             <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
