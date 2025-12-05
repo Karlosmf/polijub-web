@@ -19,14 +19,14 @@
                     </button>
                     <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition>
                         <div class="py-1">
-                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">SABORES</a>
+                            <a href="{{ route('sabores.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">SABORES</a>
                             <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">POSTRES</a>
                             <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">PALETAS</a>
                         </div>
                     </div>
                 </div>
 
-                <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">TIENDA</a>
+                <a href="{{ route('shop.products') }}" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">TIENDA</a>
                 <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">DELIVERY</a>
                 <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
 
@@ -38,11 +38,11 @@
                     </button>
                     <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition>
                         <div class="py-1">
-                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">SUSCRIPCIONES</a>
+                            <a href="{{ route('about.index') }}#suscripciones" class="block px-4 py-2 text-sm hover:bg-gray-100">SUSCRIPCIONES</a>
                             <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">PREGUNTAS</a>
-                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">CONTACTO</a>
-                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">ENVIANOS TU CV</a>
-                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">FRANQUICIAS</a>
+                            <a href="{{ route('about.index') }}#contacto" class="block px-4 py-2 text-sm hover:bg-gray-100">CONTACTO</a>
+                            <a href="{{ route('about.index') }}#cv" class="block px-4 py-2 text-sm hover:bg-gray-100">ENVIANOS TU CV</a>
+                            <a href="{{ route('about.index') }}#franquicias" class="block px-4 py-2 text-sm hover:bg-gray-100">FRANQUICIAS</a>
                         </div>
                     </div>
                 </div>
@@ -101,13 +101,13 @@
                     <svg class="h-5 w-5 ml-1 transform transition-transform duration-200" :class="{'rotate-180': accordionOpen}" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                 </button>
                 <div x-show="accordionOpen" class="mt-2 space-y-3 bg-white/10 rounded-lg p-4">
-                    <a href="#" class="block text-base hover:text-white">SABORES</a>
+                    <a href="{{ route('sabores.index') }}" class="block text-base hover:text-white">SABORES</a>
                     <a href="#" class="block text-base hover:text-white">POSTRES</a>
                     <a href="#" class="block text-base hover:text-white">PALETAS</a>
                 </div>
             </div>
 
-            <a href="#" class="text-lg font-medium hover:text-brand-secondary">TIENDA</a>
+            <a href="{{ route('shop.products') }}" class="text-lg font-medium hover:text-brand-secondary">TIENDA</a>
             <a href="#" class="text-lg font-medium hover:text-brand-secondary">DELIVERY</a>
             <a href="#" class="text-lg font-medium hover:text-brand-secondary">PRECIOS</a>
 
@@ -118,11 +118,11 @@
                     <svg class="h-5 w-5 ml-1 transform transition-transform duration-200" :class="{'rotate-180': accordionOpen}" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                 </button>
                 <div x-show="accordionOpen" class="mt-2 space-y-3 bg-white/10 rounded-lg p-4">
-                    <a href="#" class="block text-base hover:text-white">SUSCRIPCIONES</a>
+                    <a href="{{ route('about.index') }}#suscripciones" class="block text-base hover:text-white">SUSCRIPCIONES</a>
                     <a href="#" class="block text-base hover:text-white">PREGUNTAS</a>
-                    <a href="#" class="block text-base hover:text-white">CONTACTO</a>
-                    <a href="#" class="block text-base hover:text-white">ENVIANOS TU CV</a>
-                    <a href="#" class="block text-base hover:text-white">FRANQUICIAS</a>
+                    <a href="{{ route('about.index') }}#contacto" class="block text-base hover:text-white">CONTACTO</a>
+                    <a href="{{ route('about.index') }}#cv" class="block text-base hover:text-white">ENVIANOS TU CV</a>
+                    <a href="{{ route('about.index') }}#franquicias" class="block text-base hover:text-white">FRANQUICIAS</a>
                 </div>
             </div>
 

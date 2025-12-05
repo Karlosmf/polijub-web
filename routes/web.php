@@ -74,8 +74,19 @@ Route::get('/clear/{option?}', function ($option = null) {
 Route::get('/polijub', PolijubPage::class)->name('polijub.home');
 
 use App\Livewire\Shop\ProductList;
+use Livewire\Volt\Volt;
 
 Route::get('/tienda', ProductList::class)->name('shop.products');
+Route::get('/nosotros', \App\Livewire\AboutUsPage::class)->name('about.index');
+
+// Admin Routes
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/products', \App\Livewire\Admin\ProductManager::class)->name('products');
+    Route::get('/flavors', \App\Livewire\Admin\FlavorManager::class)->name('flavors');
+    Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');
+});
+
+Volt::route('/sabores', 'saborespage')->name('sabores.index');
 
 // Rutas provisionales para la sección "100% NATURAL"
 Route::get('/natural-products', function () {

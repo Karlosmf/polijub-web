@@ -27,5 +27,15 @@ class CategorySeeder extends Seeder
             'name' => 'Postres',
             'slug' => 'postres'
         ]);
+
+        Category::create([
+            'name' => 'Paletas',
+            'slug' => 'paletas'
+        ]);
+
+        Category::create([
+            'name' => 'Helados a Granel',
+            'slug' => 'helados-granel'
+        ]);
     }
 }

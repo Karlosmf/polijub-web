@@ -18,15 +18,47 @@ class ProductSeeder extends Seeder
         $sabores = Category::where('slug', 'sabores-tradicionales')->first();
         $tortas = Category::where('slug', 'tortas-heladas')->first();
         $postres = Category::where('slug', 'postres')->first();
+        $paletas = Category::where('slug', 'paletas')->first();
+        $granel = Category::where('slug', 'helados-granel')->first();
 
-        Product::create([
-            'name' => 'Dulce de Leche',
-            'description' => 'El más rico dulce de leche',
-            'price' => 10.00,
-            'category_id' => $sabores->id,
-            'image' => 'potehelado.webp',
-            'is_active' => true
-        ]);
+        // Productos a Granel (Formatos)
+        if ($granel) {
+            Product::create([
+                'name' => 'Cucurucho',
+                'description' => 'Crocante cucurucho con 2 bochas de helado a elección.',
+                'price' => 2500.00,
+                'category_id' => $granel->id,
+                'image' => 'potehelado.webp', // Placeholder
+                'is_active' => true
+            ]);
+
+            Product::create([
+                'name' => '1/4 kg Helado',
+                'description' => 'Pote de un cuarto kilo. Hasta 3 sabores.',
+                'price' => 4500.00,
+                'category_id' => $granel->id,
+                'image' => 'potehelado.webp',
+                'is_active' => true
+            ]);
+
+            Product::create([
+                'name' => '1/2 kg Helado',
+                'description' => 'Pote de medio kilo. Hasta 4 sabores.',
+                'price' => 8000.00,
+                'category_id' => $granel->id,
+                'image' => 'potehelado.webp',
+                'is_active' => true
+            ]);
+
+            Product::create([
+                'name' => '1 kg Helado',
+                'description' => 'Pote de un kilo. Hasta 5 sabores.',
+                'price' => 15000.00,
+                'category_id' => $granel->id,
+                'image' => 'potehelado.webp',
+                'is_active' => true
+            ]);
+        }
 
         Product::create([
             'name' => 'Torta Almendrada',
@@ -45,5 +77,16 @@ class ProductSeeder extends Seeder
             'image' => 'helados.webp',
             'is_active' => true
         ]);
+
+        if ($paletas) {
+            Product::create([
+                'name' => 'Paleta Frutal',
+                'description' => 'Paleta de agua sabor frutilla',
+                'price' => 3.50,
+                'category_id' => $paletas->id,
+                'image' => 'helados.webp', // Placeholder
+                'is_active' => true
+            ]);
+        }
     }
 }

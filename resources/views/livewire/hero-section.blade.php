@@ -20,7 +20,8 @@
                 </p>
                 <span class="mt-4 block text-2xl font-bold uppercase text-[#fe0196]">EL AMOR POR EL HELADO!!!</span>
 
-                <a href="#" class="mt-8 inline-block bg-[#fe0196] text-white font-bold py-3 px-10 rounded-[5px] hover:bg-opacity-80 transition-all duration-300">
+                <a href="#"
+                    class="mt-8 inline-block bg-[#fe0196] text-white font-bold py-3 px-10 rounded-[5px] hover:bg-opacity-80 transition-all duration-300">
                     Ver más
                 </a>
             </div>
@@ -28,7 +29,7 @@
 
         {{-- Imagen Superpuesta --}}
         <div class="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/2 z-10 w-3/4 md:w-1/3">
-             <img src="{{ asset('heroimg.gif') }}" alt="Hero Image" class="w-1/2 h-auto">
+            <img src="{{ asset('heroimg.gif') }}" alt="Hero Image" class="w-1/2 h-auto">
         </div>
     </div>
 </section>
