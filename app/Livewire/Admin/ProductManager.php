@@ -11,7 +11,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Mary\Traits\Toast;
 
-#[Layout('layouts.app')]
+#[Layout('layouts.admin')]
 class ProductManager extends Component
 {
     use WithPagination, WithFileUploads, Toast;
@@ -48,6 +48,13 @@ class ProductManager extends Component
     // Search
     public string $search = '';
 
+    public function mount()
+    {
+        if (request()->query('create')) {
+            $this->create();
+        }
+    }
+
     public function save()
     {
         $this->validate();
@@ -64,23 +71,10 @@ class ProductManager extends Component
 
         // Handle Image Upload
         if ($this->image) {
-            $path = $this->image->store('products', 'public_images'); // Storing in public/images/products ideally, but checking config
-            // For simplicity assuming standard storage link or moving file. 
-            // Let's use a simpler approach compatible with the current structure which seems to use public/images directly.
-            // Since storage:link might not be standard here, let's stick to a simple filename generation and we might need to move it.
-            // However, standard Livewire upload goes to storage/app.
-            
-            // Let's try to store in 'images' disk if it exists, otherwise default 'public'.
-            // Given the project structure showed public/images/...
-            
-            $filename = $this->image->store('products', 'public'); 
-            // Note: We need to ensure this is accessible. We will save the relative path.
-            // Adjusting to match existing seeder paths like 'images/...'
-            // We will save "storage/products/filename" effectively if using storage link, 
-            // but the seeders used 'images/botella.webp'. 
-            
-            // Let's assume we save the path stored.
-            $data['image'] = $filename;
+            // Save to 'public' disk in 'products' folder.
+            // Ensure you have run: php artisan storage:link
+            $path = $this->image->store('products', 'public');
+            $data['image'] = $path;
         }
 
         if ($this->isEditing) {
@@ -92,8 +86,8 @@ class ProductManager extends Component
             $product->update($data);
             $this->success('Producto actualizado correctamente.');
         } else {
-            // Required image for new products if you want, or default.
-            if (!$this->image) {
+            // Required image for new products or default.
+            if (!$this->image && !isset($data['image'])) {
                 $data['image'] = 'images/default-product.webp'; // Fallback
             }
             Product::create($data);

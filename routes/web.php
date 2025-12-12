@@ -81,6 +81,7 @@ Route::get('/nosotros', \App\Livewire\AboutUsPage::class)->name('about.index');
 
 // Admin Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
     Route::get('/products', \App\Livewire\Admin\ProductManager::class)->name('products');
     Route::get('/flavors', \App\Livewire\Admin\FlavorManager::class)->name('flavors');
     Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');

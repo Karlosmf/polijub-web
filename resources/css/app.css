@@ -3,72 +3,19 @@
 @tailwind utilities;
 
 @layer components {
-.btn-polijub-primary {
-@apply bg-brand-primary text-white font-bold py-2 px-4 rounded-lg shadow-md
-hover:bg-opacity-80 transition-all;
-}
-.btn-polijub-secondary {
-@apply bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md
-hover:bg-gray-300 transition-all;
-}
-}
+    .btn-polijub-primary {
+        @apply bg-brand-primary text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-opacity-80 transition-all;
+    }
+    .btn-polijub-secondary {
+        @apply bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition-all;
+    }
+    
+    /* Paginator Fixes for MaryUI/DaisyUI */
+    .mary-table-pagination span[aria-current="page"] > span {
+        @apply bg-primary text-base-100;
+    }
 
-
-/**
-    The lines above are intact.
-    The lines below were added by maryUI installer.
-*/
-
-/** daisyUI */
-@plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
-}
-
-/* maryUI */
-@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
-
-/* Theme toggle */
-@custom-variant dark (&:where(.dark, .dark *));
-
-/**
-* Paginator - Traditional style
-* Because Laravel defaults does not match well the design of daisyUI.
-*/
-
-.mary-table-pagination span[aria-current="page"] > span {
-    @apply bg-primary text-base-100
-}
-
-.mary-table-pagination button {
-    @apply cursor-pointer
-}
-
-
-/**
-    The lines above are intact.
-    The lines below were added by maryUI installer.
-*/
-
-/** daisyUI */
-@plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
-}
-
-/* maryUI */
-@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
-
-/* Theme toggle */
-@custom-variant dark (&:where(.dark, .dark *));
-
-/**
-* Paginator - Traditional style
-* Because Laravel defaults does not match well the design of daisyUI.
-*/
-
-.mary-table-pagination span[aria-current="page"] > span {
-    @apply bg-primary text-base-100
-}
-
-.mary-table-pagination button {
-    @apply cursor-pointer
+    .mary-table-pagination button {
+        @apply cursor-pointer;
+    }
 }

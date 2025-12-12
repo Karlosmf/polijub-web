@@ -20,6 +20,11 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
+        if (auth()->user()->email === 'admin@admin.com') {
+            $this->redirect(route('admin.dashboard', absolute: false), navigate: false);
+            return;
+        }
+
         $this->redirect(route('dashboard', absolute: false), navigate: false);
     }
 }; ?>

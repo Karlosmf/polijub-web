@@ -1,9 +1,9 @@
 <div>
-    <x-mary-header title="Administrar Etiquetas" subtitle="Tags para clasificar productos" separator progress-indicator>
+    <x-header title="Administrar Etiquetas" subtitle="Tags para clasificar productos" separator progress-indicator>
         <x-slot:actions>
-            <x-mary-button icon="o-plus" class="btn-primary" @click="$wire.create()" label="Nueva Etiqueta" />
+            <x-button icon="o-plus" class="btn-primary" @click="$wire.create()" label="Nueva Etiqueta" />
         </x-slot:actions>
-    </x-mary-header>
+    </x-header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach($tags as $tag)
@@ -13,8 +13,8 @@
                     <span class="font-bold text-gray-700">{{ $tag->name }}</span>
                 </div>
                 <div class="flex gap-1">
-                    <x-mary-button icon="o-pencil" wire:click="edit({{ $tag->id }})" class="btn-ghost btn-sm btn-circle text-blue-500" />
-                    <x-mary-button icon="o-trash" wire:click="delete({{ $tag->id }})" wire:confirm="¿Eliminar etiqueta?" class="btn-ghost btn-sm btn-circle text-red-500" />
+                    <x-button icon="o-pencil" wire:click="edit({{ $tag->id }})" class="btn-ghost btn-sm btn-circle text-blue-500" />
+                    <x-button icon="o-trash" wire:click="delete({{ $tag->id }})" wire:confirm="¿Eliminar etiqueta?" class="btn-ghost btn-sm btn-circle text-red-500" />
                 </div>
             </div>
         @endforeach
@@ -25,13 +25,13 @@
     </div>
 
     {{-- Modal --}}
-    <x-mary-modal wire:model="myModal" class="backdrop-blur">
+    <x-modal wire:model="myModal" class="backdrop-blur">
         <x-slot:title>
             {{ $isEditing ? 'Editar Etiqueta' : 'Nueva Etiqueta' }}
         </x-slot:title>
 
         <form wire:submit="save" class="space-y-4">
-            <x-mary-input label="Nombre" wire:model="name" placeholder="Ej: Sin TACC, Oferta, Nuevo..." />
+            <x-input label="Nombre" wire:model="name" placeholder="Ej: Sin TACC, Oferta, Nuevo..." />
             
             <div class="form-control">
                 <label class="label">
@@ -46,9 +46,9 @@
             </div>
         
             <x-slot:actions>
-                <x-mary-button label="Cancelar" @click="$wire.myModal = false" />
-                <x-mary-button label="Guardar" class="btn-primary" type="submit" spinner="save" />
+                <x-button label="Cancelar" wire:click="$set('myModal', false)" />
+                <x-button label="Guardar" class="btn-primary" type="submit" spinner="save" />
             </x-slot:actions>
         </form>
-    </x-mary-modal>
+    </x-modal>
 </div>

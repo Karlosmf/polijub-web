@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Mary\Traits\Toast;
 
-#[Layout('layouts.app')]
+#[Layout('layouts.admin')]
 class TagManager extends Component
 {
     use WithPagination, Toast;
@@ -24,6 +24,13 @@ class TagManager extends Component
 
     #[Rule('required')]
     public string $color = '#3E9B8A';
+
+    public function mount()
+    {
+        if (request()->query('create')) {
+            $this->create();
+        }
+    }
 
     public function save()
     {

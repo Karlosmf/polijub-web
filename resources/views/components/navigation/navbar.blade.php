@@ -12,12 +12,12 @@
             <!-- Bloque Central: Enlaces de Navegación (Escritorio) -->
             <div class="hidden lg:flex lg:items-center lg:space-x-8">
                 
-                <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
-                    <button @mouseover="dropdownOpen = true" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                <div x-data="{ dropdownOpen: false }" class="relative">
+                    <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                         <span>PRODUCTOS</span>
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        <svg class="h-4 w-4 transform transition-transform duration-200" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
-                    <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition>
+                    <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition style="display: none;">
                         <div class="py-1">
                             <a href="{{ route('sabores.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">SABORES</a>
                             <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">POSTRES</a>
@@ -31,12 +31,12 @@
                 <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
 
                 <!-- Dropdown de NOSOTROS -->
-                <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
-                    <button @mouseover="dropdownOpen = true" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                <div x-data="{ dropdownOpen: false }" class="relative">
+                    <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                         <span>NOSOTROS</span>
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        <svg class="h-4 w-4 transform transition-transform duration-200" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
-                    <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition>
+                    <div x-show="dropdownOpen" class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition style="display: none;">
                         <div class="py-1">
                             <a href="{{ route('about.index') }}#suscripciones" class="block px-4 py-2 text-sm hover:bg-gray-100">SUSCRIPCIONES</a>
                             <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">PREGUNTAS</a>
@@ -53,13 +53,13 @@
             <!-- Bloque Derecho: Acciones (Escritorio) -->
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
                 @auth
-                    <div x-data="{ dropdownOpen: false }" @mouseleave="setTimeout(() => { dropdownOpen = false }, 200)" class="relative">
-                        <button @mouseover="dropdownOpen = true" class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                    <div x-data="{ dropdownOpen: false }" class="relative">
+                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                             <span>{{ Auth::user()->name }}</span>
-                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            <svg class="h-4 w-4 transform transition-transform duration-200" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                         </button>
-                        <div x-show="dropdownOpen" @click.away="dropdownOpen = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition>
+                        <div x-show="dropdownOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 text-gray-700" x-transition style="display: none;">
                             <div class="py-1">
                                 <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">Mi Perfil</a>
                                 <form method="POST" action="{{ route('logout') }}">

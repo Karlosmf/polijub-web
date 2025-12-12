@@ -12,7 +12,7 @@ use Livewire\Attributes\Rule;
 use Mary\Traits\Toast;
 use Illuminate\Support\Str;
 
-#[Layout('layouts.app')]
+#[Layout('layouts.admin')]
 class FlavorManager extends Component
 {
     use WithPagination, WithFileUploads, Toast;
@@ -40,6 +40,13 @@ class FlavorManager extends Component
 
     // Search
     public string $search = '';
+
+    public function mount()
+    {
+        if (request()->query('create')) {
+            $this->create();
+        }
+    }
 
     public function save()
     {
