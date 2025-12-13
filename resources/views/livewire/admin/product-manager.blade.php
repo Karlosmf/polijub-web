@@ -93,14 +93,27 @@
                     <div class="card bg-base-200 p-4">
                         <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Imagen</h4>
                         <x-file wire:model="image" accept="image/png, image/jpeg, image/webp">
-                            <div class="flex items-center gap-4">
-                                <img src="{{ $image ? $image->temporaryUrl() : ($existingImage ? (Str::startsWith($existingImage, 'http') ? $existingImage : asset('storage/'.$existingImage)) : 'https://via.placeholder.com/150') }}" class="h-20 w-20 rounded-lg object-cover border" />
-                                <div class="text-sm text-gray-500">
-                                    <span class="block">Formatos: JPG, PNG, WEBP</span>
-                                    <span class="block">Max: 1MB</span>
+                            <div class="flex items-center gap-4 cursor-pointer w-full">
+                                <div class="avatar">
+                                    <div class="w-20 h-20 rounded-lg border border-gray-300 bg-base-100">
+                                        @if($image)
+                                            <img src="{{ $image->temporaryUrl() }}" class="object-cover w-full h-full" />
+                                        @elseif($existingImage)
+                                            <img src="{{ Str::startsWith($existingImage, 'http') ? $existingImage : asset('storage/'.$existingImage) }}" class="object-cover w-full h-full" onerror="this.onerror=null;this.src='https://via.placeholder.com/150?text=No+Image';" />
+                                        @else
+                                            <div class="flex items-center justify-center w-full h-full bg-gray-100 text-gray-400">
+                                                <x-icon name="o-photo" class="w-8 h-8" />
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="flex-1 text-sm text-gray-500">
+                                    <span class="font-bold text-primary block mb-1">Click para cambiar</span>
+                                    <span class="block text-xs">JPG, PNG, WEBP (Max: 1MB)</span>
                                 </div>
                             </div>
                         </x-file>
+                        @error('image') <span class="text-error text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
             </div>

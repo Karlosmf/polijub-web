@@ -85,6 +85,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/products', \App\Livewire\Admin\ProductManager::class)->name('products');
     Route::get('/flavors', \App\Livewire\Admin\FlavorManager::class)->name('flavors');
     Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');
+    Route::get('/perfil', \App\Livewire\Admin\Profile::class)->name('profile');
 });
 
 Volt::route('/sabores', 'saborespage')->name('sabores.index');
