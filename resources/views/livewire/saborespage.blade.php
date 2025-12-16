@@ -2,38 +2,34 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
+use App\Models\Flavor;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 
 new #[Layout('layouts.app')] class extends Component {
     public string $selectedFilter = 'Todos';
 
     public function with(): array
     {
-        $allFlavors = [
-            'Cremas' => ['Americana', 'Vainilla', 'Crema Rusa', 'Tramontana', 'Granizado', 'Cereza a la Crema'],
-            'Chocolates' => ['Chocolate', 'Chocolate con Almendras', 'Chocolate Suizo', 'Chocolate Amargo', 'Chocolate Polijub'],
-            'Dulces de Leche' => ['Dulce de Leche', 'Dulce de Leche Granizado', 'Dulce de Leche con Nuez', 'Super Dulce de Leche'],
-            'Frutales' => ['Frutilla', 'Limón', 'Naranja', 'Durazno', 'Ananá', 'Frambuesa'],
-        ];
+        // Fetch all tags that are associated with active flavors
+        $categories = Tag::whereHas('flavors', function (Builder $query) {
+            $query->where('is_active', true);
+        })->pluck('name');
 
-        // Flatten for display if 'Todos' is selected, or filter by category
-        $displayFlavors = [];
-        if ($this->selectedFilter === 'Todos') {
-            foreach ($allFlavors as $category => $flavors) {
-                foreach ($flavors as $flavor) {
-                    $displayFlavors[] = ['name' => $flavor, 'category' => $category];
-                }
-            }
-        } else {
-            if (isset($allFlavors[$this->selectedFilter])) {
-                foreach ($allFlavors[$this->selectedFilter] as $flavor) {
-                    $displayFlavors[] = ['name' => $flavor, 'category' => $this->selectedFilter];
-                }
-            }
+        // Fetch flavors based on filter
+        $flavorsQuery = Flavor::where('is_active', true)->with('tags');
+
+        if ($this->selectedFilter !== 'Todos') {
+            $flavorsQuery->whereHas('tags', function (Builder $query) {
+                $query->where('name', $this->selectedFilter);
+            });
         }
 
+        $flavors = $flavorsQuery->get();
+
         return [
-            'categories' => array_keys($allFlavors),
-            'flavors' => $displayFlavors
+            'categories' => $categories,
+            'flavors' => $flavors
         ];
     }
 
@@ -63,7 +59,7 @@ new #[Layout('layouts.app')] class extends Component {
                 <button 
                     wire:click="setFilter('{{ $category }}')"
                     class="px-4 py-2 rounded-full text-sm font-semibold cursor-pointer transition-all duration-200 {{ $selectedFilter === $category ? 'bg-primary text-white shadow-md' : 'bg-background-surface text-text-muted border border-slate-200 hover:bg-white' }}">
-                    {{ $category }}
+                    {{ ucfirst($category) }}
                 </button>
             @endforeach
         </div>
@@ -77,26 +73,21 @@ new #[Layout('layouts.app')] class extends Component {
                 
                 {{-- Image Container --}}
                 <div class="aspect-video w-full overflow-hidden bg-slate-100 relative">
-                    {{-- Placeholder image logic based on category --}}
-                    @php
-                        $image = match($flavor['category']) {
-                            'Chocolates' => 'helados.webp',
-                            'Frutales' => 'helados.webp', // Should ideally have different images
-                            default => 'potehelado.webp',
-                        };
-                    @endphp
-                    <img src="{{ asset('images/' . $image) }}" 
-                         alt="{{ $flavor['name'] }}" 
+                    <img src="{{ $flavor->image && file_exists(public_path($flavor->image)) ? asset($flavor->image) : asset('images/potehelado.webp') }}" 
+                         alt="{{ $flavor->name }}" 
                          class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
                     
                     {{-- Badges Container --}}
                     <div class="absolute top-3 right-3 flex flex-col gap-1 z-10">
-                        <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider rounded text-white shadow-sm bg-secondary">
-                            {{ $flavor['category'] }}
-                        </span>
-                        {{-- Example of conditional badge --}}
-                        @if($loop->iteration <= 3 && $selectedFilter === 'Todos')
-                             <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider rounded text-white shadow-sm bg-status-success">
+                        @foreach($flavor->tags as $tag)
+                            <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider rounded text-white shadow-sm" style="background-color: {{ $tag->color ?? '#21C4A5' }}">
+                                {{ $tag->name }}
+                            </span>
+                        @endforeach
+                        
+                        {{-- New Badge Logic (Example: created recently) --}}
+                        @if($flavor->created_at > now()->subDays(30))
+                             <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider rounded text-white shadow-sm bg-accent-pink">
                                 NUEVO
                             </span>
                         @endif
@@ -106,10 +97,10 @@ new #[Layout('layouts.app')] class extends Component {
                 {{-- Content Body --}}
                 <div class="flex flex-1 flex-col p-5">
                     <h3 class="mb-2 text-lg font-bold text-slate-800 line-clamp-2 group-hover:text-primary-light transition-colors font-display">
-                        {{ $flavor['name'] }}
+                        {{ $flavor->name }}
                     </h3>
                     <p class="mb-4 flex-1 text-sm text-slate-600 line-clamp-3 leading-relaxed">
-                        Delicioso sabor artesanal de {{ strtolower($flavor['name']) }}, elaborado con ingredientes de primera calidad.
+                        {{ $flavor->description ?? 'Delicioso sabor artesanal elaborado con ingredientes de primera calidad.' }}
                     </p>
                     
                     {{-- Footer Actions --}}
