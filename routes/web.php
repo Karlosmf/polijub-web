@@ -82,8 +82,17 @@ Route::get('/nosotros', \App\Livewire\AboutUsPage::class)->name('about.index');
 // Admin Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
-    Route::get('/products', \App\Livewire\Admin\ProductManager::class)->name('products');
-    Route::get('/flavors', \App\Livewire\Admin\FlavorManager::class)->name('flavors');
+    
+    // Product Routes
+    Volt::route('/products', 'admin.products.index')->name('products');
+    Volt::route('/products/create', 'admin.products.crud')->name('products.create');
+    Volt::route('/products/{id}/edit', 'admin.products.crud')->name('products.edit');
+
+    // Flavor Routes
+    Volt::route('/flavors', 'admin.flavors.index')->name('flavors');
+    Volt::route('/flavors/create', 'admin.flavors.crud')->name('flavors.create');
+    Volt::route('/flavors/{id}/edit', 'admin.flavors.crud')->name('flavors.edit');
+    
     Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');
     Route::get('/perfil', \App\Livewire\Admin\Profile::class)->name('profile');
 });

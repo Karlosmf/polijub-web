@@ -4,7 +4,6 @@ namespace App\Livewire\Admin;
 
 use App\Models\Tag;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Mary\Traits\Toast;
@@ -12,7 +11,7 @@ use Mary\Traits\Toast;
 #[Layout('layouts.admin')]
 class TagManager extends Component
 {
-    use WithPagination, Toast;
+    use Toast;
 
     public bool $myModal = false;
     public bool $isEditing = false;
@@ -103,7 +102,7 @@ class TagManager extends Component
     public function render()
     {
         $tags = Tag::orderBy('name')
-            ->paginate(10);
+            ->get();
 
         return view('livewire.admin.tag-manager', [
             'tags' => $tags,

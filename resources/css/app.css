@@ -1,21 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer components {
-    .btn-polijub-primary {
-        @apply bg-brand-primary text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-opacity-80 transition-all;
-    }
-    .btn-polijub-secondary {
-        @apply bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition-all;
-    }
-    
-    /* Paginator Fixes for MaryUI/DaisyUI */
-    .mary-table-pagination span[aria-current="page"] > span {
-        @apply bg-primary text-base-100;
-    }
+@plugin "daisyui";
 
-    .mary-table-pagination button {
-        @apply cursor-pointer;
-    }
+@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@theme {
+    --color-brand-primary: #00aa8d;
+    --color-brand-secondary: #21c4a5;
+    --color-accent-pink: #ff007f;
+    --color-accent-blue: #2ab0ff;
+
+    --color-primary-DEFAULT: #0f172a;
+    --color-primary-light: #1e293b;
+    --color-primary-dark: #020617;
+
+    --color-secondary-DEFAULT: #f59e0b;
+    --color-secondary-light: #fbbf24;
+    --color-secondary-dark: #d97706;
+
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-display: "Montserrat", sans-serif;
 }

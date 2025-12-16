@@ -14,17 +14,16 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div>
-                <a href="/" wire:navigate>
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <body class="font-sans antialiased bg-base-200 min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+        <div>
+            <a href="/" wire:navigate>
+                {{-- Use app-brand or application-logo --}}
+                <img src="{{ asset('images/logo.webp') }}" class="w-20 h-20" alt="Logo">
+            </a>
+        </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-base-100 shadow-md overflow-hidden sm:rounded-lg">
+            {{ $slot }}
         </div>
     </body>
 </html>

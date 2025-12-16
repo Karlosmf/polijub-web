@@ -40,19 +40,19 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="register">
         <!-- Name -->
         <div>
-            <x-mary-input wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="name" label="Nombre" />
+            <x-input wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="name" label="Nombre" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-mary-input wire:model="email" id="email" type="email" name="email" required autocomplete="username" label="Email" />
+            <x-input wire:model="email" id="email" type="email" name="email" required autocomplete="username" label="Email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-mary-input wire:model="password" id="password"
+            <x-input wire:model="password" id="password"
                             type="password"
                             name="password"
                             required autocomplete="new-password" label="Contraseña" />
@@ -62,7 +62,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-mary-input wire:model="password_confirmation" id="password_confirmation"
+            <x-input wire:model="password_confirmation" id="password_confirmation"
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" label="Confirmar Contraseña" />
 
@@ -74,9 +74,9 @@ new #[Layout('layouts.guest')] class extends Component
                 {{ __('Already registered?') }}
             </a>
 
-            <x-mary-button class="ms-4" type="submit">
+            <x-button class="ms-4" type="submit">
                 {{ __('Register') }}
-            </x-mary-button>
+            </x-button>
         </div>
     </form>
 </div>

@@ -26,36 +26,36 @@
                 <div class="hidden lg:flex lg:items-center lg:space-x-8">
                     
                     {{-- Dropdown PRODUCTOS --}}
-                    <x-mary-dropdown>
+                    <x-dropdown>
                         <x-slot:trigger>
                             <button class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                                 <span>PRODUCTOS</span>
-                                <x-mary-icon name="o-chevron-down" class="h-4 w-4" />
+                                <x-icon name="o-chevron-down" class="h-4 w-4" />
                             </button>
                         </x-slot:trigger>
-                        <x-mary-menu-item title="SABORES" link="{{ route('sabores.index') }}" />
-                        <x-mary-menu-item title="POSTRES" link="#" />
-                        <x-mary-menu-item title="PALETAS" link="#" />
-                    </x-mary-dropdown>
+                        <x-menu-item title="SABORES" link="{{ route('sabores.index') }}" />
+                        <x-menu-item title="POSTRES" link="#" />
+                        <x-menu-item title="PALETAS" link="#" />
+                    </x-dropdown>
 
                     <a href="{{ route('shop.products') }}" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">TIENDA</a>
                     <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">DELIVERY</a>
                     <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
 
                     {{-- Dropdown NOSOTROS --}}
-                    <x-mary-dropdown>
+                    <x-dropdown>
                         <x-slot:trigger>
                             <button class="flex items-center space-x-1 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
                                 <span>NOSOTROS</span>
-                                <x-mary-icon name="o-chevron-down" class="h-4 w-4" />
+                                <x-icon name="o-chevron-down" class="h-4 w-4" />
                             </button>
                         </x-slot:trigger>
-                        <x-mary-menu-item title="SUSCRIPCIONES" link="{{ route('about.index') }}#suscripciones" />
-                        <x-mary-menu-item title="PREGUNTAS" link="#" />
-                        <x-mary-menu-item title="CONTACTO" link="{{ route('about.index') }}#contacto" />
-                        <x-mary-menu-item title="ENVIANOS TU CV" link="{{ route('about.index') }}#cv" />
-                        <x-mary-menu-item title="FRANQUICIAS" link="{{ route('about.index') }}#franquicias" />
-                    </x-mary-dropdown>
+                        <x-menu-item title="SUSCRIPCIONES" link="{{ route('about.index') }}#suscripciones" />
+                        <x-menu-item title="PREGUNTAS" link="#" />
+                        <x-menu-item title="CONTACTO" link="{{ route('about.index') }}#contacto" />
+                        <x-menu-item title="ENVIANOS TU CV" link="{{ route('about.index') }}#cv" />
+                        <x-menu-item title="FRANQUICIAS" link="{{ route('about.index') }}#franquicias" />
+                    </x-dropdown>
 
                     <a href="#" class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">MÁS</a>
                 </div>
@@ -63,33 +63,33 @@
                 {{-- Bloque Derecho: Acciones (Escritorio) --}}
                 <div class="hidden lg:flex lg:items-center lg:space-x-6">
                     @auth
-                        <x-mary-dropdown right>
+                        <x-dropdown right>
                             <x-slot:trigger>
                                 <button class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
-                                    <x-mary-icon name="o-user" class="h-6 w-6" />
+                                    <x-icon name="o-user" class="h-6 w-6" />
                                     <span>{{ Auth::user()->name }}</span>
-                                    <x-mary-icon name="o-chevron-down" class="h-4 w-4" />
+                                    <x-icon name="o-chevron-down" class="h-4 w-4" />
                                 </button>
                             </x-slot:trigger>
-                            <x-mary-menu-item title="Mi Perfil" link="{{ route('admin.profile') }}" />
-                            <x-mary-menu-item title="Cerrar Sesión" link="/logout" class="text-error" />
-                        </x-mary-dropdown>
+                            <x-menu-item title="Mi Perfil" link="{{ route('admin.profile') }}" />
+                            <x-menu-item title="Cerrar Sesión" link="/logout" class="text-error" />
+                        </x-dropdown>
                     @else
                         <a href="{{ route('login') }}" class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
-                            <x-mary-icon name="o-user" class="h-6 w-6" />
+                            <x-icon name="o-user" class="h-6 w-6" />
                             <span>Entrar</span>
                         </a>
                     @endauth
 
                     <a href="#" class="relative hover:text-brand-secondary transition-colors duration-200" title="Carrito de Compras">
-                        <x-mary-icon name="o-shopping-bag" class="h-6 w-6" />
+                        <x-icon name="o-shopping-bag" class="h-6 w-6" />
                     </a>
                 </div>
 
                 {{-- Botón de Menú Móvil --}}
                 <div class="lg:hidden flex items-center">
                     <label for="mobile-drawer" class="p-2 rounded-md hover:bg-white/20 focus:outline-none transition-colors cursor-pointer">
-                        <x-mary-icon name="o-bars-3" class="h-6 w-6" />
+                        <x-icon name="o-bars-3" class="h-6 w-6" />
                     </label>
                 </div>
             </div>
@@ -97,38 +97,38 @@
     </nav>
 
     {{-- MOBILE MENU DRAWER --}}
-    <x-mary-drawer id="mobile-drawer" class="lg:hidden" right with-close-button>
+    <x-drawer id="mobile-drawer" class="lg:hidden" right with-close-button>
         <div class="flex flex-col items-center space-y-4 py-8 px-4 bg-brand-primary text-white h-full overflow-y-auto">
             
             {{-- Acordeón PRODUCTOS --}}
-            <x-mary-collapse class="w-full text-center group">
+            <x-collapse class="w-full text-center group">
                 <x-slot:heading>
                     <span class="text-lg font-medium group-hover:text-brand-secondary">PRODUCTOS</span>
                 </x-slot:heading>
                 <x-slot:content class="bg-white/10 rounded-lg text-white">
-                    <x-mary-menu-item title="SABORES" link="{{ route('sabores.index') }}" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="POSTRES" link="#" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="PALETAS" link="#" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="SABORES" link="{{ route('sabores.index') }}" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="POSTRES" link="#" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="PALETAS" link="#" class="text-white hover:text-brand-secondary" />
                 </x-slot:content>
-            </x-mary-collapse>
+            </x-collapse>
 
             <a href="{{ route('shop.products') }}" class="text-lg font-medium hover:text-brand-secondary">TIENDA</a>
             <a href="#" class="text-lg font-medium hover:text-brand-secondary">DELIVERY</a>
             <a href="#" class="text-lg font-medium hover:text-brand-secondary">PRECIOS</a>
 
             {{-- Acordeón NOSOTROS --}}
-            <x-mary-collapse class="w-full text-center group">
+            <x-collapse class="w-full text-center group">
                 <x-slot:heading>
                     <span class="text-lg font-medium group-hover:text-brand-secondary">NOSOTROS</span>
                 </x-slot:heading>
                 <x-slot:content class="bg-white/10 rounded-lg text-white">
-                    <x-mary-menu-item title="SUSCRIPCIONES" link="{{ route('about.index') }}#suscripciones" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="PREGUNTAS" link="#" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="CONTACTO" link="{{ route('about.index') }}#contacto" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="CV" link="{{ route('about.index') }}#cv" class="text-white hover:text-brand-secondary" />
-                    <x-mary-menu-item title="FRANQUICIAS" link="{{ route('about.index') }}#franquicias" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="SUSCRIPCIONES" link="{{ route('about.index') }}#suscripciones" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="PREGUNTAS" link="#" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="CONTACTO" link="{{ route('about.index') }}#contacto" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="CV" link="{{ route('about.index') }}#cv" class="text-white hover:text-brand-secondary" />
+                    <x-menu-item title="FRANQUICIAS" link="{{ route('about.index') }}#franquicias" class="text-white hover:text-brand-secondary" />
                 </x-slot:content>
-            </x-mary-collapse>
+            </x-collapse>
 
             <a href="#" class="text-lg font-medium hover:text-brand-secondary">MÁS</a>
 
@@ -142,17 +142,17 @@
                 @endauth
                 
                 <a href="#" class="relative hover:text-brand-secondary pt-4">
-                    <x-mary-icon name="o-shopping-bag" class="h-8 w-8" />
+                    <x-icon name="o-shopping-bag" class="h-8 w-8" />
                 </a>
             </div>
         </div>
-    </x-mary-drawer>
+    </x-drawer>
 
     {{-- MAIN CONTENT --}}
     <main>
         {{ $slot }}
     </main>
 
-    <x-mary-toast />
+    <x-toast />
 </body>
 </html>
