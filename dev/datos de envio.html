@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proceso de Pago - Envío</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1BC196", // Vibrant teal from the buttons/header
+                        secondary: "#FF0080", // Vibrant pink from the last image accents
+                        "background-light": "#F7F9FB", // Light grey/white background
+                        "background-dark": "#121212", // Deep dark background
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-light": "#333333",
+                        "text-dark": "#E5E5E5",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                        body: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-body min-h-screen flex flex-col transition-colors duration-300">
+<header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="bg-white rounded-full h-10 w-10 flex items-center justify-center text-primary font-bold text-xl shadow-md">
+                    P
+                </div>
+<span class="font-bold text-xl tracking-wide hidden sm:block">Polijub</span>
+</div>
+<nav class="hidden md:flex space-x-6 font-medium text-sm">
+<a class="hover:text-gray-100 transition" href="#">PRODUCTOS</a>
+<a class="hover:text-gray-100 transition" href="#">TIENDA</a>
+<a class="hover:text-gray-100 transition underline decoration-2 underline-offset-4" href="#">ENVÍO</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="flex items-center space-x-1 hover:text-gray-100">
+<span class="material-icons-outlined">person</span>
+<span class="text-sm hidden sm:block">Perfil</span>
+</button>
+<button class="relative hover:text-gray-100">
+<span class="material-icons-outlined">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">2</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 py-8 md:py-12">
+<div class="text-center mb-10">
+<h1 class="text-3xl md:text-4xl font-bold text-primary dark:text-primary mb-2">Proceso de Pago</h1>
+<div class="flex justify-center items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+<span class="text-primary font-semibold">Carrito</span>
+<span class="material-icons-outlined text-xs">chevron_right</span>
+<span class="text-primary font-bold border-b-2 border-primary">Envío</span>
+<span class="material-icons-outlined text-xs">chevron_right</span>
+<span>Pago</span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<div class="w-full lg:w-2/3">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-8">
+<div class="flex items-center space-x-3 mb-6">
+<div class="bg-primary/10 p-2 rounded-full">
+<span class="material-icons-outlined text-primary">local_shipping</span>
+</div>
+<h2 class="text-xl font-bold">Información de Envío</h2>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="email">Correo Electrónico</label>
+<div class="relative">
+<span class="material-icons-outlined absolute left-3 top-2.5 text-gray-400">email</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="email" placeholder="tu@email.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="phone">Teléfono</label>
+<div class="relative">
+<span class="material-icons-outlined absolute left-3 top-2.5 text-gray-400">phone</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="phone" placeholder="(03482) 42-8908" type="tel"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="firstname">Nombre</label>
+<input class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="firstname" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="lastname">Apellido</label>
+<input class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="lastname" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="address">Dirección de Entrega</label>
+<div class="relative">
+<span class="material-icons-outlined absolute left-3 top-2.5 text-gray-400">location_on</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="address" placeholder="Calle Habegger y Obligado, 3560" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="city">Ciudad</label>
+<input class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="city" type="text" value="Reconquista"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="province">Provincia</label>
+<select class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="province">
+<option>Santa Fe</option>
+<option>Buenos Aires</option>
+<option>Córdoba</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="zip">Código Postal</label>
+<input class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="zip" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="notes">Notas de entrega (Opcional)</label>
+<textarea class="w-full px-4 py-2 rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent dark:text-white transition shadow-sm" id="notes" placeholder="Ej: El timbre no funciona, llamar al llegar." rows="3"></textarea>
+</div>
+<div class="pt-4 flex items-center justify-between">
+<a class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary flex items-center" href="#">
+<span class="material-icons-outlined text-sm mr-1">arrow_back</span>
+                                Volver al carrito
+                            </a>
+<button class="bg-primary hover:bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5" type="button">
+                                Continuar al Pago
+                            </button>
+</div>
+</form>
+</div>
+</div>
+<div class="w-full lg:w-1/3">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sticky top-24">
+<h3 class="text-lg font-bold mb-4 border-b border-gray-100 dark:border-gray-700 pb-3">Resumen del Pedido</h3>
+<div class="space-y-4 mb-6 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+<div class="flex items-center gap-3">
+<div class="h-16 w-16 bg-blue-100 rounded-md overflow-hidden flex-shrink-0">
+<img alt="Helado de Vainilla" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNukf0ijG5KxT5irdyJZhDo6YGw96O30Pxe5Pxq8mE8ewRFsnRexdhSB0hyUBugZM8JI7b1sD7d8NWFxCdgEfHOAzIun39Gph6SswLi17XYvsyb7MqrepkkyTUzFwCb_dKYbwkKYbujTYEXfxvNUPTo10f1XCvJbWBC0dVRlngSsdE7a52JwJQdqsvmZ_tx6PTB08tQL09b01pcPo5Pjlm9IWm_WJPpaNzfJ1-e9dXbItjT4h0Us7J3fjFlQAkdoxi806jbHjRBR8D"/>
+</div>
+<div class="flex-grow">
+<h4 class="text-sm font-semibold">1/4 kg Helado</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Vainilla, Dulce de Leche</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$4.500</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="h-16 w-16 bg-pink-100 rounded-md overflow-hidden flex-shrink-0">
+<img alt="Helado Frutal" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDALqTVgDE4XwZBtWvUjUklfXKmNyc_Yij0HgUQAIdY3aRlFDJDucULa9ENDdhz7PrndcUMLnDeiIvfVLj0y8wwd3e2YLpdI160N5zJ26KrwkvXTk9SXlQo6Chzw9mcJMkeIiDNRTPi4svKqSyj4hqMkzVF5bfycJzkmN-2HVNAquDcxGPXcaaKe8OZA18h9ZnMq5FtXvKVez0rQqsdbUoC6mTq4eFxpc_O-butO_CSeuMENPotLkkA1MX11B_MlDfr2SjDHTKdhIBp"/>
+</div>
+<div class="flex-grow">
+<h4 class="text-sm font-semibold">Cucurucho</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">Frutilla a la Reina</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$2.500</p>
+</div>
+</div>
+</div>
+<div class="space-y-2 text-sm border-t border-gray-100 dark:border-gray-700 pt-4">
+<div class="flex justify-between text-gray-600 dark:text-gray-400">
+<span>Subtotal</span>
+<span>$7.000,00</span>
+</div>
+<div class="flex justify-between text-gray-600 dark:text-gray-400">
+<span>Envío</span>
+<span class="text-primary font-medium">Gratis</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+<span class="text-base font-bold">Total</span>
+<span class="text-2xl font-bold text-primary">$7.000,00</span>
+</div>
+<div class="mt-6">
+<div class="flex gap-2">
+<input class="flex-grow px-3 py-2 text-sm rounded-lg border-gray-200 dark:border-gray-600 dark:bg-gray-800 focus:ring-1 focus:ring-primary focus:border-primary transition" placeholder="Código de descuento" type="text"/>
+<button class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                Aplicar
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 py-8 mt-auto">
+<div class="container mx-auto px-4 text-center">
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-2">© 2024 Polijub Heladería. Todos los derechos reservados.</p>
+<div class="flex justify-center space-x-4 text-xs text-gray-400 dark:text-gray-500">
+<a class="hover:text-primary transition" href="#">Términos y Condiciones</a>
+<a class="hover:text-primary transition" href="#">Política de Privacidad</a>
+</div>
+</div>
+</footer>
+<button class="fixed bottom-4 right-4 bg-gray-800 dark:bg-white text-white dark:text-gray-800 p-3 rounded-full shadow-lg z-50 hover:scale-110 transition" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-outlined block dark:hidden">dark_mode</span>
+<span class="material-icons-outlined hidden dark:block">light_mode</span>
+</button>
+
+</body></html>

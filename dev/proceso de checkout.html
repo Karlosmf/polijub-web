@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proceso de Pago - Pago</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0FB593", // Teal color from reference
+                        secondary: "#F92C85", // Pink accent from reference
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#18181b",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#27272a",
+                        "text-light": "#1f2937",
+                        "text-dark": "#f3f4f6",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                        body: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // Consistent rounded corners
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark min-h-screen flex flex-col font-body transition-colors duration-200">
+<header class="bg-primary shadow-lg sticky top-0 z-50">
+<div class="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center relative">
+<div class="flex items-center">
+<div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-200 cursor-pointer">
+<span class="text-primary text-3xl font-bold italic">P</span>
+</div>
+</div>
+<nav class="hidden md:flex space-x-6 text-white font-medium">
+<a class="hover:text-gray-100 flex items-center" href="#">PRODUCTOS <span class="material-icons text-sm ml-1">expand_more</span></a>
+<a class="hover:text-gray-100" href="#">TIENDA</a>
+<a class="hover:text-gray-100" href="#">DELIVERY</a>
+<a class="hover:text-gray-100" href="#">PRECIOS</a>
+<a class="hover:text-gray-100 flex items-center" href="#">NOSOTROS <span class="material-icons text-sm ml-1">expand_more</span></a>
+<a class="hover:text-gray-100" href="#">MÁS</a>
+</nav>
+<div class="flex items-center space-x-4 text-white">
+<button class="flex items-center hover:opacity-80">
+<span class="material-icons mr-1">person_outline</span>
+<span class="hidden sm:block font-medium">Entrar</span>
+</button>
+<button class="relative hover:opacity-80">
+<span class="material-icons">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">2</span>
+</button>
+<button class="ml-4 p-1 rounded-full bg-white/20 hover:bg-white/30 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons text-sm align-middle">brightness_6</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 py-8 lg:py-12">
+<div class="text-center mb-10">
+<h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Proceso de Pago</h1>
+<div class="flex justify-center items-center space-x-4 text-sm font-medium">
+<span class="text-gray-400 dark:text-gray-500 flex items-center">
+<span class="bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full w-6 h-6 flex items-center justify-center mr-2">1</span>
+                    Carrito
+                </span>
+<span class="w-12 h-px bg-gray-300 dark:bg-gray-700"></span>
+<span class="text-gray-400 dark:text-gray-500 flex items-center">
+<span class="bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full w-6 h-6 flex items-center justify-center mr-2">2</span>
+                    Envío
+                </span>
+<span class="w-12 h-px bg-gray-300 dark:bg-gray-700"></span>
+<span class="text-primary flex items-center">
+<span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">3</span>
+                    Pago
+                </span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<div class="w-full lg:w-2/3">
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-lg p-6 lg:p-8 border border-gray-100 dark:border-gray-700 transition-colors">
+<h2 class="text-2xl font-bold mb-6 flex items-center dark:text-white">
+<span class="material-icons text-primary mr-3">credit_card</span>
+                        Detalles de Pago
+                    </h2>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+<button class="flex flex-col items-center justify-center p-4 border-2 border-primary bg-primary/5 rounded-lg text-primary font-bold transition-all">
+<span class="material-icons mb-1">credit_card</span>
+                            Tarjeta
+                        </button>
+<button class="flex flex-col items-center justify-center p-4 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
+<span class="material-icons mb-1">account_balance_wallet</span>
+                            Mercado Pago
+                        </button>
+<button class="flex flex-col items-center justify-center p-4 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
+<span class="material-icons mb-1">qr_code</span>
+                            Transferencia
+                        </button>
+<button class="flex flex-col items-center justify-center p-4 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
+<span class="material-icons mb-1">payments</span>
+                            Efectivo
+                        </button>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<div class="flex items-center space-x-2 mb-4">
+<span class="text-sm text-gray-500 dark:text-gray-400 mr-2">Aceptamos:</span>
+<div class="flex space-x-2">
+<div class="w-10 h-7 bg-gray-100 dark:bg-gray-600 rounded flex items-center justify-center overflow-hidden">
+<img alt="Mastercard" class="h-4 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvZEuO20QP3nkB5-UzuqlQVrYPJpy6RGNGH2UvxdVbDyfbxfg39shoLdp8NqT091tmOb1LCMM57XQLmG9rkW0_hk5jMsOiakzURQI0qTMRhQiQEVR1W-Vy8PB48hzLDBIP-qUgfID6iXVh04lkeJ9qKa6KjL8VJYkhyLmBgnd0X7Bkrtxha1sUt6HoLNQw_2QiJUw4COW26gJDwOhNfmcADbHTG4TYOTYIvNR6SfFlGYSy4CG-cy9BBRSa3wwZrlaQQ6lyXaAzPgDz"/>
+</div>
+<div class="w-10 h-7 bg-gray-100 dark:bg-gray-600 rounded flex items-center justify-center overflow-hidden">
+<img alt="Visa" class="h-3 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkEBhyHb_L8TZNS2brhzDK14CZvLJH9e8NLfaYYMBdN_eQF3SZTa2h_ZQQIEMC5XVUEcbrKf8G2OiwQv3JwpYJNDTactOkLWiydvlb0ZTDzIUY9D6eY_lg7XtG8K-f20znDxnH2ccvk67jrSB7bx3nRcRYuX0a1OVPnH1gtWlL_Jy5TUgwXSxBeioWdxFLVAALSUpLqDg0VLQ9ylH_jBUco75PxYHQeiCkQNZO5bOFD-ZMKHleZfcWFo2tsEZ_36rrVbDr075CX3mk"/>
+</div>
+<div class="w-10 h-7 bg-gray-100 dark:bg-gray-600 rounded flex items-center justify-center overflow-hidden">
+<img alt="Amex" class="h-3 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnm1nJ2uvCOCYVD1xKyjV-gPiNi9oWaYD9Fv5lQbEqlhOESSXKKuWFKfHzwzL9ZY8EZaPfUEAeQgORS_2m3Hy0CsgWvvqKVn1dgrx6-39WS9ccdOv7hcibKR-uf4hOazxCrWPLxOW_8lTYUxS0ZqosLEkrxf9qkYjtHLwn7lqTJ9B26UPOlYjgMeQVf7Ysco2EZU6oybWbLRCArp_l84MyXhXIucTdfuhp39RCzf3LUjxmXjVO8weedKPkmt5IZRENR3Ae_p7WnAX"/>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="card-number">Número de Tarjeta</label>
+<div class="relative rounded-md shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons text-gray-400 text-xl">payment</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-primary focus:border-primary sm:text-sm shadow-sm" id="card-number" name="card-number" placeholder="0000 0000 0000 0000" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="material-icons text-green-500 text-xl">check_circle</span>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="card-name">Nombre del Titular</label>
+<input class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-primary focus:border-primary sm:text-sm shadow-sm" id="card-name" name="card-name" placeholder="Como aparece en la tarjeta" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="card-expiry">Fecha de Caducidad</label>
+<input class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-primary focus:border-primary sm:text-sm shadow-sm" id="card-expiry" name="card-expiry" placeholder="MM / AA" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center justify-between" for="card-cvc">
+                                    CVV
+                                    <span class="material-icons text-gray-400 text-base cursor-help" title="Código de 3 dígitos al reverso">help_outline</span>
+</label>
+<input class="block w-full px-4 py-3 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-primary focus:border-primary sm:text-sm shadow-sm" id="card-cvc" name="card-cvc" placeholder="123" type="text"/>
+</div>
+</div>
+<div class="flex items-center">
+<input class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" id="save-card" name="save-card" type="checkbox"/>
+<label class="ml-2 block text-sm text-gray-900 dark:text-gray-300" for="save-card">
+                                Guardar esta tarjeta para futuras compras de helado 🍦
+                            </label>
+</div>
+</form>
+</div>
+<div class="mt-6 flex justify-start">
+<a class="flex items-center text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary font-medium transition-colors" href="#">
+<span class="material-icons mr-1 text-sm">arrow_back_ios</span>
+                        Volver a envíos
+                    </a>
+</div>
+</div>
+<div class="w-full lg:w-1/3">
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden sticky top-24">
+<div class="p-6 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Resumen del Pedido</h3>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-blue-100 rounded-lg flex-shrink-0 overflow-hidden">
+<img alt="Helado de Limón" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUQk1KcrUY_cdsfAjcSrUab8Hz5DtuwvlUjcogsGT0lWnVd-EfCLCsjgqPaO0Ms1EslMfdS0jEXEWsIT8AsfEH14Zep3gGo3CeqGtrxzhzO4KuEUKMisMI-PdG0j0x0VIv3XGp6Ka-ec942PHIZWmj3jTc3lsML1IyiaIh-Urgv-_lLB70-YohwBHZaTWJLgsKeqvfrlRGMcCUKJvKH493i10d1iUtWng0FVTP-LLiw7TjYU9yl3peg-Tv7q2dcZBe1yZMjnVl4S-5"/>
+</div>
+<div class="flex-1">
+<h4 class="font-medium text-gray-800 dark:text-gray-200">Limón al Agua</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">1/4 kg • 3 bochas</p>
+<p class="text-primary font-bold mt-1">$4.500,00</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-pink-100 rounded-lg flex-shrink-0 overflow-hidden">
+<img alt="Torta Helada" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHrGthDIRTFBYZBPKXur2tqGOtA3UDkFa7SsjHWsVj4FHqdklUdtUUbZElQ-AlSQ4UUS6SHVC_y8-iQTQUVZc7B3LmBAccgTmTT_CS1YFHOzIHqF2KAXtqc_zmPkw_m3WUrIia6FYDs_OT4IxD031BwBUybif82l4jcGHYqkA1vOwItkZnuUTZ3zZBRy2rLGRyupXsqSczxoCxAQd5sxSlWvI-lO6hYrFtl78KtPBWhDZS0QYRv-71Yh1RCvJS3c0dIyLHYXUxpizG"/>
+</div>
+<div class="flex-1">
+<h4 class="font-medium text-gray-800 dark:text-gray-200">Torta Corazón</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">Edición San Valentín</p>
+<p class="text-primary font-bold mt-1">$12.000,00</p>
+</div>
+</div>
+<hr class="border-gray-200 dark:border-gray-700 my-4"/>
+<div class="space-y-2">
+<div class="flex justify-between text-gray-600 dark:text-gray-400">
+<span>Subtotal</span>
+<span>$16.500,00</span>
+</div>
+<div class="flex justify-between text-gray-600 dark:text-gray-400">
+<span>Envío</span>
+<span class="text-green-500 font-medium">Gratis</span>
+</div>
+<div class="flex justify-between text-gray-600 dark:text-gray-400">
+<span>Impuestos</span>
+<span>$3.465,00</span>
+</div>
+</div>
+<hr class="border-gray-200 dark:border-gray-700 my-4"/>
+<div class="flex justify-between items-center mb-6">
+<span class="text-xl font-bold text-gray-900 dark:text-white">Total</span>
+<span class="text-2xl font-bold text-primary">$19.965,00</span>
+</div>
+<button class="w-full bg-secondary hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center group">
+                            Realizar Pedido
+                            <span class="material-icons ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center mt-4 text-xs text-gray-400 dark:text-gray-500">
+<span class="material-icons text-sm mr-1">lock</span>
+                            Pago 100% Seguro y Encriptado
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 bg-white dark:bg-card-dark rounded-xl shadow-sm p-8 text-center border border-gray-100 dark:border-gray-700">
+<h3 class="text-2xl font-bold text-primary mb-2">¿Necesitas ayuda con tu pedido?</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-6">Nuestro equipo de soporte está disponible todos los días de 9am a 10pm.</p>
+<div class="flex justify-center gap-4 flex-wrap">
+<button class="flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-700 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium">
+<span class="material-icons text-primary mr-2">phone</span>
+                    03482 42-8908
+                </button>
+<button class="flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-700 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium">
+<span class="material-icons text-secondary mr-2">email</span>
+                    HeladoPolijub@gmail.com
+                </button>
+</div>
+</div>
+</main>
+<footer class="bg-card-light dark:bg-card-dark border-t border-gray-200 dark:border-gray-800 mt-auto">
+<div class="container mx-auto px-4 py-8">
+<div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+<div class="mb-4 md:mb-0">
+                    © 2024 Polijub Helados. Todos los derechos reservados.
+                </div>
+<div class="flex space-x-6">
+<a class="hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="hover:text-primary transition-colors" href="#">Términos</a>
+<a class="hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

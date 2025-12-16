@@ -19,7 +19,7 @@
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}" defer></script>
 </head>
 
-<body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
+<body class="min-h-screen font-sans antialiased">
     {{-- NAVBAR mobile only --}}
     <x-nav sticky class="lg:hidden">
         <x-slot:brand>
@@ -53,7 +53,7 @@
                         </x-slot:actions>
                     </x-list-item>
                 @else
-                     <x-menu-item title="Iniciar Sesión" icon="o-user" link="{{ route('login') }}" />
+                    <x-menu-item title="Iniciar Sesión" icon="o-user" link="{{ route('login') }}" />
                 @endif
 
                 <x-menu-sub title="PRODUCTOS" icon="o-cube">
@@ -78,7 +78,7 @@
 
                 {{-- Admin/Authenticated Options (Optional - kept generic for now) --}}
                 @auth
-                     <x-menu-item title="Mi Perfil" icon="o-user" link="{{ route('admin.profile') }}" />
+                    <x-menu-item title="Mi Perfil" icon="o-user" link="{{ route('admin.profile') }}" />
                 @endauth
 
             </x-menu>

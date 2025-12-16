@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carrito de Compras - Polijub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#14b8a6", // Vibrant teal from the screenshot (approx)
+                        "primary-dark": "#0d9488",
+                        "secondary": "#f472b6", // Pink accent from screenshot
+                        "background-light": "#f3f4f6", // Light gray background
+                        "background-dark": "#111827", // Dark mode background
+                        "card-light": "#ffffff",
+                        "card-dark": "#1f2937",
+                        "text-main-light": "#1f2937",
+                        "text-main-dark": "#f9fafb",
+                        "text-muted-light": "#6b7280",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                        sans: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans transition-colors duration-200">
+<header class="bg-primary shadow-lg sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-300">
+<span class="text-primary text-4xl font-bold font-display italic">P</span>
+</div>
+</div>
+<nav class="hidden md:flex gap-8 text-white font-medium text-sm tracking-wide">
+<a class="hover:text-teal-100 flex items-center gap-1" href="#">PRODUCTOS <span class="material-icons text-sm">expand_more</span></a>
+<a class="hover:text-teal-100" href="#">TIENDA</a>
+<a class="hover:text-teal-100" href="#">DELIVERY</a>
+<a class="hover:text-teal-100" href="#">PRECIOS</a>
+<a class="hover:text-teal-100 flex items-center gap-1" href="#">NOSOTROS <span class="material-icons text-sm">expand_more</span></a>
+<a class="hover:text-teal-100" href="#">MÁS</a>
+</nav>
+<div class="flex items-center gap-6 text-white">
+<a class="flex items-center gap-2 hover:text-teal-100" href="#">
+<span class="material-icons">person_outline</span>
+<span class="hidden md:inline font-medium">Entrar</span>
+</a>
+<a class="relative hover:text-teal-100" href="#">
+<span class="material-icons">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-white text-primary text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">2</span>
+</a>
+<button class="p-1 rounded hover:bg-white/20 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons">dark_mode</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-12">
+<div class="text-center mb-10">
+<h1 class="text-4xl md:text-5xl font-bold text-primary mb-2">Carrito de Compras</h1>
+<p class="text-text-muted-light dark:text-text-muted-dark text-lg">Revisá tus productos antes de finalizar la compra.</p>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<div class="lg:w-2/3 space-y-6">
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-md p-6 flex flex-col sm:flex-row items-center gap-6 transition-colors duration-200 border border-gray-100 dark:border-gray-700">
+<div class="w-full sm:w-32 h-32 bg-blue-100 rounded-lg overflow-hidden flex-shrink-0 relative group">
+<img alt="Cucurucho Helado" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLFvAx6eWvb8PPMIHaIBS839wWzWlE4IwtBTSxiHftcHXEJ1u1gQaKrECYvqe71j5ELwl3_ZFjZCQb0UIEzvrfRUcEFwPQVD5AulRdgnElsRX96cmOD0Kcc7SAO_Rcr4eCunCjj7fLSzGnqvnEQD1c_A4CmEv3FsNj9XOneOjW7epkdNcwt3u4G9bSt2oMlT7pUFPayBpdyU9VeqvrLGdcMazIwjwtSGaD_YaxL2vZSY9IYlJs5zQKQuhuCSxQHnGaAnLmLgaR1Uah"/>
+<span class="absolute top-2 left-2 bg-blue-200 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">3 sabores</span>
+</div>
+<div class="flex-grow text-center sm:text-left">
+<h3 class="text-xl font-bold text-text-main-light dark:text-text-main-dark mb-1">Cucurucho 3 Bochas</h3>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-3">Chocolate Amargo, Frutilla a la Reina, Dulce de Leche</p>
+<div class="flex items-center justify-center sm:justify-start gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium">
+<span class="material-icons text-xs">local_shipping</span> Delivery
+                            </span>
+</div>
+</div>
+<div class="flex flex-col items-center sm:items-end gap-3">
+<span class="text-2xl font-bold text-primary">$4.500,00</span>
+<div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
+<button class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-sm transition-colors">
+<span class="material-icons text-sm">remove</span>
+</button>
+<span class="font-semibold text-text-main-light dark:text-text-main-dark w-4 text-center">1</span>
+<button class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 text-primary hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-sm transition-colors">
+<span class="material-icons text-sm">add</span>
+</button>
+</div>
+<button class="text-red-500 hover:text-red-700 text-sm font-medium flex items-center gap-1 mt-1 transition-colors">
+<span class="material-icons text-sm">delete_outline</span> Eliminar
+                        </button>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-md p-6 flex flex-col sm:flex-row items-center gap-6 transition-colors duration-200 border border-gray-100 dark:border-gray-700">
+<div class="w-full sm:w-32 h-32 bg-pink-100 rounded-lg overflow-hidden flex-shrink-0 relative group">
+<img alt="1/2 kg Helado" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCydyg1yUIe6nkMLc-FP6BTPPyJI9OZGfGopfrbrb5XJnz9DcVSUAincBTYEcLV94TsbIFzRLXO-HZkLc_LErQc3qGlbzCqoiA-BeYnoeVRRfyxT3c9iWE3mWG2RELHWkaxfgSN5DRvRKyr5xwg5DlmPWgVP0N7qi3PYvj71Nq5MQMO7u0b00kUAKJpoVSHB3KzSnWYfT1Hkl_gqyDEzFf6FrQFkKoI-6WEpVgqY1TLzvLjMul1qzYY76rau8DM-zUPiDOE-tw-rjr1"/>
+<span class="absolute top-2 left-2 bg-pink-200 text-pink-800 text-xs font-bold px-2 py-0.5 rounded">Para compartir</span>
+</div>
+<div class="flex-grow text-center sm:text-left">
+<h3 class="text-xl font-bold text-text-main-light dark:text-text-main-dark mb-1">1/2 kg Helado</h3>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-3">Pistacho, Sambayón, Tramontana</p>
+<div class="flex items-center justify-center sm:justify-start gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium">
+<span class="material-icons text-xs">local_shipping</span> Delivery
+                            </span>
+</div>
+</div>
+<div class="flex flex-col items-center sm:items-end gap-3">
+<span class="text-2xl font-bold text-primary">$8.000,00</span>
+<div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
+<button class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-sm transition-colors">
+<span class="material-icons text-sm">remove</span>
+</button>
+<span class="font-semibold text-text-main-light dark:text-text-main-dark w-4 text-center">1</span>
+<button class="w-8 h-8 rounded-full bg-white dark:bg-gray-700 text-primary hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center shadow-sm transition-colors">
+<span class="material-icons text-sm">add</span>
+</button>
+</div>
+<button class="text-red-500 hover:text-red-700 text-sm font-medium flex items-center gap-1 mt-1 transition-colors">
+<span class="material-icons text-sm">delete_outline</span> Eliminar
+                        </button>
+</div>
+</div>
+<div class="mt-6">
+<a class="text-primary hover:text-primary-dark font-semibold flex items-center gap-2 transition-colors" href="#">
+<span class="material-icons text-lg">arrow_back</span> Seguir Comprando
+                    </a>
+</div>
+</div>
+<div class="lg:w-1/3">
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-lg p-6 sticky top-24 border border-gray-100 dark:border-gray-700 transition-colors duration-200">
+<h2 class="text-2xl font-bold text-text-main-light dark:text-text-main-dark mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">Resumen del Pedido</h2>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-center text-text-muted-light dark:text-text-muted-dark">
+<span>Subtotal</span>
+<span class="font-medium text-text-main-light dark:text-text-main-dark">$12.500,00</span>
+</div>
+<div class="flex justify-between items-center text-text-muted-light dark:text-text-muted-dark">
+<span>Envío</span>
+<span class="text-green-600 font-medium">Gratis</span>
+</div>
+<div class="flex justify-between items-center text-text-muted-light dark:text-text-muted-dark">
+<span>Impuestos</span>
+<span class="font-medium text-text-main-light dark:text-text-main-dark">$0,00</span>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-xs font-medium text-text-muted-light dark:text-text-muted-dark mb-2 uppercase tracking-wide" for="coupon">Código de Descuento</label>
+<div class="flex gap-2">
+<input class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-text-main-light dark:text-text-main-dark rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400" id="coupon" placeholder="Ingresá tu cupón" type="text"/>
+<button class="bg-gray-200 dark:bg-gray-700 text-text-main-light dark:text-text-main-dark px-4 py-2 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Aplicar</button>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-text-main-light dark:text-text-main-dark">Total</span>
+<span class="text-3xl font-bold text-primary">$12.500,00</span>
+</div>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1 text-right">IVA incluido en todos los precios.</p>
+</div>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                        Continuar al Pago
+                        <span class="material-icons">arrow_forward</span>
+</button>
+<div class="mt-6 flex justify-center gap-4 text-gray-400">
+<span class="material-icons text-3xl">credit_card</span>
+<span class="material-icons text-3xl">account_balance</span>
+<span class="material-icons text-3xl">qr_code_2</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12 mt-12 transition-colors duration-200">
+<div class="container mx-auto px-4 text-center">
+<h2 class="text-2xl font-bold text-primary mb-4">Contactanos</h2>
+<div class="flex justify-center gap-2 mb-2">
+<div class="h-1 w-16 bg-secondary rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 max-w-4xl mx-auto">
+<div class="flex flex-col items-center p-4">
+<div class="bg-green-50 dark:bg-gray-800 p-3 rounded-full mb-3">
+<span class="material-icons text-primary text-2xl">location_on</span>
+</div>
+<h4 class="font-bold text-text-main-light dark:text-text-main-dark">Visitanos</h4>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">Habegger y Obligado, Reconquista</p>
+</div>
+<div class="flex flex-col items-center p-4">
+<div class="bg-blue-50 dark:bg-gray-800 p-3 rounded-full mb-3">
+<span class="material-icons text-blue-400 text-2xl">phone</span>
+</div>
+<h4 class="font-bold text-text-main-light dark:text-text-main-dark">Llamanos</h4>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">03482 42-8908</p>
+</div>
+<div class="flex flex-col items-center p-4">
+<div class="bg-pink-50 dark:bg-gray-800 p-3 rounded-full mb-3">
+<span class="material-icons text-secondary text-2xl">email</span>
+</div>
+<h4 class="font-bold text-text-main-light dark:text-text-main-dark">Escribinos</h4>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">HeladoPolijub@gmail.com</p>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

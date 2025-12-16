@@ -1,14 +1,28 @@
 <?php
 
 use Livewire\Volt\Component;
+use Livewire\Attributes\On;
 
 new class extends Component {
-    //
+    public $cartCount = 0;
+
+    public function mount()
+    {
+        $this->updateCartCount();
+    }
+
+    #[On('product-added-to-cart')]
+    #[On('cart-updated')] // Assuming cart-review will dispatch this event too
+    public function updateCartCount()
+    {
+        $cart = session()->get('cart', []);
+        $this->cartCount = array_sum(array_column($cart, 'quantity'));
+    }
 }; ?>
 
 <div>
-    {{-- NAVBAR --}}
-    <nav class="bg-brand-primary text-emerald-600 sticky top-0 z-50 shadow-lg">
+    {{-- FRONTEND NAVBAR --}}
+    <nav class="bg-brand-primary sticky top-0 z-50 shadow-lg">
         <div class="max-w-screen-xl mx-auto px-4">
             <div class="flex items-center justify-between h-20">
 
@@ -29,7 +43,7 @@ new class extends Component {
                     <x-dropdown>
                         <x-slot:trigger>
                             <button
-                                class="flex items-center space-x-1 font-medium hover:text-brand-secondary transition-colors duration-200">
+                                class="flex items-center space-x-1 font-medium text-white hover:text-brand-secondary transition-colors duration-200">
                                 <span>PRODUCTOS</span>
                                 <x-icon name="o-chevron-down" class="h-4 w-4" />
                             </button>
@@ -40,17 +54,17 @@ new class extends Component {
                     </x-dropdown>
 
                     <a href="{{ route('shop.products') }}"
-                        class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">TIENDA</a>
+                        class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">TIENDA</a>
                     <a href="#"
-                        class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">DELIVERY</a>
+                        class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">DELIVERY</a>
                     <a href="#"
-                        class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
+                        class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">PRECIOS</a>
 
                     {{-- Dropdown NOSOTROS --}}
                     <x-dropdown>
                         <x-slot:trigger>
                             <button
-                                class="flex items-center space-x-1 font-medium hover:text-brand-secondary transition-colors duration-200">
+                                class="flex items-center space-x-1 font-medium text-white hover:text-brand-secondary transition-colors duration-200">
                                 <span>NOSOTROS</span>
                                 <x-icon name="o-chevron-down" class="h-4 w-4" />
                             </button>
@@ -63,7 +77,7 @@ new class extends Component {
                     </x-dropdown>
 
                     <a href="#"
-                        class="text-base font-medium hover:text-brand-secondary transition-colors duration-200">MÁS</a>
+                        class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">MÁS</a>
                 </div>
 
                 {{-- Bloque Derecho: Acciones (Escritorio) --}}
@@ -72,7 +86,7 @@ new class extends Component {
                         <x-dropdown right>
                             <x-slot:trigger>
                                 <button
-                                    class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                                    class="flex items-center space-x-2 text-white font-medium hover:text-brand-secondary transition-colors duration-200">
                                     <x-icon name="o-user" class="h-6 w-6" />
                                     <span>{{ Auth::user()->name }}</span>
                                     <x-icon name="o-chevron-down" class="h-4 w-4" />
@@ -83,15 +97,20 @@ new class extends Component {
                         </x-dropdown>
                     @else
                         <a href="{{ route('login') }}"
-                            class="flex items-center space-x-2 text-base font-medium hover:text-brand-secondary transition-colors duration-200">
+                            class="flex items-center space-x-2 text-white font-medium hover:text-brand-secondary transition-colors duration-200">
                             <x-icon name="o-user" class="h-6 w-6" />
                             <span>Entrar</span>
                         </a>
                     @endauth
 
-                    <a href="#" class="relative hover:text-brand-secondary transition-colors duration-200"
-                        title="Carrito de Compras">
+                    <a href="{{ route('checkout.cart') }}" class="relative text-white hover:text-brand-secondary transition-colors duration-200"
+                        title="Carrito de Compras" wire:navigate>
                         <x-icon name="o-shopping-bag" class="h-6 w-6" />
+                        @if ($cartCount > 0)
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
                     </a>
                 </div>
 
@@ -107,8 +126,8 @@ new class extends Component {
     </nav>
 
     {{-- MOBILE MENU DRAWER --}}
-    <x-drawer id="mobile-drawer" class="lg:hidden" right with-close-button>
-        <div class="flex flex-col items-center space-y-4 py-8 px-4 bg-brand-primary text-white h-full overflow-y-auto">
+    <x-drawer id="mobile-drawer" class="lg:hidden bg-brand-primary" right with-close-button>
+        <div class="flex flex-col items-center space-y-4 py-8 px-4 text-white h-full overflow-y-auto">
 
             {{-- Acordeón PRODUCTOS --}}
             <x-collapse class="w-full text-center group">
@@ -157,8 +176,13 @@ new class extends Component {
                     <a href="{{ route('register') }}" class="text-lg font-medium hover:text-brand-secondary">Registrarse</a>
                 @endauth
 
-                <a href="#" class="relative hover:text-brand-secondary pt-4">
+                <a href="{{ route('checkout.cart') }}" class="relative hover:text-brand-secondary pt-4" wire:navigate>
                     <x-icon name="o-shopping-bag" class="h-8 w-8" />
+                    @if ($cartCount > 0)
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {{ $cartCount }}
+                        </span>
+                    @endif
                 </a>
             </div>
         </div>

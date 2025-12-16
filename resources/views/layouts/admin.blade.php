@@ -66,7 +66,8 @@
 
                 <x-menu-sub title="Gestión" icon="o-squares-2x2">
                     <x-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
-                    <x-menu-item title="Pedidos" icon="o-shopping-bag" link="#" badge="Pro" badge-classes="badge-warning" />
+                    <x-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
+                    <x-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
                 </x-menu-sub>
 
                 <x-menu-sub title="Catálogo" icon="o-cube" open>

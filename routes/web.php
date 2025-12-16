@@ -93,11 +93,21 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Volt::route('/flavors/create', 'admin.flavors.crud')->name('flavors.create');
     Volt::route('/flavors/{id}/edit', 'admin.flavors.crud')->name('flavors.edit');
     
+    // Order Routes
+    Volt::route('/orders', 'admin.orders.index')->name('orders');
+    Volt::route('/orders/{order}', 'admin.orders.show')->name('orders.show');
+
     Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');
+    Volt::route('/carousel', 'carousel-manager')->name('carousel');
     Route::get('/perfil', \App\Livewire\Admin\Profile::class)->name('profile');
 });
 
 Volt::route('/sabores', 'saborespage')->name('sabores.index');
+
+// Checkout Routes
+Volt::route('/checkout/cart', 'checkout.cart-review')->name('checkout.cart');
+Volt::route('/checkout/delivery', 'checkout.delivery-info')->name('checkout.delivery');
+Volt::route('/checkout/payment', 'checkout.payment-details')->name('checkout.payment');
 
 // Rutas provisionales para la sección "100% NATURAL"
 Route::get('/natural-products', function () {

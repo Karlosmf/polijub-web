@@ -14,6 +14,16 @@ class Order extends Model
         'branch_id',
         'total',
         'status',
+        'guest_email',
+        'guest_phone',
+        'guest_name',
+        'guest_lastname',
+        'address',
+        'city',
+        'province',
+        'zip',
+        'notes',
+        'payment_method',
     ];
 
     public function user()
@@ -24,5 +34,10 @@ class Order extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }
