@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 * para la página de la heladería Polijub. Su única responsabilidad
 * es renderizar la vista principal de la página.
 */
-#[Layout('layouts.app')]
+#[Layout('layouts.frontend')]
 class PolijubPage extends Component
 {
 /**

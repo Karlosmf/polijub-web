@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.frontend')] class extends Component {
     public $paymentMethod = 'card'; // card, mp, transfer, cash
     public $cardNumber;
     public $cardName;
@@ -59,12 +59,19 @@ new #[Layout('layouts.app')] class extends Component {
             ]);
 
             foreach ($cart as $item) {
+                $options = [];
+                if (!empty($item['flavors'])) {
+                    $options['flavors'] = $item['flavors'];
+                    $options['flavor_names'] = $item['flavor_names'] ?? '';
+                }
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item['id'],
                     'name' => $item['name'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
+                    'options' => !empty($options) ? $options : null,
                 ]);
             }
         });

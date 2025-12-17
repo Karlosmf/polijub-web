@@ -61,6 +61,22 @@ new #[Layout('layouts.admin')] class extends Component {
             ['key' => 'quantity', 'label' => 'Cantidad'],
             ['key' => 'total', 'label' => 'Total'],
         ]" :rows="$order->items">
+            @scope('cell_name', $item)
+                <div>
+                    <div class="font-bold">{{ $item->name }}</div>
+                    @if(isset($item->options['flavor_names']) && !empty($item->options['flavor_names']))
+                        <div class="text-xs text-gray-500 mt-1">
+                            <span class="font-semibold text-brand-primary">Sabores:</span> {{ $item->options['flavor_names'] }}
+                        </div>
+                    @endif
+                    {{-- Check for other potential options keys --}}
+                    @if(isset($item->options['notes']) && !empty($item->options['notes']))
+                         <div class="text-xs text-gray-500 mt-0.5">
+                            <span class="font-semibold">Notas:</span> {{ $item->options['notes'] }}
+                        </div>
+                    @endif
+                </div>
+            @endscope
             @scope('cell_price', $item)
                 ${{ number_format($item->price, 2) }}
             @endscope

@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class AboutUsPage extends Component
 {
-    #[Layout('layouts.app')]
+    #[Layout('layouts.frontend')]
     public function render()
     {
         return view('livewire.about-us-page');

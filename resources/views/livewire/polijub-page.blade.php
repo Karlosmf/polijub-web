@@ -2,8 +2,6 @@
 <!-- Contenedor principal de la página -->
 <main class="container mx-auto">
 
-<x-navigation.navbar />
-
 <!-- Sección del Héroe (Header) -->
 <header class="text-center my-12 p-8 bg-accent-pink rounded-lg shadow-lg">
 <h1 class="text-4xl font-bold text-brand-primary tracking-wider">
@@ -44,28 +42,6 @@ Creemos que el mejor sabor proviene de la naturaleza.
 </div>
 </section>
 </main>
-<footer class="bg-footer-fondo text-white mt-20" style="background-image: url('{{ asset('images/helados.webp') }}');
-background-size: cover; background-position: center;">
-<div class="container mx-auto py-10 px-4 text-center bg-black bg-opacity-50">
-<h2 class="text-2xl font-bold mb-4">Suscríbete a Novedades</h2>
-<p class="mb-6">Recibe promociones y noticias sobre nuevos sabores directamente en
-tu correo.</p>
-<form id="subscriptionForm" class="max-w-md mx-auto">
-<div class="flex">
-<input type="email" id="emailInput" placeholder="tu.correo@ejemplo.com" required
-class="w-full rounded-l-lg p-3 text-gray-800 focus:outline-none">
-<button type="submit" class="bg-brand-primary text-white font-bold py-3 px-6
-rounded-r-lg hover:bg-opacity-80 transition-colors">
-Suscribir
-</button>
-</div>
-<p id="feedbackMessage" class="mt-3 text-green-400 h-5"></p>
-</form>
-<div class="mt-8 border-t border-gray-700 pt-6">
-<p>® {{ date('Y') }} Polijub Heladería. Todos los derechos reservados.</p>
-</div>
-</div>
-</footer>
 
 <!-- Bloque de JavaScript para la suscripción -->
 @push('scripts')

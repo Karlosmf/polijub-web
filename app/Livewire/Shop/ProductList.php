@@ -14,7 +14,7 @@ class ProductList extends Component
 {
     use Toast;
 
-    #[Layout('layouts.app')]
+    #[Layout('layouts.frontend')]
     public $selectedCategory = null;
     public array $quantities = [];
 
@@ -148,6 +148,13 @@ class ProductList extends Component
         $products = Product::when($this->selectedCategory, function ($query) {
             $query->where('category_id', $this->selectedCategory);
         })->get();
+
+        // Ensure all displayed products have a quantity of at least 1 initialized
+        foreach ($products as $product) {
+            if (!isset($this->quantities[$product->id])) {
+                $this->quantities[$product->id] = 1;
+            }
+        }
 
         return view('livewire.shop.product-list', [
             'categories' => $categories,

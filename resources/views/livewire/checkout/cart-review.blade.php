@@ -3,7 +3,7 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.frontend')] class extends Component {
     public $cartItems = [];
 
     public function mount()
@@ -11,27 +11,27 @@ new #[Layout('layouts.app')] class extends Component {
         $this->cartItems = session()->get('cart', []);
     }
 
-    public function increment($id)
+    public function increment($uniqueId)
     {
-        if (isset($this->cartItems[$id])) {
-            $this->cartItems[$id]['quantity']++;
+        if (isset($this->cartItems[$uniqueId])) {
+            $this->cartItems[$uniqueId]['quantity']++;
             session()->put('cart', $this->cartItems);
             $this->dispatch('cart-updated');
         }
     }
 
-    public function decrement($id)
+    public function decrement($uniqueId)
     {
-        if (isset($this->cartItems[$id]) && $this->cartItems[$id]['quantity'] > 1) {
-            $this->cartItems[$id]['quantity']--;
+        if (isset($this->cartItems[$uniqueId]) && $this->cartItems[$uniqueId]['quantity'] > 1) {
+            $this->cartItems[$uniqueId]['quantity']--;
             session()->put('cart', $this->cartItems);
             $this->dispatch('cart-updated');
         }
     }
 
-    public function remove($id)
+    public function remove($uniqueId)
     {
-        unset($this->cartItems[$id]);
+        unset($this->cartItems[$uniqueId]);
         session()->put('cart', $this->cartItems);
         $this->dispatch('cart-updated');
     }
@@ -71,7 +71,7 @@ new #[Layout('layouts.app')] class extends Component {
             <div class="lg:w-2/3 space-y-6">
                 @if(count($cartItems) > 0)
                     @foreach($cartItems as $item)
-                    <div wire:key="{{ $item['id'] }}" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col sm:flex-row items-center gap-6 transition-colors duration-200 border border-gray-100 dark:border-gray-700">
+                    <div wire:key="{{ $item['unique_id'] }}" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col sm:flex-row items-center gap-6 transition-colors duration-200 border border-gray-100 dark:border-gray-700">
                         <div class="w-full sm:w-32 h-32 bg-blue-100 rounded-lg overflow-hidden flex-shrink-0 relative group">
                             <img alt="{{ $item['name'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="{{ $item['image'] }}" />
                             <!-- Mock Badge -->
@@ -89,15 +89,15 @@ new #[Layout('layouts.app')] class extends Component {
                         <div class="flex flex-col items-center sm:items-end gap-3">
                             <span class="text-2xl font-bold text-[#14b8a6]">${{ number_format($item['price'] * $item['quantity'], 2, ',', '.') }}</span>
                             <div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1">
-                                <button wire:click="decrement({{ $item['id'] }})" class="w-8 h-8 rounded-full bg-white dark:bg-gray-600 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-500 flex items-center justify-center shadow-sm transition-colors">
+                                <button wire:click="decrement('{{ $item['unique_id'] }}')" class="w-8 h-8 rounded-full bg-white dark:bg-gray-600 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-500 flex items-center justify-center shadow-sm transition-colors">
                                     <span class="material-icons text-sm">remove</span>
                                 </button>
                                 <span class="font-semibold text-gray-800 dark:text-gray-200 w-4 text-center">{{ $item['quantity'] }}</span>
-                                <button wire:click="increment({{ $item['id'] }})" class="w-8 h-8 rounded-full bg-white dark:bg-gray-600 text-[#14b8a6] hover:bg-gray-200 dark:hover:bg-gray-500 flex items-center justify-center shadow-sm transition-colors">
+                                <button wire:click="increment('{{ $item['unique_id'] }}')" class="w-8 h-8 rounded-full bg-white dark:bg-gray-600 text-[#14b8a6] hover:bg-gray-200 dark:hover:bg-gray-500 flex items-center justify-center shadow-sm transition-colors">
                                     <span class="material-icons text-sm">add</span>
                                 </button>
                             </div>
-                            <button wire:click="remove({{ $item['id'] }})" class="text-red-500 hover:text-red-700 text-sm font-medium flex items-center gap-1 mt-1 transition-colors">
+                            <button wire:click="remove('{{ $item['unique_id'] }}')" class="text-red-500 hover:text-red-700 text-sm font-medium flex items-center gap-1 mt-1 transition-colors">
                                 <span class="material-icons text-sm">delete_outline</span> Eliminar
                             </button>
                         </div>

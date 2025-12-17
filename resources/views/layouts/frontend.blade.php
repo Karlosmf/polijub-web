@@ -19,7 +19,12 @@
         {{ $slot }}
     </main>
 
+    <x-footer />
+
     <x-toast />
+    <livewire:layout.floating-cart-bubble />
+    @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.frontend')] class extends Component {
     public $email;
     public $phone;
     public $firstname;

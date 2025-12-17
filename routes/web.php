@@ -74,9 +74,11 @@ Route::get('/clear/{option?}', function ($option = null) {
 Route::get('/polijub', PolijubPage::class)->name('polijub.home');
 
 use App\Livewire\Shop\ProductList;
+use App\Livewire\Delivery\OrderForm;
 use Livewire\Volt\Volt;
 
 Route::get('/tienda', ProductList::class)->name('shop.products');
+Route::get('/delivery', OrderForm::class)->name('delivery.form');
 Route::get('/nosotros', \App\Livewire\AboutUsPage::class)->name('about.index');
 
 // Admin Routes
