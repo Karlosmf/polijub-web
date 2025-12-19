@@ -144,16 +144,16 @@ new #[Layout('layouts.admin')] class extends Component {
     }
 })">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-    <x-header title="Carousel Manager" separator>
+    <x-mary-header title="Carousel Manager" separator>
         <x-slot:actions>
-            <x-button label="Add Slide" wire:click="create" class="btn-primary" />
+            <x-mary-button label="Add Slide" wire:click="create" class="btn-primary" />
         </x-slot:actions>
-    </x-header>
+    </x-mary-header>
 
     <div class="relative">
         <div wire:loading.flex wire:target="updateOrder" class="absolute inset-0 bg-white bg-opacity-75 z-10 items-center justify-center" style="display: none;">
             <div class="text-center">
-                <x-icon name="o-arrow-path" class="w-8 h-8 animate-spin mx-auto" />
+                <x-mary-icon name="o-arrow-path" class="w-8 h-8 animate-spin mx-auto" />
                 <p>Reordenando imágenes...</p>
             </div>
         </div>
@@ -165,10 +165,10 @@ new #[Layout('layouts.admin')] class extends Component {
                     <div
                         class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button class="handle cursor-grab text-white p-2 rounded-full mr-2">
-                            <x-icon name="o-arrows-pointing-out" class="w-6 h-6" />
+                            <x-mary-icon name="o-arrows-pointing-out" class="w-6 h-6" />
                         </button>
-                        <x-button icon="o-pencil" wire:click.stop="edit('{{ $slide['id'] }}')" class="btn-sm" />
-                        <x-button icon="o-trash" wire:click="delete('{{ $slide['id'] }}')" wire:confirm="Are you sure?" class="btn-sm text-red-500 bg-white" />
+                        <x-mary-button icon="o-pencil" wire:click.stop="edit('{{ $slide['id'] }}')" class="btn-sm" />
+                        <x-mary-button icon="o-trash" wire:click="delete('{{ $slide['id'] }}')" wire:confirm="Are you sure?" class="btn-sm text-red-500 bg-white" />
                     </div>
                     <div class="absolute bottom-2 left-2 text-white text-sm bg-black bg-opacity-70 px-2 py-1 rounded">
                         {{ $slide['title'] }}
@@ -178,23 +178,23 @@ new #[Layout('layouts.admin')] class extends Component {
         </div>
     </div>
 
-    <x-modal wire:model="showModal" title="{{ $isEdit ? 'Edit Slide' : 'Add new slide' }}">
-        <x-form wire:submit.prevent="save">
-            <x-file label="Image" wire:model="image" accept="image/*" />
+    <x-mary-modal wire:model="showModal" title="{{ $isEdit ? 'Edit Slide' : 'Add new slide' }}">
+        <x-mary-form wire:submit.prevent="save">
+            <x-mary-file label="Image" wire:model="image" accept="image/*" />
             @if ($image)
                 <img src="{{ $image->temporaryUrl() }}" class="h-20 w-20 object-cover mt-2">
             @elseif ($image_path)
                 <img src="{{ asset('storage/' . $image_path) }}" class="h-20 w-20 object-cover mt-2">
             @endif
-            <x-input label="Title" wire:model="title" />
-            <x-textarea label="Description" wire:model="description" />
-            <x-input label="URL" wire:model="url" />
-            <x-input label="URL Text" wire:model="url_text" />
+            <x-mary-input label="Title" wire:model="title" />
+            <x-mary-textarea label="Description" wire:model="description" />
+            <x-mary-input label="URL" wire:model="url" />
+            <x-mary-input label="URL Text" wire:model="url_text" />
 
             <x-slot:actions>
-                <x-button label="Cancel" @click="$wire.showModal = false" />
-                <x-button label="Save" type="submit" class="btn-primary" />
+                <x-mary-button label="Cancel" @click="$wire.showModal = false" />
+                <x-mary-button label="Save" type="submit" class="btn-primary" />
             </x-slot:actions>
-        </x-form>
-    </x-modal>
+        </x-mary-form>
+    </x-mary-modal>
 </div>

@@ -9,7 +9,7 @@
 </head>
 
 <body class="flex items-center justify-center min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200 bg-cover bg-center"
-  style="background-image: url({{ asset('storage/imgs/background.webp') }})">
+  style="background-image: url({{ asset('storage/imgs/background.webp') }})" data-theme="light">
   
     <div class="w-full max-w-md">
       @if(isset($slot))
@@ -17,7 +17,7 @@
       @endif
     </div>
 
-  <x-toast />
+  <x-mary-toast />
   @livewireScripts
   @stack('scripts')
 </body>

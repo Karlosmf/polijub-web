@@ -14,25 +14,25 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Detalle del Pedido #{{ $order->id }}" separator>
+    <x-mary-header title="Detalle del Pedido #{{ $order->id }}" separator>
         <x-slot:actions>
-            <x-button label="Volver" icon="o-arrow-left" link="{{ route('admin.orders') }}" />
+            <x-mary-button label="Volver" icon="o-arrow-left" link="{{ route('admin.orders') }}" />
         </x-slot:actions>
-    </x-header>
+    </x-mary-header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {{-- Order Info --}}
-        <x-card title="Información del Pedido">
+        <x-mary-card title="Información del Pedido">
             <div class="space-y-2">
                 <div><strong>Fecha:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</div>
                 <div><strong>Estado:</strong> <x-badge :value="$order->status" class="badge-info" /></div>
                 <div><strong>Total:</strong> ${{ number_format($order->total, 2) }}</div>
                 <div><strong>Método de Pago:</strong> {{ ucfirst($order->payment_method) }}</div>
             </div>
-        </x-card>
+        </x-mary-card>
 
         {{-- Customer Info --}}
-        <x-card title="Información del Cliente">
+        <x-mary-card title="Información del Cliente">
             <div class="space-y-2">
                 @if($order->user)
                     <div><strong>Usuario:</strong> {{ $order->user->name }}</div>
@@ -50,12 +50,12 @@ new #[Layout('layouts.admin')] class extends Component {
                     <div class="mt-2 text-sm text-gray-500"><strong>Notas:</strong> {{ $order->notes }}</div>
                 @endif
             </div>
-        </x-card>
+        </x-mary-card>
     </div>
 
     {{-- Order Items --}}
-    <x-card title="Productos" class="mt-6">
-        <x-table :headers="[
+    <x-mary-card title="Productos" class="mt-6">
+        <x-mary-table :headers="[
             ['key' => 'name', 'label' => 'Producto'],
             ['key' => 'price', 'label' => 'Precio Unitario'],
             ['key' => 'quantity', 'label' => 'Cantidad'],
@@ -84,5 +84,5 @@ new #[Layout('layouts.admin')] class extends Component {
                 ${{ number_format($item->price * $item->quantity, 2) }}
             @endscope
         </x-table>
-    </x-card>
+    </x-mary-card>
 </div>

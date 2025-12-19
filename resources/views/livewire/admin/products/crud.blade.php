@@ -121,36 +121,36 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header :title="$isEditing ? 'Editar Producto' : 'Nuevo Producto'" separator />
+    <x-mary-header :title="$isEditing ? 'Editar Producto' : 'Nuevo Producto'" separator />
 
     <form wire:submit="save" id="product-form">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div class="space-y-4">
-                <x-input label="Nombre" wire:model="name" placeholder="Ej: Helado de Chocolate" />
+                <x-mary-input label="Nombre" wire:model="name" placeholder="Ej: Helado de Chocolate" />
                 
-                <x-select label="Categoría" wire:model="category_id" :options="$categories" option-label="name" option-value="id" placeholder="Seleccione una categoría" />
+                <x-mary-select label="Categoría" wire:model="category_id" :options="$categories" option-label="name" option-value="id" placeholder="Seleccione una categoría" />
                 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-input label="Precio" wire:model="price" prefix="$" type="number" step="0.01" />
-                    <x-input label="Max Sabores" wire:model="max_flavors" type="number" hint="0 para sin límite/no aplica" />
+                    <x-mary-input label="Precio" wire:model="price" prefix="$" type="number" step="0.01" />
+                    <x-mary-input label="Max Sabores" wire:model="max_flavors" type="number" hint="0 para sin límite/no aplica" />
                 </div>
 
-                <x-textarea label="Descripción" wire:model="description" placeholder="Descripción del producto..." rows="3" />
+                <x-mary-textarea label="Descripción" wire:model="description" placeholder="Descripción del producto..." rows="3" />
             </div>
 
             <div class="space-y-4">
                 <div class="card bg-base-200 p-4">
                     <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Configuración</h4>
                     <div class="flex flex-col gap-2">
-                        <x-toggle label="Disponible para Delivery" wire:model="is_delivery_available" right />
-                        <x-toggle label="Producto Activo" wire:model="is_active" right />
+                        <x-mary-toggle label="Disponible para Delivery" wire:model="is_delivery_available" right />
+                        <x-mary-toggle label="Producto Activo" wire:model="is_active" right />
                     </div>
                 </div>
 
                 <div class="card bg-base-200 p-4">
                     <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Imagen</h4>
-                    <x-file wire:model="image" accept="image/png, image/jpeg, image/webp">
+                    <x-mary-file wire:model="image" accept="image/png, image/jpeg, image/webp">
                         <div class="flex items-center gap-4 cursor-pointer w-full">
                             <div class="avatar">
                                 <div class="w-20 h-20 rounded-lg border border-gray-300 bg-base-100">
@@ -179,12 +179,12 @@ new #[Layout('layouts.admin')] class extends Component {
         <div class="flex justify-between items-center mt-6">
             <div>
                 @if($isEditing)
-                    <x-button label="Eliminar" icon="o-trash" wire:click="delete" wire:confirm="¿Estás seguro de eliminar este producto?" class="btn-error btn-ghost" />
+                    <x-mary-button label="Eliminar" icon="o-trash" wire:click="delete" wire:confirm="¿Estás seguro de eliminar este producto?" class="btn-error btn-ghost" />
                 @endif
             </div>
             <div class="flex gap-2">
-                <x-button label="Cancelar" link="{{ route('admin.products') }}" />
-                <x-button label="Guardar" class="btn-primary" type="submit" spinner="save" form="product-form" />
+                <x-mary-button label="Cancelar" link="{{ route('admin.products') }}" />
+                <x-mary-button label="Guardar" class="btn-primary" type="submit" spinner="save" form="product-form" />
             </div>
         </div>
     </form>

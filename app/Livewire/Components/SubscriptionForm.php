@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use Livewire\Volt\Component;
 
@@ -8,6 +8,6 @@ class SubscriptionForm extends Component
 {
     public function render(): mixed
     {
-        return view('livewire.subscription-form');
+        return view('livewire.components.subscription-form');
     }
 }

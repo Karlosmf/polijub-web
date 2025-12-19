@@ -1,6 +1,6 @@
 <x-app-layout>
-    <livewire:hero-section />
-    <livewire:sabores-section />
+    <livewire:components.hero-section />
+    <livewire:components.flavors-section />
     <x-natural-section />
     <x-parallax-section />
 

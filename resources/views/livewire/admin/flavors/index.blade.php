@@ -23,16 +23,16 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Administrar Sabores" subtitle="Gestión de gustos de helado" separator progress-indicator>
+    <x-mary-header title="Administrar Sabores" subtitle="Gestión de gustos de helado" separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <x-input icon="o-magnifying-glass" placeholder="Buscar sabor..." wire:model.live.debounce="search" />
+            <x-mary-input icon="o-magnifying-glass" placeholder="Buscar sabor..." wire:model.live.debounce="search" />
         </x-slot:middle>
         <x-slot:actions>
-            <x-button icon="o-plus" class="btn-primary" link="{{ route('admin.flavors.create') }}" label="Nuevo Sabor" />
+            <x-mary-button icon="o-plus" class="btn-primary" link="{{ route('admin.flavors.create') }}" label="Nuevo Sabor" />
         </x-slot:actions>
-    </x-header>
+    </x-mary-header>
 
-    <x-table :headers="[
+    <x-mary-table :headers="[
         ['key' => 'id', 'label' => '#'],
         ['key' => 'image', 'label' => 'Imagen'],
         ['key' => 'name', 'label' => 'Nombre'],

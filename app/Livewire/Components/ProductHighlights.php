@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Components;
 
 use App\Models\Product;
 use Livewire\Volt\Component;
@@ -11,7 +11,7 @@ class ProductHighlights extends Component
     {
         $products = Product::latest()->take(3)->get();
 
-        return view('livewire.product-highlights', [
+        return view('livewire.components.product-highlights', [
             'products' => $products,
         ]);
     }

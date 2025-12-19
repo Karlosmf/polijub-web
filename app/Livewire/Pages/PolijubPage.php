@@ -1,5 +1,5 @@
 <?php
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 /**
@@ -21,6 +21,6 @@ public function render(): mixed
 {
 // Retorna la vista Blade asociada a este componente.
 // Utiliza el layout 'layouts.app' como plantilla base.
-return view('livewire.polijub-page');
+return view('livewire.pages.polijub-page');
 }
 }

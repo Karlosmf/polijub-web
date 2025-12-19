@@ -19,9 +19,9 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Pedidos" subtitle="Gestión de órdenes de compra" separator progress-indicator />
+    <x-mary-header title="Pedidos" subtitle="Gestión de órdenes de compra" separator progress-indicator />
 
-    <x-table :headers="[
+    <x-mary-table :headers="[
         ['key' => 'id', 'label' => '#'],
         ['key' => 'guest_name', 'label' => 'Cliente'],
         ['key' => 'total', 'label' => 'Total'],

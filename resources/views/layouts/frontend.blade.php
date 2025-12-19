@@ -21,7 +21,7 @@
 
     <x-footer />
 
-    <x-toast />
+    <x-mary-toast />
     <livewire:layout.floating-cart-bubble />
     @livewireScripts
     @stack('scripts')

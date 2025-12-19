@@ -22,16 +22,16 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Administrar Productos" subtitle="Gestión del catálogo de Polijub" separator progress-indicator>
+    <x-mary-header title="Administrar Productos" subtitle="Gestión del catálogo de Polijub" separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <x-input icon="o-magnifying-glass" placeholder="Buscar..." wire:model.live.debounce="search" />
+            <x-mary-input icon="o-magnifying-glass" placeholder="Buscar..." wire:model.live.debounce="search" />
         </x-slot:middle>
         <x-slot:actions>
-            <x-button icon="o-plus" class="btn-primary" link="{{ route('admin.products.create') }}" label="Nuevo Producto" />
+            <x-mary-button icon="o-plus" class="btn-primary" link="{{ route('admin.products.create') }}" label="Nuevo Producto" />
         </x-slot:actions>
-    </x-header>
+    </x-mary-header>
 
-    <x-table :headers="[
+    <x-mary-table :headers="[
         ['key' => 'id', 'label' => '#'],
         ['key' => 'image', 'label' => 'Imagen'],
         ['key' => 'name', 'label' => 'Nombre'],

@@ -107,14 +107,14 @@ new #[Layout('layouts.admin')] class extends Component {
 }; ?>
 
 <div>
-    <x-header :title="$isEditing ? 'Editar Sabor' : 'Nuevo Sabor'" separator />
+    <x-mary-header :title="$isEditing ? 'Editar Sabor' : 'Nuevo Sabor'" separator />
 
     <form wire:submit="save" id="flavor-form">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-4">
-                <x-input label="Nombre del Gusto" wire:model="name" placeholder="Ej: Chocolate Suizo" />
+                <x-mary-input label="Nombre del Gusto" wire:model="name" placeholder="Ej: Chocolate Suizo" />
                 
-                <x-textarea label="Descripción" wire:model="description" placeholder="Breve descripción del sabor..." rows="3" />
+                <x-mary-textarea label="Descripción" wire:model="description" placeholder="Breve descripción del sabor..." rows="3" />
                 
                 {{-- Multi-select for Tags --}}
                 <x-choices label="Categorías" wire:model="tags" :options="$availableTags" option-label="name" option-value="id" searchable />
@@ -123,7 +123,7 @@ new #[Layout('layouts.admin')] class extends Component {
             <div class="space-y-4">
                 <div class="card bg-base-200 p-4">
                     <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Imagen</h4>
-                    <x-file wire:model="image" accept="image/png, image/jpeg, image/webp">
+                    <x-mary-file wire:model="image" accept="image/png, image/jpeg, image/webp">
                         <div class="flex items-center gap-4">
                             <img src="{{ $image ? $image->temporaryUrl() : ($imageUrl ?: '/images/default.webp') }}" class="h-20 w-20 rounded-lg object-cover border" onerror="this.onerror=null;this.src='/images/default.webp';" />
                             <div class="text-sm text-gray-500">
@@ -134,19 +134,19 @@ new #[Layout('layouts.admin')] class extends Component {
                     </x-file>
                 </div>
 
-                <x-toggle label="Sabor Activo" wire:model="is_active" right />
+                <x-mary-toggle label="Sabor Activo" wire:model="is_active" right />
             </div>
         </div>
     
         <div class="flex justify-between items-center mt-6">
             <div>
                 @if($isEditing)
-                    <x-button label="Eliminar" icon="o-trash" wire:click="delete" wire:confirm="¿Estás seguro de eliminar este sabor?" class="btn-error btn-ghost" />
+                    <x-mary-button label="Eliminar" icon="o-trash" wire:click="delete" wire:confirm="¿Estás seguro de eliminar este sabor?" class="btn-error btn-ghost" />
                 @endif
             </div>
             <div class="flex gap-2">
-                <x-button label="Cancelar" link="{{ route('admin.flavors') }}" />
-                <x-button label="Guardar" class="btn-primary" type="submit" spinner="save" form="flavor-form" />
+                <x-mary-button label="Cancelar" link="{{ route('admin.flavors') }}" />
+                <x-mary-button label="Guardar" class="btn-primary" type="submit" spinner="save" form="flavor-form" />
             </div>
         </div>
     </form>

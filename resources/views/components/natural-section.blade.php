@@ -16,7 +16,7 @@
                     Tenemos el orgullo de poder decir que nuestra materia prima principal, la leche, es de nuestra elaboración. Nadie mejor que nosotros para saber cómo crecen nuestras mejores socias.
                 </p>
                 <div class="mt-8">
-                    <x-button label="Descubrir más de 100%NAT" class="btn-primary bg-emerald-500 hover:bg-emerald-600 border-none text-white" link="#" />
+                    <x-mary-button label="Descubrir más de 100%NAT" class="btn-primary bg-emerald-500 hover:bg-emerald-600 border-none text-white" link="#" />
                 </div>
             </div>
 

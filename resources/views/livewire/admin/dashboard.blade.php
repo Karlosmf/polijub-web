@@ -1,12 +1,12 @@
 <div>
-    <x-header title="Dashboard" separator progress-indicator>
+    <x-mary-header title="Dashboard" separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <x-button icon="o-arrow-path" class="btn-ghost btn-sm" wire:click="$refresh" />
+            <x-mary-button icon="o-arrow-path" class="btn-ghost btn-sm" wire:click="$refresh" />
         </x-slot:middle>
         <x-slot:actions>
-            <x-button label="Generar Reporte" icon="o-document-chart-bar" class="btn-primary" />
+            <x-mary-button label="Generar Reporte" icon="o-document-chart-bar" class="btn-primary" />
         </x-slot:actions>
-    </x-header>
+    </x-mary-header>
 
     {{-- Stats Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -23,11 +23,11 @@
             <div class="card-body p-0">
                 <div class="p-4 border-b border-base-200 flex justify-between items-center">
                     <h3 class="font-bold text-lg">Pedidos Recientes</h3>
-                    <x-button label="Ver Todo" link="#" class="btn-ghost btn-xs" />
+                    <x-mary-button label="Ver Todo" link="#" class="btn-ghost btn-xs" />
                 </div>
 
                 @if($recentOrders->count() > 0)
-                            <x-table :headers="[
+                            <x-mary-table :headers="[
                         ['key' => 'id', 'label' => '#'],
                         ['key' => 'user.name', 'label' => 'Cliente'],
                         ['key' => 'total', 'label' => 'Total'],
@@ -52,7 +52,7 @@
                             </x-table>
                 @else
                     <div class="p-10 text-center text-gray-500">
-                        <x-icon name="o-inbox" class="w-12 h-12 mx-auto opacity-50 mb-2" />
+                        <x-mary-icon name="o-inbox" class="w-12 h-12 mx-auto opacity-50 mb-2" />
                         <p>No hay pedidos recientes.</p>
                     </div>
                 @endif
@@ -65,13 +65,13 @@
                 <div class="card-body">
                     <h3 class="card-title text-base mb-4">Acciones Rápidas</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <x-button icon="o-cube" label="Nuevo Producto"
+                        <x-mary-button icon="o-cube" label="Nuevo Producto"
                             link="{{ route('admin.products', ['create' => true]) }}" class="btn-outline" />
-                        <x-button icon="o-beaker" label="Nuevo Sabor"
+                        <x-mary-button icon="o-beaker" label="Nuevo Sabor"
                             link="{{ route('admin.flavors', ['create' => true]) }}" class="btn-outline" />
-                        <x-button icon="o-tag" label="Nueva Etiqueta"
+                        <x-mary-button icon="o-tag" label="Nueva Etiqueta"
                             link="{{ route('admin.tags', ['create' => true]) }}" class="btn-outline" />
-                        <x-button icon="o-users" label="Usuarios" class="btn-outline" disabled />
+                        <x-mary-button icon="o-users" label="Usuarios" class="btn-outline" disabled />
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     <p>Bienvenido al panel de administración. Revisa las estadísticas y gestiona tu catálogo fácilmente.
                     </p>
                     <div class="card-actions justify-end">
-                        <x-button label="Ir a la Tienda" link="/" class="btn-secondary" />
+                        <x-mary-button label="Ir a la Tienda" link="/" class="btn-secondary" />
                     </div>
                 </div>
             </div>

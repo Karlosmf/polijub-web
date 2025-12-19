@@ -28,11 +28,11 @@ new class extends Component {
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a href="/tienda"
+                    <a href="{{ route('shop.products') }}"
                         class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                         Tienda
                     </a>
-                    <a href="/delivery"
+                    <a href="{{ route('delivery.form') }}"
                         class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                         Delivery
                     </a>
@@ -61,7 +61,7 @@ new class extends Component {
                         <div x-show="open" @click.away="open = false"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                             <div class="py-1">
-                                <a href="/profile"
+                                <a href="{{ route('profile') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
                                 <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log
                                     Out</a>
@@ -93,11 +93,11 @@ new class extends Component {
     <!-- Mobile Menu Content -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <a href="/tienda"
+            <a href="{{ route('shop.products') }}"
                 class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                 Tienda
             </a>
-            <a href="/delivery"
+            <a href="{{ route('delivery.form') }}"
                 class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                 Delivery
             </a>
@@ -110,7 +110,7 @@ new class extends Component {
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <a href="/profile"
+                    <a href="{{ route('profile') }}"
                         class="block px-4 py-2 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 focus:outline-none focus:text-gray-800 focus:bg-gray-50 transition duration-150 ease-in-out">
                         Profile
                     </a>

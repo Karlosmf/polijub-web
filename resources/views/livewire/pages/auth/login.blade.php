@@ -41,14 +41,14 @@ new #[Layout('layouts.login')] class extends Component {
     <form wire:submit="login">
         <!-- Email Address -->
         <div>
-            <x-input wire:model="form.email" id="email" type="email" name="email" required autofocus
+            <x-mary-input wire:model="form.email" id="email" type="email" name="email" required autofocus
                 autocomplete="username" label="Email" />
             <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input wire:model="form.password" id="password" type="password" name="password" required
+            <x-mary-input wire:model="form.password" id="password" type="password" name="password" required
                 autocomplete="current-password" label="Contraseña" />
 
             <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
@@ -56,20 +56,20 @@ new #[Layout('layouts.login')] class extends Component {
 
         <!-- Remember Me -->
         <div class="block mt-4">
-            <x-toggle wire:model="form.remember" id="remember" label="Recordarme" />
+            <x-mary-toggle wire:model="form.remember" id="remember" label="Recordarme" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('password.request') }}" wire:navigate>
-                    {{ __('Forgot your password?') }}
+                    {{ __('Olvidó su contraseña?') }}
                 </a>
             @endif
 
-            <x-button class="ms-3" type="submit">
-                {{ __('Log in') }}
-            </x-button>
+            <x-mary-button class="ms-3 btn-success" icon="phosphor.sign-in" type="submit">
+                {{ __('Iniciar Sesión') }}
+            </x-mary-button>
         </div>
     </form>
 </div>

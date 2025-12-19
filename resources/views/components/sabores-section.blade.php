@@ -8,7 +8,7 @@
                 Siempre es un buen momento para descubrir nuestros nuevos sabores. Probamos cosas ricas que nos gustan a todos y las convertimos en helado de la mejor calidad.
             </p>
             <div class="mt-8">
-                <x-button label="CONÓCELOS TODOS" class="btn-primary bg-cyan-500 hover:bg-cyan-600 border-none text-white" link="#" />
+                <x-mary-button label="CONÓCELOS TODOS" class="btn-primary bg-cyan-500 hover:bg-cyan-600 border-none text-white" link="#" />
             </div>
         </div>
         <div class="absolute bottom-0 inset-x-0 z-0">

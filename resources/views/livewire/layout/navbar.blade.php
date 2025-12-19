@@ -41,7 +41,7 @@ new class extends Component {
 
                     <a href="{{ route('shop.products') }}"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">PRODUCTOS</a>
-                    <a href="{{ route('sabores.index') }}"
+                    <a href="{{ route('flavors.index') }}"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">SABORES</a>
                     <a href="#"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">NOSOTROS</a>
@@ -54,22 +54,22 @@ new class extends Component {
                 {{-- Bloque Derecho: Acciones (Escritorio) --}}
                 <div class="flex items-center space-x-6 max-md:hidden">
                     @auth
-                        <x-dropdown right>
+                        <x-mary-dropdown right>
                             <x-slot:trigger>
                                 <button
                                     class="flex items-center space-x-2 text-white font-medium hover:text-brand-secondary transition-colors duration-200">
-                                    <x-icon name="o-user" class="h-6 w-6" />
+                                    <x-mary-icon name="o-user" class="h-6 w-6" />
                                     <span>{{ Auth::user()->name }}</span>
-                                    <x-icon name="o-chevron-down" class="h-4 w-4" />
+                                    <x-mary-icon name="o-chevron-down" class="h-4 w-4" />
                                 </button>
                             </x-slot:trigger>
-                            <x-menu-item title="Mi Perfil" link="{{ route('admin.profile') }}" />
-                            <x-menu-item title="Cerrar Sesión" link="/logout" class="text-error" />
-                        </x-dropdown>
+                            <x-mary-menu-item title="Mi Perfil" link="{{ route('admin.profile') }}" />
+                            <x-mary-menu-item title="Cerrar Sesión" link="/logout" class="text-error" />
+                        </x-mary-dropdown>
                     @else
                         <a href="{{ route('login') }}"
                             class="flex items-center space-x-2 text-white font-medium hover:text-brand-secondary transition-colors duration-200">
-                            <x-icon name="o-user" class="h-6 w-6" />
+                            <x-mary-icon name="o-user" class="h-6 w-6" />
                             <span>Entrar</span>
                         </a>
                     @endauth
@@ -79,7 +79,7 @@ new class extends Component {
                 <div class="hidden max-md:flex items-center">
                     <label for="mobile-drawer"
                         class="p-2 rounded-md hover:bg-white/20 focus:outline-none transition-colors cursor-pointer">
-                        <x-icon name="o-bars-3" class="h-6 w-6" />
+                        <x-mary-icon name="o-bars-3" class="h-6 w-6" />
                     </label>
                 </div>
             </div>
@@ -87,13 +87,13 @@ new class extends Component {
     </nav>
 
     {{-- MOBILE MENU DRAWER --}}
-    <x-drawer id="mobile-drawer" class="hidden max-md:block bg-brand-primary" right with-close-button>
+    <x-mary-drawer id="mobile-drawer" class="hidden max-md:block bg-brand-primary" right with-close-button>
         <div class="flex flex-col items-center space-y-4 py-8 px-4 text-white h-full overflow-y-auto">
 
             {{-- Acordeón PRODUCTOS --}}
             <a href="{{ route('shop.products') }}"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">PRODUCTOS</a>
-            <a href="{{ route('sabores.index') }}"
+            <a href="{{ route('flavors.index') }}"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">SABORES</a>
             <a href="#"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">NOSOTROS</a>
@@ -112,5 +112,5 @@ new class extends Component {
 
             </div>
         </div>
-    </x-drawer>
+    </x-mary-drawer>
 </div>

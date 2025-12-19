@@ -1,22 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\PolijubPage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
+use App\Livewire\Pages\PolijubPage;
+use App\Livewire\Pages\AboutUsPage;
+use App\Livewire\Shop\ProductList;
+use App\Livewire\Delivery\OrderForm;
+use Livewire\Volt\Volt;
+use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\TagManager;
+use App\Livewire\Admin\Profile;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Aquí es donde puedes registrar las rutas web para tu aplicación. Estas
-| rutas son cargadas por el RouteServiceProvider y todas ellas
-| serán asignadas al grupo de middleware "web".
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group.
 |
 */
 
 /**
  * @route GET /
- * @description Muestra la página de bienvenida por defecto de Laravel.
+ * @description Displays the default Laravel welcome page.
  */
 Route::get('/', function () {
     return view('home');
@@ -27,7 +36,7 @@ Route::get('/logout', function () {
     request()->session()->invalidate();
     request()->session()->regenerateToken();
     request()->session()->flush();
-    request()->session()->forget('is_guest_login'); // Eliminar la bandera de invitado
+    request()->session()->forget('is_guest_login'); // Remove guest flag
     return redirect('/');
 });
 
@@ -67,23 +76,20 @@ Route::get('/clear/{option?}', function ($option = null) {
 
 /**
  * @route GET /polijub
- * @description Define la ruta principal para la landing page de Polijub.
- * Carga el componente de Livewire 'PolijubPage' que renderizará la vista completa.
- * Se le asigna el nombre 'polijub.home' para facilitar la referencia en la aplicación.
+ * @description Defines the main route for the Polijub landing page.
+ * Loads the Livewire 'PolijubPage' component which will render the full view.
+ * Named 'polijub.home' for easy reference in the application.
  */
 Route::get('/polijub', PolijubPage::class)->name('polijub.home');
 
-use App\Livewire\Shop\ProductList;
-use App\Livewire\Delivery\OrderForm;
-use Livewire\Volt\Volt;
 
-Route::get('/tienda', ProductList::class)->name('shop.products');
+Route::get('/shop', ProductList::class)->name('shop.products');
 Route::get('/delivery', OrderForm::class)->name('delivery.form');
-Route::get('/nosotros', \App\Livewire\AboutUsPage::class)->name('about.index');
+Route::get('/about-us', AboutUsPage::class)->name('about.index');
 
 // Admin Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
     
     // Product Routes
     Volt::route('/products', 'admin.products.index')->name('products');
@@ -99,25 +105,25 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Volt::route('/orders', 'admin.orders.index')->name('orders');
     Volt::route('/orders/{order}', 'admin.orders.show')->name('orders.show');
 
-    Route::get('/tags', \App\Livewire\Admin\TagManager::class)->name('tags');
-    Volt::route('/carousel', 'carousel-manager')->name('carousel');
-    Route::get('/perfil', \App\Livewire\Admin\Profile::class)->name('profile');
+    Route::get('/tags', TagManager::class)->name('tags');
+    Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');
+    Route::get('/profile', Profile::class)->name('profile');
 });
 
-Volt::route('/sabores', 'saborespage')->name('sabores.index');
+Volt::route('/flavors', 'pages.flavors-page')->name('flavors.index');
 
 // Checkout Routes
 Volt::route('/checkout/cart', 'checkout.cart-review')->name('checkout.cart');
 Volt::route('/checkout/delivery', 'checkout.delivery-info')->name('checkout.delivery');
 Volt::route('/checkout/payment', 'checkout.payment-details')->name('checkout.payment');
 
-// Rutas provisionales para la sección "100% NATURAL"
+// Provisional routes for "100% NATURAL" section
 Route::get('/natural-products', function () {
-    return 'Página de Productos Naturales - En construcción';
+    return 'Natural Products Page - Under Construction';
 })->name('natural_products');
 
 Route::get('/los-nenitos', function () {
-    return 'Página de Establecimiento Los Nenitos - En construcción';
+    return 'Los Nenitos Establishment Page - Under Construction';
 })->name('los_nenitos_establishment');
 
 require __DIR__ . '/auth.php';

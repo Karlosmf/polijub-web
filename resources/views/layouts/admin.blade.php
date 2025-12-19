@@ -22,19 +22,19 @@
 
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
     {{-- NAVBAR mobile only --}}
-    <x-nav sticky class="lg:hidden">
+    <x-mary-nav sticky class="lg:hidden">
         <x-slot:brand>
              <div class="ml-5 pt-5 text-2xl font-bold text-brand-primary">Polijub</div>
         </x-slot:brand>
         <x-slot:actions>
             <label for="main-drawer" class="lg:hidden me-3">
-                <x-icon name="o-bars-3" class="cursor-pointer" />
+                <x-mary-icon name="o-bars-3" class="cursor-pointer" />
             </label>
         </x-slot:actions>
-    </x-nav>
+    </x-mary-nav>
 
     {{-- MAIN --}}
-    <x-main>
+    <x-mary-main>
         {{-- SIDEBAR --}}
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
@@ -52,52 +52,52 @@
             </div>
 
             {{-- MENU --}}
-            <x-menu activate-by-route>
+            <x-mary-menu activate-by-route>
 
                 {{-- User --}}
                 @if($user = auth()->user())
-                    <x-list-item :item="$user" value="name" sub-value="email" no-separator no-hover class="mb-5 -mx-2 rounded-lg bg-base-200/50 border border-base-200">
+                    <x-mary-list-item :item="$user" value="name" sub-value="email" no-separator no-hover class="mb-5 -mx-2 rounded-lg bg-base-200/50 border border-base-200">
                          <x-slot:actions>
-                            <x-button icon="o-power" class="btn-circle btn-ghost btn-xs hover:text-error"
+                            <x-mary-button icon="o-power" class="btn-circle btn-ghost btn-xs hover:text-error"
                                 tooltip-left="SALIR" no-wire-navigate link="/logout" />
                         </x-slot:actions>
-                    </x-list-item>
+                    </x-mary-list-item>
                 @endif
 
-                <x-menu-sub title="Gestión" icon="o-squares-2x2">
-                    <x-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
-                    <x-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
-                    <x-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
-                </x-menu-sub>
+                <x-mary-menu-sub title="Gestión" icon="o-squares-2x2">
+                    <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
+                    <x-mary-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
+                    <x-mary-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
+                </x-mary-menu-sub>
 
-                <x-menu-sub title="Catálogo" icon="o-cube" open>
-                    <x-menu-item title="Productos" icon="o-cube" link="{{ route('admin.products') }}" />
-                    <x-menu-item title="Sabores" icon="o-beaker" link="{{ route('admin.flavors') }}" />
-                    <x-menu-item title="Etiquetas" icon="o-tag" link="{{ route('admin.tags') }}" />
-                </x-menu-sub>
+                <x-mary-menu-sub title="Catálogo" icon="o-cube" open>
+                    <x-mary-menu-item title="Productos" icon="o-cube" link="{{ route('admin.products') }}" />
+                    <x-mary-menu-item title="Sabores" icon="o-beaker" link="{{ route('admin.flavors') }}" />
+                    <x-mary-menu-item title="Etiquetas" icon="o-tag" link="{{ route('admin.tags') }}" />
+                </x-mary-menu-sub>
 
-                <x-menu-separator />
+                <x-mary-menu-separator />
 
-                <x-menu-item title="Ver Sitio Web" icon="o-globe-alt" link="/" external />
+                <x-mary-menu-item title="Ver Sitio Web" icon="o-globe-alt" link="/" external />
                 
-                <x-menu-separator />
+                <x-mary-menu-separator />
                 
                 {{-- Theme Toggle --}}
                 <div class="px-4 mt-2">
-                    <x-theme-toggle class="btn btn-circle btn-ghost" />
+                    <x-mary-theme-toggle class="btn btn-circle btn-ghost" />
                 </div>
 
-            </x-menu>
+            </x-mary-menu>
         </x-slot:sidebar>
 
         {{-- The `$slot` goes here --}}
         <x-slot:content>
             {{ $slot }}
         </x-slot:content>
-    </x-main>
+    </x-mary-main>
 
     {{-- TOAST area --}}
-    <x-toast />
+    <x-mary-toast />
     @livewireScripts
     @stack('scripts')
 </body>
