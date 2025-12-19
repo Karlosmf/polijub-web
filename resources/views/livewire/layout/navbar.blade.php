@@ -43,9 +43,9 @@ new class extends Component {
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">PRODUCTOS</a>
                     <a href="{{ route('flavors.index') }}"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">SABORES</a>
-                    <a href="#"
+                    <a href="{{ route('contact.index') }}"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">NOSOTROS</a>
-                    <a href="#"
+                    <a href="{{ route('contact.index') }}"
                         class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">CONTACTO
                     </a>
 
@@ -95,9 +95,9 @@ new class extends Component {
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">PRODUCTOS</a>
             <a href="{{ route('flavors.index') }}"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">SABORES</a>
-            <a href="#"
+            <a href="{{ route('contact.index') }}"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">NOSOTROS</a>
-            <a href="#"
+            <a href="{{ route('contact.index') }}"
                 class="text-white font-medium hover:text-brand-secondary transition-colors duration-200">CONTACTO</a>
 
             <div class="border-t border-white/20 w-3/4 pt-6 flex flex-col items-center space-y-6">

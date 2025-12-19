@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Pages\PolijubPage;
-use App\Livewire\Pages\AboutUsPage;
+use App\Livewire\Contact;
 use App\Livewire\Shop\ProductList;
 use App\Livewire\Delivery\OrderForm;
 use Livewire\Volt\Volt;
@@ -85,7 +85,7 @@ Route::get('/polijub', PolijubPage::class)->name('polijub.home');
 
 Route::get('/shop', ProductList::class)->name('shop.products');
 Route::get('/delivery', OrderForm::class)->name('delivery.form');
-Route::get('/about-us', AboutUsPage::class)->name('about.index');
+Route::get('/contact', Contact::class)->name('contact.index');
 
 // Admin Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {

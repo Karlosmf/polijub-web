@@ -67,11 +67,10 @@
                 <x-mary-menu-item title="PRECIOS" icon="o-currency-dollar" link="#" />
 
                 <x-mary-menu-sub title="NOSOTROS" icon="o-users">
-                    <x-mary-menu-item title="SUSCRIPCIONES" link="{{ route('about.index') }}#suscripciones" />
                     <x-mary-menu-item title="PREGUNTAS" link="#" />
-                    <x-mary-menu-item title="CONTACTO" link="{{ route('about.index') }}#contacto" />
-                    <x-mary-menu-item title="ENVIANOS TU CV" link="{{ route('about.index') }}#cv" />
-                    <x-mary-menu-item title="FRANQUICIAS" link="{{ route('about.index') }}#franquicias" />
+                    <x-mary-menu-item title="CONTACTO" link="{{ route('contact.index') }}#contacto" />
+                    <x-mary-menu-item title="ENVIANOS TU CV" link="{{ route('contact.index') }}#cv" />
+                    <x-mary-menu-item title="FRANQUICIAS" link="{{ route('contact.index') }}#franquicias" />
                 </x-mary-menu-sub>
 
                 <x-mary-menu-item title="MÁS" icon="o-ellipsis-horizontal" link="#" />
