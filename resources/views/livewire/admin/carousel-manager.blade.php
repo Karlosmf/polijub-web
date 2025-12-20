@@ -129,20 +129,22 @@ new #[Layout('layouts.admin')] class extends Component {
     }
 }; ?>
 
-<div x-data="{}" x-init="$nextTick(() => {
-    if (typeof Sortable !== 'undefined') {
-        new Sortable($refs.imageList, {
+<div x-data="{
+    initSortable() {
+        if (typeof Sortable === 'undefined') {
+            setTimeout(() => this.initSortable(), 100);
+            return;
+        }
+        new Sortable(this.$refs.imageList, {
             animation: 200,
-            handle: '.handle', // Drag handle
-            onEnd: function (evt) {
+            handle: '.handle',
+            onEnd: (evt) => {
                 const orderedIds = Array.from(evt.to.children).map(item => ({ value: item.dataset.id }));
                 @this.call('updateOrder', orderedIds);
             },
         });
-    } else {
-        console.warn('SortableJS not loaded');
     }
-})">
+}" x-init="initSortable()">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <x-mary-header title="Carousel Manager" separator>
         <x-slot:actions>
