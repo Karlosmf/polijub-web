@@ -26,6 +26,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => 'Cucurucho',
                 'description' => 'Crocante cucurucho con 2 bochas de helado a elección.',
+                'max_flavors' => 2,
                 'price' => 2500.00,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp', // Placeholder
@@ -35,6 +36,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => '1/4 kg Helado',
                 'description' => 'Pote de un cuarto kilo. Hasta 3 sabores.',
+                'max_flavors' => 3,
                 'price' => 4500.00,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',
@@ -44,6 +46,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => '1/2 kg Helado',
                 'description' => 'Pote de medio kilo. Hasta 4 sabores.',
+                'max_flavors' => 4,
                 'price' => 8000.00,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',
@@ -53,6 +56,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => '1 kg Helado',
                 'description' => 'Pote de un kilo. Hasta 5 sabores.',
+                'max_flavors' => 4,
                 'price' => 15000.00,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',

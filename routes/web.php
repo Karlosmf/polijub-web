@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Pages\PolijubPage;
-use App\Livewire\Contact;
+use App\Livewire\Pages\Contact;
+Route::get('/contact', Contact::class)->name('contact.index');
 use App\Livewire\Shop\ProductList;
 use App\Livewire\Delivery\OrderForm;
 use Livewire\Volt\Volt;
@@ -116,11 +117,10 @@ Volt::route('/flavors', 'pages.flavors-page')->name('flavors.index');
 Volt::route('/checkout/cart', 'checkout.cart-review')->name('checkout.cart');
 Volt::route('/checkout/delivery', 'checkout.delivery-info')->name('checkout.delivery');
 Volt::route('/checkout/payment', 'checkout.payment-details')->name('checkout.payment');
+Volt::route('/checkout/success', 'checkout.order-success')->name('checkout.success');
 
 // Provisional routes for "100% NATURAL" section
-Route::get('/natural-products', function () {
-    return 'Natural Products Page - Under Construction';
-})->name('natural_products');
+Route::get('/about', \App\Livewire\Pages\About::class)->name('about.index');
 
 Route::get('/los-nenitos', function () {
     return 'Los Nenitos Establishment Page - Under Construction';

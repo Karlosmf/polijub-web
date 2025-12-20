@@ -45,10 +45,11 @@ class ProductList extends Component
     public function openFlavorSelectionModal(Product $product): void
     {
         $quantity = $this->quantities[$product->id] ?? 1;
-        $this->dispatch('open-flavor-modal', 
-            productId: $product->id, 
-            productName: $product->name, 
-            quantity: $quantity, 
+        $this->dispatch(
+            'open-flavor-modal',
+            productId: $product->id,
+            productName: $product->name,
+            quantity: $quantity,
             maxFlavors: $product->max_flavors
         );
     }
@@ -57,22 +58,22 @@ class ProductList extends Component
     public function addToCart(int $productId, array $flavors = []): void
     {
         $quantity = $this->quantities[$productId] ?? 1;
-        
+
         $cart = session()->get('cart', []);
-        
+
         if (isset($cart[$productId])) {
             // If product already in cart, check if it has same flavors, otherwise add as new item
             // For simplicity now, if flavors are selected, treat as new unique item
             // If no flavors selected and product already exists, just update quantity
             if (empty($flavors) && empty($cart[$productId]['flavors'])) {
-                 $cart[$productId]['quantity'] += $quantity;
+                $cart[$productId]['quantity'] += $quantity;
             } else {
                 // To store flavors, we need to generate a unique key for the item if flavors differ
                 // For now, let's just make a new entry with a unique ID based on product+flavors
                 $product = Product::find($productId);
                 if ($product) {
                     $itemHash = md5($productId . serialize($flavors)); // Unique hash for product+flavors combination
-                    
+
                     if (isset($cart[$itemHash])) {
                         $cart[$itemHash]['quantity'] += $quantity;
                     } else {
@@ -107,7 +108,7 @@ class ProductList extends Component
         } else {
             $product = Product::find($productId);
             if ($product) {
-                 // Determine image URL
+                // Determine image URL
                 $image = $product->image;
                 if (str_starts_with($image, 'http')) {
                     $imageUrl = $image;
@@ -135,11 +136,11 @@ class ProductList extends Component
                 ];
             }
         }
-        
+
         session()->put('cart', $cart);
-        
-        $this->dispatch('product-added-to-cart'); 
-        $this->success('Producto agregado al carrito');
+
+        $this->dispatch('product-added-to-cart');
+        $this->success('Producto agregado al carrito', timeout: 1000);
     }
 
     public function render(): mixed

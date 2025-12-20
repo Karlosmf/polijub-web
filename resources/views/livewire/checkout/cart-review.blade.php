@@ -82,6 +82,26 @@ new #[Layout('layouts.frontend')] class extends Component {
                                     {{ $item['name'] }}
                                 </h3>
                                 <p class="text-sm mb-3">{{ $item['description'] }}</p>
+                                
+                                {{-- Visual Flavors Display --}}
+                                @if(!empty($item['flavors']))
+                                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-4 mt-2">
+                                        @php 
+                                            $flavors = \App\Models\Flavor::whereIn('id', $item['flavors'])->get();
+                                        @endphp
+                                        @foreach($flavors as $flavor)
+                                            <div class="flex items-center gap-2 bg-base-200/50 rounded-full pr-3 border border-base-300 shadow-xs transition-all hover:bg-base-200 group/flavor">
+                                                <div class="w-6 h-6 rounded-full overflow-hidden ring-1 ring-base-300 flex-shrink-0" style="background-color: {{ $flavor->color ?? '#eee' }}">
+                                                    @if($flavor->image)
+                                                        <img src="{{ asset($flavor->image) }}" alt="{{ $flavor->name }}" class="w-full h-full object-cover">
+                                                    @endif
+                                                </div>
+                                                <span class="text-[9px] font-bold uppercase text-base-content/70 whitespace-nowrap group-hover/flavor:text-brand-primary transition-colors">{{ $flavor->name }}</span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <div class="rounded-full bg-brand-primary text-white px-2 inline-block">
                                     <x-mary-icon label="Delivery" name="o-truck" />
                                 </div>

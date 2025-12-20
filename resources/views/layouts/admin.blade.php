@@ -41,7 +41,7 @@
             {{-- BRAND --}}
             <div class="p-6 pt-8 flex items-center gap-3">
                 <div class="avatar">
-                    <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <div class="w-11 rounded-full">
                         <img src="{{ asset('images/logo.webp') }}" alt="Polijub Logo" onerror="this.src='https://via.placeholder.com/40'" />
                     </div>
                 </div>

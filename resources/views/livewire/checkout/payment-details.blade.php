@@ -88,9 +88,9 @@ new #[Layout('layouts.frontend')] class extends Component {
         });
 
         session()->forget(['cart', 'delivery_info']);
-        session()->flash('success', 'Pedido realizado con éxito!');
+        // session()->flash('success', 'Pedido realizado con éxito!'); // Handled by the success page now
         $this->dispatch('cart-updated');
-        $this->redirect('/');
+        $this->redirect(route('checkout.success'), navigate: true);
     }
 }; ?>
 

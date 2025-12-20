@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -18,7 +18,7 @@ class Contact extends Component
     #[Layout('layouts.frontend')]
     public function render()
     {
-        return view('livewire.contact');
+        return view('livewire.pages.contact');
     }
 
     public function sendCV()

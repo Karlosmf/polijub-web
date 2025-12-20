@@ -67,6 +67,7 @@
                 <x-mary-menu-item title="PRECIOS" icon="o-currency-dollar" link="#" />
 
                 <x-mary-menu-sub title="NOSOTROS" icon="o-users">
+                    <x-mary-menu-item title="SOBRE NOSOTROS" link="{{ route('about.index') }}" />
                     <x-mary-menu-item title="PREGUNTAS" link="#" />
                     <x-mary-menu-item title="CONTACTO" link="{{ route('contact.index') }}#contacto" />
                     <x-mary-menu-item title="ENVIANOS TU CV" link="{{ route('contact.index') }}#cv" />
@@ -91,6 +92,7 @@
 
     {{-- TOAST area --}}
     <x-mary-toast />
+    
     @livewireScripts
     @stack('scripts')
 </body>
