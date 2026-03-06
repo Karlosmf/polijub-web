@@ -11,23 +11,9 @@ use Illuminate\Support\Str;
 
 class MakeDeployZip extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'make:deploy-zip {--name=deploy.zip}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Genera un paquete ZIP para despliegue en hosting compartido';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $this->info('🚀 Iniciando proceso de empaquetado...');
@@ -36,33 +22,32 @@ class MakeDeployZip extends Command
         $this->info('📦 Ejecutando npm run build...');
         $process = new Process(['npm', 'run', 'build']);
         $process->setTimeout(300);
-        $process->run(function ($type, $buffer) {
-            $this->output->write($buffer);
-        });
+        $process->run();
 
         if (!$process->isSuccessful()) {
             $this->error('❌ Error al ejecutar npm run build.');
             return 1;
         }
 
-        // 2. Crear el archivo ZIP
+        // 2. Definir ruta final. Usaremos un nombre temporal único.
         $zipName = $this->option('name');
-        $zipPath = base_path($zipName);
+        $finalPath = base_path($zipName);
+        $tempZipName = 'temp_' . time() . '_' . $zipName;
+        $tempPath = base_path($tempZipName);
 
-        // Si ya existe, eliminarlo para crear uno nuevo
-        if (file_exists($zipPath)) {
-            unlink($zipPath);
-        }
+        // Limpieza previa
+        if (file_exists($finalPath)) @unlink($finalPath);
+        if (file_exists($tempPath)) @unlink($tempPath);
 
         $zip = new ZipArchive;
-        if ($zip->open($zipPath, ZipArchive::CREATE) !== TRUE) {
-            $this->error('❌ No se pudo crear el archivo ZIP.');
+        if ($zip->open($tempPath, ZipArchive::CREATE) !== TRUE) {
+            $this->error("❌ No se pudo crear el archivo ZIP en la raíz.");
             return 1;
         }
 
-        $this->info("📂 Agregando archivos al paquete: {$zipName}");
+        $this->info("📂 Analizando y agregando archivos...");
 
-        $rootPath = base_path();
+        $rootPath = realpath(base_path());
         $files = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($rootPath, RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::LEAVES_ONLY
@@ -70,48 +55,71 @@ class MakeDeployZip extends Command
 
         $count = 0;
         foreach ($files as $name => $file) {
-            if ($file->isDir()) {
-                continue;
-            }
-
             $filePath = $file->getRealPath();
-            $relativePath = substr($filePath, strlen($rootPath) + 1);
+            $relativePath = ltrim(str_replace($rootPath, '', $filePath), DIRECTORY_SEPARATOR);
 
-            // --- REGLAS DE EXCLUSIÓN ---
+            // Convert Windows separators to Linux separators for ZIP internal structure
+            $zipPath = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
+
+            // --- REGLAS DE EXCLUSIÓN ESTRICTAS ---
             
-            // Excluir vendor
-            if (Str::startsWith($relativePath, 'vendor' . DIRECTORY_SEPARATOR)) {
+            // 1. Excluir carpetas pesadas y de desarrollo
+            if (Str::startsWith($zipPath, 'vendor/') || 
+                Str::startsWith($zipPath, 'node_modules/') ||
+                Str::startsWith($zipPath, '.git/')) {
                 continue;
             }
 
-            // Excluir archivos dentro de bootstrap/cache (mantener gitignore si existiera, o solo limpiar archivos generados)
-            if (Str::startsWith($relativePath, 'bootstrap' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR)) {
+            // 2. Excluir TODA la carpeta storage y bootstrap/cache
+            if (Str::startsWith($zipPath, 'storage/') ||
+                Str::startsWith($zipPath, 'bootstrap/cache/')) {
                 continue;
             }
 
-            // Excluir archivos ocultos (dot files)
-            // Se comprueba si el nombre del archivo empieza con un punto, o si alguna parte del path empieza con punto (.git, .env, etc)
-            $pathParts = explode(DIRECTORY_SEPARATOR, $relativePath);
-            $hasDotFile = collect($pathParts)->contains(fn($part) => Str::startsWith($part, '.'));
-            
-            if ($hasDotFile) {
+            // 3. Excluir archivos ocultos de configuración local (excepto .htaccess)
+            $pathParts = explode('/', $zipPath);
+            if (collect($pathParts)->contains(fn($part) => Str::startsWith($part, '.') && $part !== '.htaccess')) {
                 continue;
             }
 
-            // Excluir el propio archivo zip que estamos creando
-            if ($relativePath === $zipName) {
+            // 4. Excluir archivos de base de datos local (sqlite) si existen
+            if (Str::endsWith($zipPath, '.sqlite')) {
                 continue;
             }
 
-            $zip->addFile($filePath, $relativePath);
+            // 5. No incluirse a sí mismo
+            if ($zipPath === $tempZipName || $zipPath === $zipName) {
+                continue;
+            }
+
+            $zip->addFile($filePath, $zipPath);
             $count++;
         }
 
-        $zip->close();
+        $this->info("🤐 Comprimiendo {$count} archivos... (esto puede tardar)");
+        
+        // El error Permission Denied suele ser aquí. Intentamos capturarlo.
+        try {
+            $closed = $zip->close();
+        } catch (\Exception $e) {
+            $closed = false;
+        }
 
-        $this->info("✅ Proceso finalizado con éxito.");
-        $this->info("📦 Se han empaquetado {$count} archivos en '{$zipName}'.");
-        $this->line("⚠️ Recuerda que al subirlo al servidor deberás ejecutar 'composer install' si tienes acceso SSH, o subir la carpeta vendor por separado si no lo tienes.");
+        if (!$closed) {
+            $this->error("❌ Error: Windows o un Antivirus bloqueó el cierre del archivo ZIP.");
+            $this->line("💡 Intenta desactivar temporalmente el Antivirus o cerrar programas que usen la carpeta.");
+            if (file_exists($tempPath)) @unlink($tempPath);
+            return 1;
+        }
+
+        // 3. Renombrar al nombre final
+        if (!@rename($tempPath, $finalPath)) {
+            $this->error("❌ No se pudo renombrar el archivo a {$zipName}, pero se creó como {$tempZipName}");
+            return 1;
+        }
+
+        $this->info("✅ ¡Éxito! Paquete generado: {$zipName}");
+        $this->line("🚀 Listo para subir a tu hosting compartido.");
         
         return 0;
     }
