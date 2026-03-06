@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 8, 2);
-            $table->integer('max_flavors')->default(0); // Cantidad de sabores permitidos
-            $table->boolean('is_delivery_available')->default(true); // Disponible para delivery
+            $table->decimal('price', 10, 2);
+            $table->integer('points')->default(0);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_delivery_available')->default(true);
+            $table->integer('max_flavors')->default(0);
+            // Image will be added by a subsequent migration
             $table->timestamps();
         });
     }

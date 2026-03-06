@@ -11,6 +11,7 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'points',
         'category_id',
         'image',
         'is_active',
@@ -23,6 +24,7 @@ class Product extends Model
         'is_delivery_available' => 'boolean',
         'max_flavors' => 'integer',
         'price' => 'decimal:2',
+        'points' => 'integer',
     ];
 
     public function category(): BelongsTo

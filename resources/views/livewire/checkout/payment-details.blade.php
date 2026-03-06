@@ -2,11 +2,15 @@
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Coupon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
+use Mary\Traits\Toast;
 
 new #[Layout('layouts.frontend')] class extends Component {
+    use Toast;
+
     public $paymentMethod = 'card'; // card, mp, transfer, cash
     public $cardNumber;
     public $cardName;
@@ -17,7 +21,9 @@ new #[Layout('layouts.frontend')] class extends Component {
     public $subtotal = 0;
     public $shipping = 0;
     public $total = 0;
+    public $discount = 0;
     public $cartItems = [];
+    public $appliedCoupon = null;
 
     public function mount() {
         $this->cartItems = session()->get('cart', []);
@@ -32,8 +38,29 @@ new #[Layout('layouts.frontend')] class extends Component {
             return;
         }
 
+        $couponId = session()->get('applied_coupon_id');
+        if ($couponId) {
+            $this->appliedCoupon = Coupon::find($couponId);
+            if ($this->appliedCoupon && !$this->appliedCoupon->isValid(auth()->user())) {
+                session()->forget('applied_coupon_id');
+                $this->appliedCoupon = null;
+                $this->warning('El cupón ya no es válido.');
+            }
+        }
+
+        $this->calculateTotals();
+    }
+
+    public function calculateTotals()
+    {
         $this->subtotal = array_reduce($this->cartItems, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
-        $this->total = $this->subtotal + $this->shipping;
+        
+        $this->discount = 0;
+        if ($this->appliedCoupon) {
+            $this->discount = $this->appliedCoupon->calculateDiscount($this->subtotal, $this->cartItems);
+        }
+
+        $this->total = max(0, $this->subtotal - $this->discount + $this->shipping);
     }
 
     public function setPaymentMethod($method)
@@ -51,10 +78,21 @@ new #[Layout('layouts.frontend')] class extends Component {
             return;
         }
 
+        // Final validation of coupon before saving
+        if ($this->appliedCoupon && !$this->appliedCoupon->isValid(auth()->user())) {
+            $this->error('El cupón ya no es válido. Se ha quitado de tu pedido.');
+            session()->forget('applied_coupon_id');
+            $this->appliedCoupon = null;
+            $this->calculateTotals();
+            return;
+        }
+
         DB::transaction(function () use ($cart, $delivery) {
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'branch_id' => null, // Default or selected branch
+                'coupon_id' => $this->appliedCoupon?->id,
+                'discount_amount' => $this->discount,
                 'total' => $this->total,
                 'status' => 'pending',
                 'guest_email' => $delivery['email'] ?? null,
@@ -68,6 +106,11 @@ new #[Layout('layouts.frontend')] class extends Component {
                 'notes' => $delivery['notes'] ?? null,
                 'payment_method' => $this->paymentMethod,
             ]);
+
+            $totalPointsEarned = 0;
+            $freeProductId = ($this->appliedCoupon && $this->appliedCoupon->type === 'fixed_product') 
+                             ? $this->appliedCoupon->product_id 
+                             : null;
 
             foreach ($cart as $item) {
                 $options = [];
@@ -84,11 +127,34 @@ new #[Layout('layouts.frontend')] class extends Component {
                     'price' => $item['price'],
                     'options' => !empty($options) ? $options : null,
                 ]);
+
+                // Calculate points for this item
+                $product = \App\Models\Product::find($item['id']);
+                if ($product && $product->points > 0) {
+                    $qtyForPoints = $item['quantity'];
+                    // If this item is the free one from a coupon, subtract 1 from the quantity that grants points
+                    if ($freeProductId == $item['id']) {
+                        $qtyForPoints = max(0, $qtyForPoints - 1);
+                    }
+                    $totalPointsEarned += ($product->points * $qtyForPoints);
+                }
+            }
+
+            // Assign points to user if logged in
+            if (auth()->check() && $totalPointsEarned > 0) {
+                \App\Models\PointTransaction::earn(auth()->user(), $totalPointsEarned, $order->id);
+            }
+
+            // Mark coupon as used
+            if ($this->appliedCoupon) {
+                $this->appliedCoupon->increment('uses_count');
+                if (auth()->check()) {
+                    $this->appliedCoupon->users()->attach(auth()->id());
+                }
             }
         });
 
-        session()->forget(['cart', 'delivery_info']);
-        // session()->flash('success', 'Pedido realizado con éxito!'); // Handled by the success page now
+        session()->forget(['cart', 'delivery_info', 'applied_coupon_id']);
         $this->dispatch('cart-updated');
         $this->redirect(route('checkout.success'), navigate: true);
     }
@@ -97,14 +163,14 @@ new #[Layout('layouts.frontend')] class extends Component {
 <div>
     <div class="flex-grow container mx-auto px-4 py-8 lg:py-12">
         <div class="text-center mb-10">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4 font-body">Proceso de Pago</h1>
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 font-display text-brand-primary">Proceso de Pago</h1>
             <x-checkout-steps step="3" />
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8">
             <div class="w-full lg:w-2/3">
                 <div class="bg-white dark:bg-base-100 rounded-xl shadow-lg p-6 lg:p-8 transition-colors">
-                    <h2 class="text-2xl font-bold mb-6 flex items-center font-body">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center font-display text-brand-primary">
                         <x-mary-icon name="phosphor.credit-card" class="text-brand-primary mr-3" />
                         Detalles de Pago
                     </h2>
@@ -124,8 +190,8 @@ new #[Layout('layouts.frontend')] class extends Component {
 
                     @if($paymentMethod === 'card')
                     <form wire:submit="placeOrder" class="space-y-6">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <span class="text-xs text-base-content/50 mr-2">Aceptamos:</span>
+                        <div class="flex items-center space-x-2 mb-4 text-brand-primary">
+                            <span class="text-xs text-base-content/50 mr-2 uppercase font-bold tracking-widest">Aceptamos:</span>
                             <div class="flex space-x-2 opacity-70">
                                 <x-mary-icon name="phosphor.credit-card" class="w-6 h-6" />
                             </div>
@@ -150,7 +216,7 @@ new #[Layout('layouts.frontend')] class extends Component {
                 </div>
 
                 <div class="mt-6 flex justify-start">
-                    <x-mary-button label="Volver a envíos" icon="phosphor.arrow-left" link="{{ route('checkout.delivery') }}" class="btn-ghost text-base-content/50 font-medium" />
+                    <x-mary-button label="Volver a envíos" icon="phosphor.arrow-left" link="{{ route('checkout.delivery') }}" class="btn-ghost text-base-content/50 font-bold" />
                 </div>
             </div>
 
@@ -162,6 +228,8 @@ new #[Layout('layouts.frontend')] class extends Component {
                     :total="$total"
                     :shipping="0"
                     :showItems="true"
+                    :discount="$discount"
+                    :appliedCoupon="$appliedCoupon"
                 >
                     <x-slot:actions>
                         <x-mary-button wire:click="placeOrder" 
@@ -169,7 +237,7 @@ new #[Layout('layouts.frontend')] class extends Component {
                             icon-right="phosphor.star-duotone"
                             class="bg-brand-primary text-white text-lg w-full shadow-lg" />
                         
-                        <div class="flex items-center justify-center mt-4 text-[10px] text-base-content/40 uppercase tracking-widest">
+                        <div class="flex items-center justify-center mt-4 text-[10px] text-base-content/40 uppercase tracking-widest font-bold">
                             <x-mary-icon name="phosphor.lock" class="w-3 h-3 mr-1" />
                             Pago 100% Seguro
                         </div>
@@ -178,12 +246,12 @@ new #[Layout('layouts.frontend')] class extends Component {
             </div>
         </div>
         
-        <div class="mt-16 bg-base-100 rounded-xl shadow-sm p-8 text-center">
-            <h3 class="text-2xl text-brand-primary font-bold mb-2 font-body">¿Necesitas ayuda con tu pedido?</h3>
+        <div class="mt-16 bg-base-100 rounded-xl shadow-sm p-8 text-center border-t-4 border-brand-primary transition-all hover:shadow-md">
+            <h3 class="text-2xl text-brand-primary font-bold mb-2 font-display">¿Necesitas ayuda con tu pedido?</h3>
             <p class="text-base-content/70 mb-6">Nuestro equipo de soporte está disponible todos los días.</p>
             <div class="flex justify-center gap-4 flex-wrap">
-                <x-mary-button label="03482 42-8908" icon="phosphor.phone" class="btn-ghost bg-base-200 rounded-full" />
-                <x-mary-button label="HeladoPolijub@gmail.com" icon="phosphor.envelope" class="btn-ghost bg-base-200 rounded-full" />
+                <x-mary-button label="03482 42-8908" icon="phosphor.phone" class="btn-ghost bg-base-200 rounded-full font-bold" />
+                <x-mary-button label="HeladoPolijub@gmail.com" icon="phosphor.envelope" class="btn-ghost bg-base-200 rounded-full font-bold" />
             </div>
         </div>
     </div>

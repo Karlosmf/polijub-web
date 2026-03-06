@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->change();
             $table->foreignId('branch_id')->nullable()->change();
             
+            // Coupon info
+            $table->foreignId('coupon_id')->nullable()->after('branch_id')->constrained()->nullOnDelete();
+            $table->decimal('discount_amount', 8, 2)->after('coupon_id')->default(0);
+
             // Add guest/delivery info
             $table->string('guest_email')->nullable();
             $table->string('guest_phone')->nullable();
@@ -48,7 +52,9 @@ return new class extends Migration
         Schema::dropIfExists('order_items');
         
         Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign(['coupon_id']);
             $table->dropColumn([
+                'coupon_id', 'discount_amount',
                 'guest_email', 'guest_phone', 'guest_name', 'guest_lastname',
                 'address', 'city', 'province', 'zip', 'notes', 'payment_method'
             ]);

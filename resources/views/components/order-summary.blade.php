@@ -4,6 +4,9 @@
     'total' => 0,
     'shipping' => 0,
     'showItems' => false,
+    'couponCode' => '',
+    'discount' => 0,
+    'appliedCoupon' => null,
 ])
 
 <div class="bg-base-100 rounded-xl shadow-lg p-6 sticky top-24">
@@ -35,11 +38,19 @@
         </div>
     @endif
 
-    <div class="space-y-4 mb-6">
+    <div class="space-y-4 mb-6 border-b pb-4">
         <div class="flex justify-between items-center">
             <span class="text-base-content/70">Subtotal</span>
             <span class="font-bold">${{ number_format($subtotal, 2, ',', '.') }}</span>
         </div>
+        
+        @if($discount > 0)
+            <div class="flex justify-between items-center text-success">
+                <span class="text-sm font-medium">Descuento ({{ $appliedCoupon->code ?? 'Cupón' }})</span>
+                <span class="font-bold">-${{ number_format($discount, 2, ',', '.') }}</span>
+            </div>
+        @endif
+
         <div class="flex justify-between items-center">
             <span class="text-base-content/70">Envío</span>
             <span class="text-success font-bold">Gratis</span>
@@ -50,16 +61,26 @@
         </div>
     </div>
 
-    <div class="mb-6">
-        <x-mary-input placeholder="Ingresá tu cupón" inline>
-            <x-slot:label>
-                Código de Descuento
-            </x-slot:label>
-            <x-slot:append>
-                <x-mary-button label="Aplicar" class="bg-brand-primary text-white rounded-r" />
-            </x-slot:append>
-        </x-mary-input>
-    </div>
+    @if(!$appliedCoupon)
+        <div class="mb-6 pt-4">
+            <x-mary-input placeholder="Ingresá tu cupón" wire:model.defer="couponCode" inline>
+                <x-slot:label>
+                    Código de Descuento
+                </x-slot:label>
+                <x-slot:append>
+                    <x-mary-button label="Aplicar" class="bg-brand-primary text-white rounded-r" wire:click="applyCoupon" spinner="applyCoupon" />
+                </x-slot:append>
+            </x-mary-input>
+        </div>
+    @else
+        <div class="mb-6 pt-4 flex items-center justify-between bg-success/10 p-3 rounded-lg border border-success/20">
+            <div>
+                <p class="text-xs font-bold text-success uppercase">Cupón Aplicado</p>
+                <p class="text-sm font-display font-bold">{{ $appliedCoupon->code }}</p>
+            </div>
+            <x-mary-button icon="o-x-mark" class="btn-ghost btn-sm text-error" wire:click="removeCoupon" tooltip="Quitar cupón" />
+        </div>
+    @endif
 
     <div class="border-t pt-4 mb-6">
         <div class="flex justify-between items-center">

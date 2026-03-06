@@ -28,8 +28,9 @@ class ProductSeeder extends Seeder
                 'description' => 'Crocante cucurucho con 2 bochas de helado a elección.',
                 'max_flavors' => 2,
                 'price' => 2500.00,
+                'points' => 25,
                 'category_id' => $granel->id,
-                'image' => 'potehelado.webp', // Placeholder
+                'image' => 'potehelado.webp',
                 'is_active' => true
             ]);
 
@@ -38,6 +39,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pote de un cuarto kilo. Hasta 3 sabores.',
                 'max_flavors' => 3,
                 'price' => 4500.00,
+                'points' => 45,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',
                 'is_active' => true
@@ -48,6 +50,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pote de medio kilo. Hasta 4 sabores.',
                 'max_flavors' => 4,
                 'price' => 8000.00,
+                'points' => 80,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',
                 'is_active' => true
@@ -58,6 +61,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pote de un kilo. Hasta 5 sabores.',
                 'max_flavors' => 4,
                 'price' => 15000.00,
+                'points' => 150,
                 'category_id' => $granel->id,
                 'image' => 'potehelado.webp',
                 'is_active' => true
@@ -67,7 +71,8 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'Torta Almendrada',
             'description' => 'Torta helada de almendras',
-            'price' => 20.00,
+            'price' => 20000.00, // Adjusted to be consistent with others
+            'points' => 200,
             'category_id' => $tortas->id,
             'image' => 'Torta.webp',
             'is_active' => true
@@ -76,7 +81,8 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'Bombón Suizo',
             'description' => 'Bombón de chocolate con corazón de dulce de leche',
-            'price' => 5.00,
+            'price' => 5000.00,
+            'points' => 50,
             'category_id' => $postres->id,
             'image' => 'helados.webp',
             'is_active' => true
@@ -86,9 +92,10 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => 'Paleta Frutal',
                 'description' => 'Paleta de agua sabor frutilla',
-                'price' => 3.50,
+                'price' => 3500.00,
+                'points' => 35,
                 'category_id' => $paletas->id,
-                'image' => 'helados.webp', // Placeholder
+                'image' => 'helados.webp',
                 'is_active' => true
             ]);
         }

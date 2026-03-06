@@ -23,6 +23,9 @@ new #[Layout('layouts.admin')] class extends Component {
     #[Rule('required|numeric|min:0')]
     public $price;
 
+    #[Rule('required|integer|min:0')]
+    public int $points = 0;
+
     #[Rule('required|exists:categories,id')]
     public $category_id;
 
@@ -46,24 +49,28 @@ new #[Layout('layouts.admin')] class extends Component {
             $this->name = $product->name;
             $this->description = $product->description ?? '';
             $this->price = $product->price;
+            $this->points = $product->points ?? 0;
             $this->category_id = $product->category_id;
             $this->max_flavors = $product->max_flavors;
             $this->is_delivery_available = $product->is_delivery_available;
             $this->is_active = $product->is_active;
 
-            if (str_starts_with($product->image, 'http')) {
-                $this->imageUrl = $product->image;
-            } elseif (str_starts_with($product->image, 'images/') || str_starts_with($product->image, 'imgs/')) {
-                $this->imageUrl = '/' . $product->image;
-            } elseif (!str_contains($product->image, '/')) {
-                $this->imageUrl = '/images/' . $product->image;
-            } else {
-                $this->imageUrl = '/imgs/' . $product->image;
+            if ($product->image) {
+                if (str_starts_with($product->image, 'http')) {
+                    $this->imageUrl = $product->image;
+                } elseif (str_starts_with($product->image, 'images/') || str_starts_with($product->image, 'imgs/')) {
+                    $this->imageUrl = '/' . $product->image;
+                } elseif (!str_contains($product->image, '/')) {
+                    $this->imageUrl = '/images/' . $product->image;
+                } else {
+                    $this->imageUrl = '/imgs/' . $product->image;
+                }
             }
         } else {
             // Defaults
             $this->isEditing = false;
             $this->max_flavors = 0;
+            $this->points = 0;
             $this->is_delivery_available = true;
             $this->is_active = true;
         }
@@ -77,6 +84,7 @@ new #[Layout('layouts.admin')] class extends Component {
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
+            'points' => $this->points,
             'category_id' => $this->category_id,
             'max_flavors' => $this->max_flavors,
             'is_delivery_available' => $this->is_delivery_available,
@@ -131,9 +139,10 @@ new #[Layout('layouts.admin')] class extends Component {
                 
                 <x-mary-select label="Categoría" wire:model="category_id" :options="$categories" option-label="name" option-value="id" placeholder="Seleccione una categoría" />
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-3 gap-4">
                     <x-mary-input label="Precio" wire:model="price" prefix="$" type="number" step="0.01" />
-                    <x-mary-input label="Max Sabores" wire:model="max_flavors" type="number" hint="0 para sin límite/no aplica" />
+                    <x-mary-input label="Puntos" wire:model="points" type="number" hint="Puntos que otorga" />
+                    <x-mary-input label="Max Sabores" wire:model="max_flavors" type="number" hint="0 p/ sin límite" />
                 </div>
 
                 <x-mary-textarea label="Descripción" wire:model="description" placeholder="Descripción del producto..." rows="3" />
@@ -170,7 +179,7 @@ new #[Layout('layouts.admin')] class extends Component {
                                 <span class="block text-xs">JPG, PNG, WEBP (Max: 1MB)</span>
                             </div>
                         </div>
-                    </x-file>
+                    </x-mary-file>
                     @error('image') <span class="text-error text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
             </div>

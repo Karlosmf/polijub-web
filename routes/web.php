@@ -11,6 +11,7 @@ use App\Livewire\Delivery\OrderForm;
 use Livewire\Volt\Volt;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\TagManager;
+use App\Livewire\Admin\CouponManager;
 use App\Livewire\Admin\Profile;
 
 /*
@@ -107,6 +108,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Volt::route('/orders/{order}', 'admin.orders.show')->name('orders.show');
 
     Route::get('/tags', TagManager::class)->name('tags');
+    Route::get('/coupons', CouponManager::class)->name('coupons');
+    Volt::route('/settings', 'admin.settings-manager')->name('settings');
     Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');
     Route::get('/profile', Profile::class)->name('profile');
 });

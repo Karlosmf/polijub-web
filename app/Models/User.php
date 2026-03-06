@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class)->withTimestamps();
+    }
+
+    public function pointTransactions()
+    {
+        return $this->hasMany(PointTransaction::class);
+    }
 }

@@ -68,12 +68,14 @@
                     <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
                     <x-mary-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
                     <x-mary-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
+                    <x-mary-menu-item title="Configuración" icon="o-cog-6-tooth" link="{{ route('admin.settings') }}" />
                 </x-mary-menu-sub>
 
                 <x-mary-menu-sub title="Catálogo" icon="o-cube" open>
                     <x-mary-menu-item title="Productos" icon="o-cube" link="{{ route('admin.products') }}" />
                     <x-mary-menu-item title="Sabores" icon="o-beaker" link="{{ route('admin.flavors') }}" />
                     <x-mary-menu-item title="Etiquetas" icon="o-tag" link="{{ route('admin.tags') }}" />
+                    <x-mary-menu-item title="Cupones" icon="o-ticket" link="{{ route('admin.coupons') }}" />
                 </x-mary-menu-sub>
 
                 <x-mary-menu-separator />

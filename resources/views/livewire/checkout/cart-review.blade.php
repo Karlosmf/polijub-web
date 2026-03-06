@@ -2,13 +2,56 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
+use App\Models\Coupon;
+use Mary\Traits\Toast;
 
 new #[Layout('layouts.frontend')] class extends Component {
+    use Toast;
+
     public $cartItems = [];
+    public $couponCode = '';
+    public $appliedCoupon = null;
+    public $discount = 0;
 
     public function mount()
     {
         $this->cartItems = session()->get('cart', []);
+        
+        $couponId = session()->get('applied_coupon_id');
+        if ($couponId) {
+            $this->appliedCoupon = Coupon::find($couponId);
+            if ($this->appliedCoupon && !$this->appliedCoupon->isValid(auth()->user())) {
+                $this->removeCoupon();
+            }
+        }
+    }
+
+    public function applyCoupon()
+    {
+        if (empty($this->couponCode)) {
+            $this->error('Por favor, ingresá un código.');
+            return;
+        }
+
+        $coupon = Coupon::where('code', strtoupper($this->couponCode))->first();
+
+        if (!$coupon || !$coupon->isValid(auth()->user())) {
+            $this->error('El cupón no es válido o ha expirado.');
+            return;
+        }
+
+        $this->appliedCoupon = $coupon;
+        session()->put('applied_coupon_id', $coupon->id);
+        $this->couponCode = '';
+        $this->success('¡Cupón aplicado correctamente!');
+    }
+
+    public function removeCoupon()
+    {
+        $this->appliedCoupon = null;
+        $this->discount = 0;
+        session()->forget('applied_coupon_id');
+        $this->success('Cupón quitado.');
     }
 
     public function increment($uniqueId)
@@ -44,9 +87,17 @@ new #[Layout('layouts.frontend')] class extends Component {
     public function with()
     {
         $subtotal = array_reduce($this->cartItems, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
+        
+        $this->discount = 0;
+        if ($this->appliedCoupon) {
+            $this->discount = $this->appliedCoupon->calculateDiscount($subtotal, $this->cartItems);
+        }
+
         return [
             'subtotal' => $subtotal,
-            'total' => $subtotal, // Assuming free shipping and no tax for now
+            'total' => max(0, $subtotal - $this->discount),
+            'discount' => $this->discount,
+            'appliedCoupon' => $this->appliedCoupon
         ];
     }
 }; ?>
@@ -54,7 +105,7 @@ new #[Layout('layouts.frontend')] class extends Component {
 <div>
     <div class="flex-grow container mx-auto px-4 py-12">
         <div class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-display">Carrito de Compras</h1>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-display text-brand-primary">Carrito de Compras</h1>
             <x-checkout-steps step="1" />
         </div>
 
@@ -142,7 +193,14 @@ new #[Layout('layouts.frontend')] class extends Component {
 
             <!-- Order Summary -->
             <div class="lg:w-1/3">
-                <x-order-summary :subtotal="$subtotal" :total="$total" :shipping="0">
+                <x-order-summary 
+                    :subtotal="$subtotal" 
+                    :total="$total" 
+                    :shipping="0" 
+                    :couponCode="$couponCode"
+                    :discount="$discount"
+                    :appliedCoupon="$appliedCoupon"
+                >
                     <x-slot:actions>
                         @if(count($cartItems) > 0)
                             <x-mary-button wire:click="continueToCheckout" label="Continuar al Pago"

@@ -12,7 +12,9 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'branch_id',
+        'coupon_id',
         'total',
+        'discount_amount',
         'status',
         'guest_email',
         'guest_phone',
@@ -25,6 +27,11 @@ class Order extends Model
         'notes',
         'payment_method',
     ];
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
 
     public function user()
     {

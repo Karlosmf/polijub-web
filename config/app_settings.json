@@ -1,0 +1,20 @@
+{
+    "loyalty_points": {
+        "validity_days": 365,
+        "points_per_currency_unit": 1,
+        "allow_partial_redemption": true,
+        "min_points_to_redeem": 100,
+        "description": "Configuración del sistema de fidelización Polijub"
+    },
+    "delivery": {
+        "min_order_amount": 0,
+        "fixed_fee": 0,
+        "free_shipping_threshold": 5000,
+        "max_distance_km": 10
+    },
+    "general": {
+        "app_name": "Polijub",
+        "maintenance_mode": false,
+        "currency": "ARS"
+    }
+}
