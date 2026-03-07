@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+use App\Enums\UserRole;
+
 class AdminUserSeeder extends Seeder
 {
     /**
@@ -17,6 +19,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin123'),
+            'role' => UserRole::ADMIN,
         ]);
     }
 }

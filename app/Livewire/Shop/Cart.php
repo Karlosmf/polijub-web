@@ -30,6 +30,10 @@ class Cart extends Component
 
     public function incrementQuantity($uniqueId)
     {
+        if (!\App\Services\ShoppingService::isShoppingAllowed()) {
+            $this->error('No se pueden modificar cantidades en este horario.');
+            return;
+        }
         if (isset($this->cart[$uniqueId])) {
             $this->cart[$uniqueId]['quantity']++;
             session()->put('cart', $this->cart);
@@ -38,6 +42,10 @@ class Cart extends Component
 
     public function decrementQuantity($uniqueId)
     {
+        if (!\App\Services\ShoppingService::isShoppingAllowed()) {
+            $this->error('No se pueden modificar cantidades en este horario.');
+            return;
+        }
         if (isset($this->cart[$uniqueId])) {
             if ($this->cart[$uniqueId]['quantity'] > 1) {
                 $this->cart[$uniqueId]['quantity']--;
@@ -58,6 +66,10 @@ class Cart extends Component
 
     public function checkout()
     {
+        if (!\App\Services\ShoppingService::isShoppingAllowed()) {
+            $this->error('Las compras online no están disponibles en este horario.');
+            return;
+        }
         if (empty($this->cart)) {
             $this->error('El carrito está vacío');
             return;

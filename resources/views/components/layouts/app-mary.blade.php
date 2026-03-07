@@ -33,7 +33,7 @@
     </x-mary-nav>
 
     {{-- MAIN --}}
-    <x-mary-main>
+    <x-mary-main full-width>
         {{-- SIDEBAR --}}
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
@@ -41,7 +41,7 @@
             <x-app-brand class="p-4 pt-3" />
 
             {{-- MENU --}}
-            <x-mary-menu activate-by-route>
+            <x-mary-menu activate-by-route accordion>
 
                 {{-- SETEO User --}}
                 @if($user = auth()->user())
@@ -54,6 +54,14 @@
                     </x-mary-list-item>
                     <livewire:bookmarks />
                 @endif
+
+                <x-mary-menu-sub title="General" icon="o-cog" open>
+                    <x-mary-menu-item title="Tema" icon="o-swatch">
+                        <x-slot:actions>
+                            <x-mary-theme-toggle class="btn btn-circle btn-ghost btn-xs" choices />
+                        </x-slot:actions>
+                    </x-mary-menu-item>
+                </x-mary-menu-sub>
 
                 <x-mary-menu-item title="Dashboard" icon="o-sparkles" link="/dashboard" />
                 <x-mary-menu-item title="Comunicación" icon="o-chat-bubble-left-right" link="/chat" no-wire-navigate />

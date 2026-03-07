@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
+@plugin "daisyui" {
+    themes: light, dark, cupcake, bumblebee, emerald, corporate, synthwave, retro;
+}
 
 @source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
@@ -14,14 +16,6 @@
     --color-brand-secondary: #21c4a5;
     --color-accent-pink: #ff007f;
     --color-accent-blue: #2ab0ff;
-
-    --color-primary-DEFAULT: #0f172a;
-    --color-primary-light: #1e293b;
-    --color-primary-dark: #020617;
-
-    --color-secondary-DEFAULT: #f59e0b;
-    --color-secondary-light: #fbbf24;
-    --color-secondary-dark: #d97706;
 
     --font-sans: "Inter", system-ui, sans-serif;
     --font-display: "Montserrat", sans-serif;

@@ -12,6 +12,7 @@ new #[Layout('layouts.frontend')] class extends Component {
     use Toast;
 
     public $paymentMethod = 'card'; // card, mp, transfer, cash
+    public array $enabledMethods = [];
     public $cardNumber;
     public $cardName;
     public $cardExpiry;
@@ -36,6 +37,23 @@ new #[Layout('layouts.frontend')] class extends Component {
         if (!session()->has('delivery_info')) {
             $this->redirect(route('checkout.delivery'), navigate: true);
             return;
+        }
+
+        // Load enabled payment methods
+        $settingsPath = base_path('config/app_settings.json');
+        if (file_exists($settingsPath)) {
+            $settings = json_decode(file_get_contents($settingsPath), true);
+            $this->enabledMethods = $settings['payments'] ?? ['card' => true, 'mp' => true, 'transfer' => true, 'cash' => true];
+        }
+
+        // Ensure default payment method is an enabled one
+        if (isset($this->enabledMethods[$this->paymentMethod]) && !$this->enabledMethods[$this->paymentMethod]) {
+            foreach ($this->enabledMethods as $method => $enabled) {
+                if ($enabled) {
+                    $this->paymentMethod = $method;
+                    break;
+                }
+            }
         }
 
         $couponId = session()->get('applied_coupon_id');
@@ -176,15 +194,22 @@ new #[Layout('layouts.frontend')] class extends Component {
                     </h2>
                     
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                        @foreach(['card' => ['icon' => 'phosphor.credit-card', 'label' => 'Tarjeta'], 
-                                  'mp' => ['icon' => 'phosphor.wallet', 'label' => 'Mercado Pago'], 
-                                  'transfer' => ['icon' => 'phosphor.qr-code', 'label' => 'Transferencia'], 
-                                  'cash' => ['icon' => 'phosphor.money', 'label' => 'Efectivo']] as $method => $data)
-                            <button wire:click="setPaymentMethod('{{ $method }}')" 
-                                class="flex flex-col items-center justify-center p-4 border rounded-xl transition-all {{ $paymentMethod === $method ? 'border-2 border-brand-primary bg-brand-primary/5 text-brand-primary font-bold' : 'border-base-300 text-base-content/50 hover:bg-base-200' }}">
-                                <x-mary-icon name="{{ $data['icon'] }}" class="mb-1 w-6 h-6" />
-                                <span class="text-xs">{{ $data['label'] }}</span>
-                            </button>
+                        @php
+                            $allMethods = [
+                                'card' => ['icon' => 'phosphor.credit-card', 'label' => 'Tarjeta'], 
+                                'mp' => ['icon' => 'phosphor.wallet', 'label' => 'Mercado Pago'], 
+                                'transfer' => ['icon' => 'phosphor.qr-code', 'label' => 'Transferencia'], 
+                                'cash' => ['icon' => 'phosphor.money', 'label' => 'Efectivo']
+                            ];
+                        @endphp
+                        @foreach($allMethods as $method => $data)
+                            @if(isset($enabledMethods[$method]) && $enabledMethods[$method])
+                                <button wire:click="setPaymentMethod('{{ $method }}')" 
+                                    class="flex flex-col items-center justify-center p-4 border rounded-xl transition-all {{ $paymentMethod === $method ? 'border-2 border-brand-primary bg-brand-primary/5 text-brand-primary font-bold' : 'border-base-300 text-base-content/50 hover:bg-base-200' }}">
+                                    <x-mary-icon name="{{ $data['icon'] }}" class="mb-1 w-6 h-6" />
+                                    <span class="text-xs">{{ $data['label'] }}</span>
+                                </button>
+                            @endif
                         @endforeach
                     </div>
 

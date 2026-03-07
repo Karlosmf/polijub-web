@@ -33,7 +33,7 @@
     </x-mary-nav>
 
     {{-- MAIN --}}
-    <x-mary-main>
+    <x-mary-main full-width>
         {{-- SIDEBAR --}}
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
@@ -41,7 +41,7 @@
             <x-app-brand class="p-4 pt-3" />
 
             {{-- MENU --}}
-            <x-mary-menu activate-by-route>
+            <x-mary-menu activate-by-route accordion>
 
                 {{-- User Profile --}}
                 @if($user = auth()->user())
@@ -55,6 +55,14 @@
                 @else
                     <x-mary-menu-item title="Iniciar Sesión" icon="o-user" link="{{ route('login') }}" />
                 @endif
+
+                <x-mary-menu-sub title="General" icon="o-cog" open>
+                    <x-mary-menu-item title="Tema" icon="o-swatch">
+                        <x-slot:actions>
+                            <x-mary-theme-toggle class="btn btn-circle btn-ghost btn-xs" choices />
+                        </x-slot:actions>
+                    </x-mary-menu-item>
+                </x-mary-menu-sub>
 
                 <x-mary-menu-sub title="PRODUCTOS" icon="o-cube">
                     <x-mary-menu-item title="SABORES" link="{{ route('flavors.index') }}" />

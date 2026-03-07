@@ -29,6 +29,10 @@ use Mary\View\Components\Textarea;
 use Mary\View\Components\ThemeToggle;
 use Mary\View\Components\Form;
 
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use App\Enums\UserRole;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -44,6 +48,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('admin', fn (User $user) => $user->isAdmin());
+        Gate::define('manager', fn (User $user) => $user->isManager() || $user->isAdmin());
+        Gate::define('employee', fn (User $user) => $user->isEmployee() || $user->isManager() || $user->isAdmin());
+        Gate::define('cashier', fn (User $user) => $user->isCashier() || $user->isAdmin());
+        Gate::define('franchise', fn (User $user) => $user->isFranchise() || $user->isAdmin());
+
         Blade::component('button', Button::class);
         Blade::component('header', Header::class);
         Blade::component('icon', Icon::class);

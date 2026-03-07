@@ -8,31 +8,52 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
+use App\Services\ReferralService;
+
 new #[Layout('layouts.guest')] class extends Component
 {
     public string $name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public string $referral_code = '';
 
     /**
      * Handle an incoming registration request.
      */
-    public function register(): void
+    public function register(ReferralService $referralService): void
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'referral_code' => ['nullable', 'string', 'exists:users,referral_code'],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        $data = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ];
 
-        event(new Registered($user = User::create($validated)));
+        if (!empty($this->referral_code)) {
+            $referrer = User::where('referral_code', $this->referral_code)->first();
+            if ($referrer) {
+                $data['referred_by_id'] = $referrer->id;
+            }
+        }
+
+        $user = User::create($data);
+
+        event(new Registered($user));
+
+        if ($user->referred_by_id) {
+            $referralService->issueReferralCoupons($user);
+        }
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('polijub.home', absolute: false), navigate: true);
     }
 }; ?>
 
@@ -67,6 +88,12 @@ new #[Layout('layouts.guest')] class extends Component
                             name="password_confirmation" required autocomplete="new-password" label="Confirmar Contraseña" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <!-- Referral Code -->
+        <div class="mt-4">
+            <x-mary-input wire:model="referral_code" id="referral_code" type="text" name="referral_code" label="Código de Referido (Opcional)" icon="o-gift" />
+            <x-input-error :messages="$errors->get('referral_code')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

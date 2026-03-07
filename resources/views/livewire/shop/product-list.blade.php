@@ -8,6 +8,29 @@
     </div>
 
     <div class="container mx-auto px-4 pb-20">
+        {{-- Status Alert --}}
+        @if(!$isShoppingAllowed && $statusMessage)
+            <div class="mb-10 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl shadow-sm animate-pulse">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <x-heroicon-o-clock class="h-8 w-8 text-red-500" />
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm leading-5 font-bold text-red-800 uppercase tracking-widest mb-1">
+                            @if($isDayDisabled)
+                                🚫 Hoy no tomamos pedidos
+                            @else
+                                🕒 Fuera de Horario Comercial
+                            @endif
+                        </p>
+                        <p class="text-lg font-medium text-red-700">
+                            {{ $statusMessage }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="flex flex-col lg:flex-row gap-10">
             {{-- Sidebar de Categorías --}}
             <div class="w-full lg:w-1/4 space-y-6">
@@ -83,7 +106,7 @@
                                     </div>
 
                                     <div class="flex items-center justify-between">
-                                        
+                                        @if($isShoppingAllowed)
                                         <div class="flex items-center space-x-2">
                                         <div class=" border border-gray-200 rounded-full p-2">
                                         <button wire:click="decrementQuantity({{ $product->id }})"
@@ -114,6 +137,16 @@
                                             </button>
                                         @endif
                                         </div>
+                                        @else
+                                            <div class="flex-1 bg-gray-100 text-gray-400 p-3 rounded-lg text-center text-sm font-bold flex items-center justify-center gap-2 border border-dashed border-gray-300">
+                                                <x-heroicon-o-clock class="w-5 h-5" />
+                                                @if($isDayDisabled)
+                                                    Día Desactivado
+                                                @else
+                                                    Fuera de Horario
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

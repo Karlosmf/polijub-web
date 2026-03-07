@@ -6,6 +6,20 @@
         "min_points_to_redeem": 100,
         "description": "Configuración del sistema de fidelización Polijub"
     },
+    "referrals": {
+        "enabled": true,
+        "new_user_benefit": {
+            "type": "percentage",
+            "value": 15,
+            "validity_days": 30
+        },
+        "referrer_benefit": {
+            "type": "percentage",
+            "value": 20,
+            "validity_days": 30
+        },
+        "description": "Configuración del sistema de beneficios por referidos"
+    },
     "delivery": {
         "min_order_amount": 0,
         "fixed_fee": 0,
@@ -16,5 +30,51 @@
         "app_name": "Polijub",
         "maintenance_mode": false,
         "currency": "ARS"
+    },
+    "payments": {
+        "card": true,
+        "mp": true,
+        "transfer": true,
+        "cash": true
+    },
+    "shopping_hours": {
+        "enabled": false,
+        "schedule": {
+            "mon": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "tue": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "wed": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "thu": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "fri": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "sat": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            },
+            "sun": {
+                "enabled": true,
+                "start_time": "09:00",
+                "end_time": "22:00"
+            }
+        }
     }
 }

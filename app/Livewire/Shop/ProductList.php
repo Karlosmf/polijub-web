@@ -57,6 +57,11 @@ class ProductList extends Component
     #[On('add-to-cart-with-flavors')]
     public function addToCart(int $productId, array $flavors = []): void
     {
+        if (!\App\Services\ShoppingService::isShoppingAllowed()) {
+            $this->error('Lo sentimos, las compras online no están disponibles en este horario.', timeout: 3000);
+            return;
+        }
+
         $quantity = $this->quantities[$productId] ?? 1;
 
         $cart = session()->get('cart', []);
@@ -160,6 +165,9 @@ class ProductList extends Component
         return view('livewire.shop.product-list', [
             'categories' => $categories,
             'products' => $products,
+            'isShoppingAllowed' => \App\Services\ShoppingService::isShoppingAllowed(),
+            'isDayDisabled' => \App\Services\ShoppingService::isDayDisabled(),
+            'statusMessage' => \App\Services\ShoppingService::getStatusMessage(),
         ]);
     }
 }

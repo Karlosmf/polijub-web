@@ -1,5 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" 
+    x-data="{ 
+        theme: localStorage.getItem('mary-theme') || 'light',
+        updateTheme(newTheme) {
+            this.theme = newTheme;
+            localStorage.setItem('mary-theme', newTheme);
+            this.applyTheme(newTheme);
+        },
+        applyTheme(theme) {
+            const themeToApply = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+            document.documentElement.setAttribute('data-theme', themeToApply);
+        }
+    }"
+    x-init="applyTheme(theme)"
+    x-on:livewire:navigated.window="
+        theme = localStorage.getItem('mary-theme') || 'light';
+        applyTheme(theme);
+    ">
 
 <head>
     <meta charset="utf-8">
@@ -9,6 +26,13 @@
 
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script>
+        // Inicializar tema antes de renderizar (evita FOUC)
+        (function() {
+            const savedTheme = localStorage.getItem('mary-theme') || 'light';
+            const themeToApply = savedTheme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : savedTheme;
+            document.documentElement.setAttribute('data-theme', themeToApply);
+        })();
+        
         const mp = new MercadoPago("{{ config('mercadopago.public_key') }}", {
             locale: 'es-AR'
         });
@@ -20,7 +44,7 @@
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}" defer></script>
 </head>
 
-<body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
+<body class="min-h-screen font-sans antialiased bg-base-100">
     {{-- NAVBAR mobile only --}}
     <x-mary-nav sticky class="lg:hidden">
         <x-slot:brand>
@@ -34,7 +58,7 @@
     </x-mary-nav>
 
     {{-- MAIN --}}
-    <x-mary-main>
+    <x-mary-main full-width>
         {{-- SIDEBAR --}}
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
@@ -52,7 +76,7 @@
             </div>
 
             {{-- MENU --}}
-            <x-mary-menu activate-by-route>
+            <x-mary-menu activate-by-route accordion>
 
                 {{-- User --}}
                 @if($user = auth()->user())
@@ -68,14 +92,21 @@
                     <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
                     <x-mary-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
                     <x-mary-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
-                    <x-mary-menu-item title="Configuración" icon="o-cog-6-tooth" link="{{ route('admin.settings') }}" />
                 </x-mary-menu-sub>
 
-                <x-mary-menu-sub title="Catálogo" icon="o-cube" open>
+                <x-mary-menu-sub title="Catálogo" icon="o-cube">
                     <x-mary-menu-item title="Productos" icon="o-cube" link="{{ route('admin.products') }}" />
                     <x-mary-menu-item title="Sabores" icon="o-beaker" link="{{ route('admin.flavors') }}" />
                     <x-mary-menu-item title="Etiquetas" icon="o-tag" link="{{ route('admin.tags') }}" />
                     <x-mary-menu-item title="Cupones" icon="o-ticket" link="{{ route('admin.coupons') }}" />
+                </x-mary-menu-sub>
+
+                <x-mary-menu-sub title="Config" icon="o-cog-6-tooth">
+                    <x-mary-menu-item title="Settings" icon="o-adjustments-horizontal" link="{{ route('admin.settings') }}" />
+                    <x-mary-menu-item title="Themes" icon="o-swatch" link="{{ route('admin.themes') }}" />
+                    @can('admin')
+                        <x-mary-menu-item title="Usuarios" icon="o-users" link="{{ route('admin.users') }}" />
+                    @endcan
                 </x-mary-menu-sub>
 
                 <x-mary-menu-separator />
@@ -83,11 +114,6 @@
                 <x-mary-menu-item title="Ver Sitio Web" icon="o-globe-alt" link="/" external />
                 
                 <x-mary-menu-separator />
-                
-                {{-- Theme Toggle --}}
-                <div class="px-4 mt-2">
-                    <x-mary-theme-toggle class="btn btn-circle btn-ghost" />
-                </div>
 
             </x-mary-menu>
         </x-slot:sidebar>

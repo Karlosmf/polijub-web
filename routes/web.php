@@ -90,7 +90,7 @@ Route::get('/delivery', OrderForm::class)->name('delivery.form');
 Route::get('/contact', Contact::class)->name('contact.index');
 
 // Admin Routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin,manager'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     
     // Product Routes
@@ -109,9 +109,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     Route::get('/tags', TagManager::class)->name('tags');
     Route::get('/coupons', CouponManager::class)->name('coupons');
+    Route::get('/users', \App\Livewire\Admin\UserManager::class)->name('users');
     Volt::route('/settings', 'admin.settings-manager')->name('settings');
     Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');
     Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/themes', \App\Livewire\Admin\Themes::class)->name('themes');
 });
 
 Volt::route('/flavors', 'pages.flavors-page')->name('flavors.index');

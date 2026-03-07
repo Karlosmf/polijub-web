@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             AdminUserSeeder::class,
+            UserSeeder::class,
             FlavorSeeder::class,
             CouponSeeder::class,
         ]);

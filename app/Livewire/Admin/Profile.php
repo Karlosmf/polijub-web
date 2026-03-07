@@ -15,6 +15,8 @@ class Profile extends Component
 
     public $name;
     public $email;
+    public $referral_code;
+    public $points;
     public $password;
     public $password_confirmation;
 
@@ -23,6 +25,8 @@ class Profile extends Component
         $user = auth()->user();
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->referral_code = $user->referral_code;
+        $this->points = $user->points_balance;
     }
 
     public function updateProfile()
