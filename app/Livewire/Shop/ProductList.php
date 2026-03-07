@@ -17,6 +17,36 @@ class ProductList extends Component
     #[Layout('layouts.frontend')]
     public $selectedCategory = null;
     public array $quantities = [];
+    public array $selectedFlavors = []; // Track flavors per product: [productId => [flavorId1, flavorId2]]
+
+    public function toggleFlavor(int $productId, int $flavorId, int $maxFlavors): void
+    {
+        if (!isset($this->selectedFlavors[$productId])) {
+            $this->selectedFlavors[$productId] = [];
+        }
+
+        $index = array_search($flavorId, $this->selectedFlavors[$productId]);
+
+        if ($index !== false) {
+            unset($this->selectedFlavors[$productId][$index]);
+            $this->selectedFlavors[$productId] = array_values($this->selectedFlavors[$productId]);
+        } else {
+            if (count($this->selectedFlavors[$productId]) < $maxFlavors) {
+                $this->selectedFlavors[$productId][] = $flavorId;
+            } else {
+                $this->warning("Solo puedes elegir hasta $maxFlavors sabores.");
+            }
+        }
+    }
+
+    public function addToCartWithFlavors(int $productId): void
+    {
+        $flavors = $this->selectedFlavors[$productId] ?? [];
+        $this->addToCart($productId, $flavors);
+        
+        // Reset flavors for this product after adding to cart
+        $this->selectedFlavors[$productId] = [];
+    }
 
     public function mount(): void
     {
@@ -154,17 +184,23 @@ class ProductList extends Component
         $products = Product::when($this->selectedCategory, function ($query) {
             $query->where('category_id', $this->selectedCategory);
         })->get();
+        
+        $flavors = Flavor::where('is_active', true)->get();
 
         // Ensure all displayed products have a quantity of at least 1 initialized
         foreach ($products as $product) {
             if (!isset($this->quantities[$product->id])) {
                 $this->quantities[$product->id] = 1;
             }
+            if (!isset($this->selectedFlavors[$product->id])) {
+                $this->selectedFlavors[$product->id] = [];
+            }
         }
 
         return view('livewire.shop.product-list', [
             'categories' => $categories,
             'products' => $products,
+            'flavors' => $flavors,
             'isShoppingAllowed' => \App\Services\ShoppingService::isShoppingAllowed(),
             'isDayDisabled' => \App\Services\ShoppingService::isDayDisabled(),
             'statusMessage' => \App\Services\ShoppingService::getStatusMessage(),

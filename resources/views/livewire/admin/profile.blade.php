@@ -2,6 +2,26 @@
     <x-mary-header title="Mi Perfil" subtitle="Actualiza tus datos personales y seguridad" separator />
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{-- Shop CTA --}}
+        <div class="card bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-xl md:col-span-2 overflow-hidden relative border-none">
+            <div class="card-body py-10">
+                <div class="z-10 relative">
+                    <h2 class="text-3xl font-black mb-2 uppercase tracking-tight">¡Darse un gusto nunca fue tan fácil!</h2>
+                    <p class="text-xl opacity-90 mb-6">Explora nuestros productos y utiliza tus cupones de descuento.</p>
+                    <x-mary-button 
+                        label="Ir a la Tienda" 
+                        icon="phosphor.ice-cream" 
+                        class="btn-lg bg-white text-brand-primary hover:bg-base-200 border-none px-10 font-bold"
+                        link="{{ route('shop.products') }}"
+                    />
+                </div>
+                {{-- Decorative background element --}}
+                <div class="absolute -right-10 -bottom-10 opacity-20">
+                    <x-mary-icon name="phosphor.ice-cream" class="w-64 h-64" />
+                </div>
+            </div>
+        </div>
+
         {{-- Loyalty Points --}}
         <div class="card bg-secondary text-secondary-content shadow-xl">
             <div class="card-body flex-row items-center gap-6">

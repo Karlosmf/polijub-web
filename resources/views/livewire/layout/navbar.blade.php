@@ -63,7 +63,7 @@ new class extends Component {
                                     <x-mary-icon name="o-chevron-down" class="h-4 w-4" />
                                 </button>
                             </x-slot:trigger>
-                            <x-mary-menu-item title="Mi Perfil" link="{{ route('admin.profile') }}" />
+                            <x-mary-menu-item title="Mi Perfil" link="{{ route('profile') }}" />
                             <x-mary-menu-item title="Cerrar Sesión" link="/logout" class="text-error" />
                         </x-mary-dropdown>
                     @else
@@ -102,7 +102,7 @@ new class extends Component {
 
             <div class="border-t border-white/20 w-3/4 pt-6 flex flex-col items-center space-y-6">
                 @auth
-                    <a href="{{ route('admin.profile') }}" class="text-lg font-medium hover:text-brand-secondary">Mi
+                    <a href="{{ route('profile') }}" class="text-lg font-medium hover:text-brand-secondary">Mi
                         Perfil</a>
                     <a href="/logout" class="text-lg font-medium hover:text-brand-secondary">Cerrar Sesión</a>
                 @else

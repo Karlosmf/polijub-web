@@ -86,7 +86,7 @@
 
                 {{-- Admin/Authenticated Options (Optional - kept generic for now) --}}
                 @auth
-                    <x-mary-menu-item title="Mi Perfil" icon="o-user" link="{{ route('admin.profile') }}" />
+                    <x-mary-menu-item title="Mi Perfil" icon="o-user" link="{{ route('profile') }}" />
                 @endauth
 
             </x-mary-menu>
