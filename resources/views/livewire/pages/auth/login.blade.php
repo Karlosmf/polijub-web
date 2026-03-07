@@ -19,12 +19,12 @@ new #[Layout('layouts.login')] class extends Component {
 
         Session::regenerate();
 
-        if (auth()->user()->email === 'admin@admin.com') {
+        if (auth()->user()->isAdmin()) {
             $this->redirect(route('admin.dashboard', absolute: false), navigate: false);
             return;
         }
 
-        $this->redirect(route('dashboard', absolute: false), navigate: false);
+        $this->redirect(route('admin.dashboard', absolute: false), navigate: false);
     }
 }; ?>
 
