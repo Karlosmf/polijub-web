@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('role')->default(\App\Enums\UserRole::CUSTOMER->value);
             $table->string('referral_code')->unique()->nullable();
+            $table->timestamp('referral_code_expires_at')->nullable();
             $table->foreignId('referred_by_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

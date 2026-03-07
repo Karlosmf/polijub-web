@@ -18,16 +18,10 @@ use App\Livewire\Admin\Profile;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group.
-|
 */
 
 /**
  * @route GET /
- * @description Displays the default Laravel welcome page.
  */
 Route::get('/', function () {
     return view('home');
@@ -38,31 +32,18 @@ Route::get('/logout', function () {
     request()->session()->invalidate();
     request()->session()->regenerateToken();
     request()->session()->flush();
-    request()->session()->forget('is_guest_login'); // Remove guest flag
     return redirect('/');
 });
 
 Route::get('/clear/{option?}', function ($option = null) {
     $logs = [];
-    // if option is 'prod' then run composer install --optimize-autoloader --no-dev
-    if ($option == 'prod') {
-        $logs['Composer Install for PROD'] = Artisan::call('composer install --optimize-autoloader --no-dev');
-    }
-
-    $maintenance = ($option == "cache") ? [
-        'Flush' => 'cache:flush',
-    ] : [
-        //'DebugBar'=>'debugbar:clear',
+    $maintenance = [
         'Storage Link' => 'storage:link',
         'Config' => 'config:clear',
         'Optimize Clear' => 'optimize:clear',
-        'Optimize' => 'optimize',
         'Route Clear' => 'route:clear',
-        'Route Cache' => 'route:cache',
         'View Clear' => 'view:clear',
-        'View Cache' => 'view:cache',
         'Cache Clear' => 'cache:clear',
-        'Cache Config' => 'config:cache',
     ];
 
     foreach ($maintenance as $key => $value) {
@@ -77,21 +58,33 @@ Route::get('/clear/{option?}', function ($option = null) {
 });
 
 /**
- * @route GET /polijub
- * @description Defines the main route for the Polijub landing page.
- * Loads the Livewire 'PolijubPage' component which will render the full view.
- * Named 'polijub.home' for easy reference in the application.
+ * Public Pages
  */
 Route::get('/polijub', PolijubPage::class)->name('polijub.home');
-
-
 Route::get('/shop', ProductList::class)->name('shop.products');
 Route::get('/delivery', OrderForm::class)->name('delivery.form');
 Route::get('/contact', Contact::class)->name('contact.index');
+Route::get('/about', \App\Livewire\Pages\About::class)->name('about.index');
 
-// Admin Routes
+/**
+ * Customer Routes (No /admin prefix)
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/dashboard', function() {
+        if (auth()->user()->isAdmin() || auth()->user()->isManager()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('profile');
+    })->name('dashboard');
+});
+
+/**
+ * Admin & Staff Routes
+ */
 Route::middleware(['auth', 'role:admin,manager'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/profile', Profile::class)->name('profile'); // Keep for admin layout consistency
     
     // Product Routes
     Volt::route('/products', 'admin.products.index')->name('products');
@@ -110,9 +103,9 @@ Route::middleware(['auth', 'role:admin,manager'])->prefix('admin')->name('admin.
     Route::get('/tags', TagManager::class)->name('tags');
     Route::get('/coupons', CouponManager::class)->name('coupons');
     Route::get('/users', \App\Livewire\Admin\UserManager::class)->name('users');
+    
     Volt::route('/settings', 'admin.settings-manager')->name('settings');
     Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');
-    Route::get('/profile', Profile::class)->name('profile');
     Route::get('/themes', \App\Livewire\Admin\Themes::class)->name('themes');
 });
 
@@ -123,12 +116,5 @@ Volt::route('/checkout/cart', 'checkout.cart-review')->name('checkout.cart');
 Volt::route('/checkout/delivery', 'checkout.delivery-info')->name('checkout.delivery');
 Volt::route('/checkout/payment', 'checkout.payment-details')->name('checkout.payment');
 Volt::route('/checkout/success', 'checkout.order-success')->name('checkout.success');
-
-// Provisional routes for "100% NATURAL" section
-Route::get('/about', \App\Livewire\Pages\About::class)->name('about.index');
-
-Route::get('/los-nenitos', function () {
-    return 'Los Nenitos Establishment Page - Under Construction';
-})->name('los_nenitos_establishment');
 
 require __DIR__ . '/auth.php';

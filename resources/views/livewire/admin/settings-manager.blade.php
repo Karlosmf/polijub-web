@@ -90,6 +90,7 @@ new #[Layout('layouts.admin')] class extends Component {
                         </div>
                     @elseif($section === 'referrals')
                         <x-mary-toggle label="Habilitar Referidos" wire:model="settings.referrals.enabled" tight />
+                        <x-mary-input label="Validez del Código (Días)" wire:model="settings.referrals.coupon_validity_days" type="number" />
                         
                         <div class="mt-4 p-4 bg-base-200/30 rounded-lg border border-base-200">
                             <h3 class="font-bold mb-3 text-primary flex items-center gap-2">

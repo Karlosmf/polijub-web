@@ -8,6 +8,7 @@
     },
     "referrals": {
         "enabled": true,
+        "coupon_validity_days": 30,
         "new_user_benefit": {
             "type": "percentage",
             "value": 15,

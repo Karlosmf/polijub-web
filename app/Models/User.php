@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'referral_code',
+        'referral_code_expires_at',
         'referred_by_id',
     ];
 
@@ -36,6 +37,15 @@ class User extends Authenticatable
         static::creating(function ($user) {
             if (!$user->referral_code) {
                 $user->referral_code = self::generateUniqueReferralCode();
+                
+                // Set expiration based on JSON settings (defaults to 30 days)
+                $settingsPath = base_path('config/app_settings.json');
+                $days = 30;
+                if (file_exists($settingsPath)) {
+                    $settings = json_decode(file_get_contents($settingsPath), true);
+                    $days = $settings['referrals']['coupon_validity_days'] ?? 30;
+                }
+                $user->referral_code_expires_at = now()->addDays($days);
             }
         });
     }
@@ -85,6 +95,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'role' => \App\Enums\UserRole::class,
+            'referral_code_expires_at' => 'datetime',
         ];
     }
 

@@ -38,7 +38,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         if (!empty($this->referral_code)) {
             $referrer = User::where('referral_code', $this->referral_code)->first();
+            
             if ($referrer) {
+                if ($referrer->referral_code_expires_at && $referrer->referral_code_expires_at->isPast()) {
+                    $this->addError('referral_code', 'Este código de referido ha expirado.');
+                    return;
+                }
                 $data['referred_by_id'] = $referrer->id;
             }
         }
