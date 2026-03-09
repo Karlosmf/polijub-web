@@ -92,6 +92,7 @@
                     <x-mary-menu-sub title="Gestión" icon="o-squares-2x2">
                         <x-mary-menu-item title="Dashboard" icon="o-home" link="{{ route('admin.dashboard') }}" />
                         <x-mary-menu-item title="Carrusel" icon="o-photo" link="{{ route('admin.carousel') }}" />
+                        <x-mary-menu-item title="Promo Hero" icon="o-star" link="{{ route('admin.hero') }}" />
                         <x-mary-menu-item title="Pedidos" icon="o-shopping-bag" link="{{ route('admin.orders') }}" />
                     </x-mary-menu-sub>
 

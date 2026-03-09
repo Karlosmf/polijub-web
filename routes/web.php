@@ -106,6 +106,7 @@ Route::middleware(['auth', 'role:admin,manager'])->prefix('admin')->name('admin.
     
     Volt::route('/settings', 'admin.settings-manager')->name('settings');
     Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');
+    Volt::route('/hero', 'admin.hero-manager')->name('hero');
     Route::get('/themes', \App\Livewire\Admin\Themes::class)->name('themes');
 });
 
