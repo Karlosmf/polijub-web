@@ -103,6 +103,11 @@
                         <x-mary-menu-item title="Cupones" icon="o-ticket" link="{{ route('admin.coupons') }}" />
                     </x-mary-menu-sub>
 
+                    <x-mary-menu-sub title="FrontStore" icon="o-window">
+                        <x-mary-menu-item title="Secciones" icon="o-document-text" link="{{ route('admin.sections') }}" />
+                        <x-mary-menu-item title="Componentes" icon="o-puzzle-piece" link="{{ route('admin.components') }}" />
+                    </x-mary-menu-sub>
+
                     <x-mary-menu-sub title="Config" icon="o-cog-6-tooth">
                         <x-mary-menu-item title="Settings" icon="o-adjustments-horizontal" link="{{ route('admin.settings') }}" />
                         <x-mary-menu-item title="Themes" icon="o-swatch" link="{{ route('admin.themes') }}" />

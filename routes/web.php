@@ -65,6 +65,7 @@ Route::get('/shop', ProductList::class)->name('shop.products');
 Route::get('/delivery', OrderForm::class)->name('delivery.form');
 Route::get('/contact', Contact::class)->name('contact.index');
 Route::get('/about', \App\Livewire\Pages\About::class)->name('about.index');
+Route::get('/p/{slug}', \App\Livewire\Pages\DynamicPage::class)->name('dynamic.page');
 
 /**
  * Customer Routes (No /admin prefix)
@@ -103,6 +104,8 @@ Route::middleware(['auth', 'role:admin,manager'])->prefix('admin')->name('admin.
     Route::get('/tags', TagManager::class)->name('tags');
     Route::get('/coupons', CouponManager::class)->name('coupons');
     Route::get('/users', \App\Livewire\Admin\UserManager::class)->name('users');
+    Route::get('/sections', \App\Livewire\Admin\SectionManager::class)->name('sections');
+    Route::get('/components', \App\Livewire\Admin\ComponentLibraryManager::class)->name('components');
     
     Volt::route('/settings', 'admin.settings-manager')->name('settings');
     Volt::route('/carousel', 'admin.carousel-manager')->name('carousel');

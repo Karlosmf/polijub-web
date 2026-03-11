@@ -1,7 +1,9 @@
 <x-app-layout>
-    <livewire:components.hero-section />
-    <livewire:components.flavors-section />
-    <x-natural-section />
-    <x-parallax-section />
+    {{-- Renderizador dinámico para la página principal --}}
+    @livewire('section-renderer', ['page' => 'landing'])
 
+    {{-- 
+        Si deseas mantener secciones fijas que no cambian, 
+        puedes dejarlas aquí debajo o arriba del renderer.
+    --}}
 </x-app-layout>
